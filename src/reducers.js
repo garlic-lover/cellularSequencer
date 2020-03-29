@@ -11,7 +11,7 @@ import {
 const initialStateGrid = {
   array: [],
   cells: [],
-  gridSize: { x: 16, y: 16 },
+  gridSize: { x: 24, y: 24 },
   parameters: { scale: "major", octavesRange: 2, base: 2, tempo: 100 },
   chaosMode: true,
   areImmortal: false
