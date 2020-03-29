@@ -30,7 +30,7 @@ function gridManager(state = initialStateGrid, action) {
 }
 
 const initialStateSynth = {
-  pitchDecay: 0.3,
+  pitchDecay: 1.5,
   octaves: 1,
   oscillator: {
     type: "sine"
