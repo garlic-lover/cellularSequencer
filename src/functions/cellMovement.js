@@ -10,6 +10,7 @@
 import Cell from "../Board/Cell";
 
 import getIndexes from "../functions/getIndexes";
+import deterministMove from "../functions/deterministMove";
 
 // I made a small tab store all possible moves
 const movesTab = require("../assets/moves.json");
@@ -21,7 +22,7 @@ const randomMove = () => {
   return movesTab[random];
 };
 
-const cellMovement = (initialTab, width, height, timer) => {
+const cellMovement = (initialTab, width, height, timer, isChaos) => {
   let newTab = [];
   const newCellsTab = [];
   let tab = [...initialTab];
@@ -42,7 +43,13 @@ const cellMovement = (initialTab, width, height, timer) => {
         y: cell.y
       });
       if (indexes.tab.length > 1) {
-        newDirection = randomMove();
+        // Chaos mode on : random moves // Chaos mode off : determinist moves
+        if (isChaos === true) {
+          newDirection = randomMove();
+        } else {
+          console.log(indexes);
+          newDirection = deterministMove(cell, indexes.tab[0], indexes.tab[1]);
+        }
         cell.lifePoints = cell.lifePoints + 5;
         if (cell.lifePoints > 10) {
           cell.lifePoints = 10;

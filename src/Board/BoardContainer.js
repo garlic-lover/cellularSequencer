@@ -20,7 +20,7 @@ import Cell from "../Board/Cell";
 import arrayGenerator from "../functions/arrayGenerator";
 import cellMovement from "../functions/cellMovement";
 import newRandomCell from "../functions/newRandomCell";
-import { arrayModify, cellsMove } from "../actions";
+import { arrayModify, cellsMove, chaosMode } from "../actions";
 
 class BoardContainer extends React.Component {
   constructor(props) {
@@ -43,9 +43,10 @@ class BoardContainer extends React.Component {
     let timer = setInterval(() => {
       let array = cellMovement(
         this.props.cells,
-        this.props.gridArray.length - 1,
         this.props.gridArray[0].length - 1,
-        this.state.count
+        this.props.gridArray.length - 1,
+        this.state.count,
+        this.props.isChaos
       );
       this.props.onMove(array);
       this.setState({ count: this.state.count + 1 });
@@ -121,7 +122,8 @@ const mapStateToProps = state => {
     gridArray: state.gridManager.array,
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
-    tempo: state.gridManager.parameters.tempo
+    tempo: state.gridManager.parameters.tempo,
+    isChaos: state.gridManager.chaosMode
   };
 };
 
@@ -132,6 +134,9 @@ const mapDispatchToProps = dispatch => {
     },
     onMove: array => {
       dispatch(cellsMove(array));
+    },
+    onChaos: isChaos => {
+      dispatch(chaosMode(isChaos));
     }
   };
 };

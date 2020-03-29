@@ -3,6 +3,7 @@ export const CELLS_MOVE = "CELLS_MOVE";
 export const SET_GRID_SIZE = "SET_GRID_SIZE";
 export const PARAMETERS_CHANGE = "PARAMETERS_CHANGE";
 export const SYNTH_EDIT = "SYNTH_EDIT";
+export const CHAOS_MODE = "CHAOS_MODE";
 
 export function arrayModify(array) {
   return { type: ARRAY_MODIFY, array };
@@ -22,4 +23,8 @@ export function parametersChange(parameters) {
 
 export function synthEdit(parameters) {
   return { type: SYNTH_EDIT, parameters };
+}
+
+export function chaosMode(isChaos) {
+  return { type: CHAOS_MODE, isChaos };
 }

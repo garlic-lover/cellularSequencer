@@ -4,14 +4,16 @@ import {
   CELLS_MOVE,
   SET_GRID_SIZE,
   PARAMETERS_CHANGE,
-  SYNTH_EDIT
+  SYNTH_EDIT,
+  CHAOS_MODE
 } from "./actions";
 
 const initialStateGrid = {
   array: [],
   cells: [],
   gridSize: { x: 24, y: 24 },
-  parameters: { scale: "major", octavesRange: 3, base: 2, tempo: 60 }
+  parameters: { scale: "major", octavesRange: 3, base: 2, tempo: 60 },
+  chaosMode: true
 };
 
 function gridManager(state = initialStateGrid, action) {
@@ -24,6 +26,8 @@ function gridManager(state = initialStateGrid, action) {
       return { ...state, gridSize: action.gridSize };
     case PARAMETERS_CHANGE:
       return { ...state, parameters: action.parameters };
+    case CHAOS_MODE:
+      return { ...state, chaosMode: action.isChaos };
     default:
       return state;
   }
