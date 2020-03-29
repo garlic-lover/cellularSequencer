@@ -11,9 +11,15 @@ import {
 const initialStateGrid = {
   array: [],
   cells: [],
-  gridSize: { x: 24, y: 24 },
-  parameters: { scale: "major", octavesRange: 2, base: 2, tempo: 100 },
-  chaosMode: true,
+  gridSize: { x: 16, y: 16 },
+  parameters: {
+    scale: "minor",
+    octavesRange: 2,
+    base: 2,
+    tempo: 100,
+    chaosMode: true
+  },
+
   areImmortal: false
 };
 
@@ -35,8 +41,8 @@ function gridManager(state = initialStateGrid, action) {
 }
 
 const initialStateSynth = {
-  pitchDecay: 1.5,
-  octaves: 1,
+  pitchDecay: 0,
+  octaves: 2,
   oscillator: {
     type: "sine"
   },

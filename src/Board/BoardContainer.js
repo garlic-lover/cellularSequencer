@@ -123,7 +123,7 @@ const mapStateToProps = state => {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
     tempo: state.gridManager.parameters.tempo,
-    isChaos: state.gridManager.chaosMode
+    isChaos: state.gridManager.parameters.chaosMode
   };
 };
 

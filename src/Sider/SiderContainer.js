@@ -81,6 +81,26 @@ class SiderContainer extends React.Component {
             }}
           />
         </div>
+        <div className="parameter">
+          <h3>Mode</h3>
+          <select
+            value={
+              this.props.parameters.chaosMode === true
+                ? "Chaos"
+                : "Déterministe"
+            }
+            onChange={event => {
+              let chaos = true;
+              if (event.target.value === "Déterministe") {
+                chaos = false;
+              }
+              this.paramChange("chaosMode", chaos);
+            }}
+          >
+            <option value="Chaos">Chaos</option>
+            <option value="Déterministe">Déterministe</option>
+          </select>
+        </div>
       </div>
     );
   };

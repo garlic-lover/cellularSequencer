@@ -51,7 +51,7 @@ class SynthConainer extends React.Component {
     if (note === false) {
       return;
     }
-    console.log(note);
+
     this.synth.triggerAttackRelease(note, "8n");
   };
 

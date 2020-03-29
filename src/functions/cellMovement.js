@@ -47,7 +47,6 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
         if (isChaos === true) {
           newDirection = randomMove();
         } else {
-          console.log(indexes);
           newDirection = deterministMove(cell, indexes.tab[0], indexes.tab[1]);
         }
         cell.lifePoints = cell.lifePoints + 5;
@@ -60,7 +59,6 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
           y: cell.y
         });
         if (isAlready.tab.length === 0 && indexes.isYoung === false) {
-          console.log("Baby");
           let randomDirection = randomMove();
           let newCell = new Cell(cell.x, cell.y, randomDirection);
           newTab.push(newCell);
