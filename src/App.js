@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./reset.css";
+import "./preferences.css";
+import "./App.css";
+import "./colors.css";
+import "./Board/board.css";
+import "./Sider/sider.css";
+import "./Synth/synth.css";
+import BoardContainer from "./Board/BoardContainer";
+import SynthContainer from "./Synth/SynthContainer";
+import SiderContainer from "./Sider/SiderContainer";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*       <header className="row j_center">My super app</header> */}
+      <BoardContainer />
+      <SiderContainer />
+      <SynthContainer />
     </div>
   );
 }

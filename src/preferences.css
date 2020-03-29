@@ -1,0 +1,124 @@
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+body {
+  min-height: 100%;
+  font-family: "Avenir";
+  font-size: 2em;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+/* Flex */
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.c_reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.align {
+  align-items: center;
+}
+
+.a_start {
+  align-items: flex-start;
+}
+
+.a_end {
+  align-items: flex-end;
+}
+
+.j_center {
+  display: flex;
+  justify-content: center;
+}
+
+.j_space {
+  display: flex;
+  justify-content: space-around;
+}
+
+.j_between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.j_end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.j_start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Size and position  */
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.width {
+  width: 100%;
+}
+
+.halfWidth {
+  width: 50%;
+}
+
+.height {
+  height: 100%;
+}
+
+.halfHeight {
+  height: 50%;
+}
+
+.threeQuarterHeight {
+  height: 75%;
+}
+
+.textAlign {
+  text-align: center;
+}
+
+.overflow {
+  overflow: overlay;
+}
+
+@-moz-document url-prefix() {
+  .overflow {
+    overflow: auto;
+  }
+}
+
+/* Other */
+
+.hover {
+  cursor: pointer;
+}

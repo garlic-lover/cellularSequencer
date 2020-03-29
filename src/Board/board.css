@@ -1,0 +1,75 @@
+#board {
+  padding: 15px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  background-color: white;
+  position: relative;
+}
+
+.square {
+  height: 16px;
+  width: 16px;
+  margin: 2.5px;
+  border-radius: 3px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.74);
+}
+
+.square:active {
+  transform: translateY(1px);
+}
+
+#optionsBar {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  width: 300px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px 5px 0 0;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+}
+
+.optionButton {
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  flex: 0.48;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.optionButton:active {
+  transform: translateY(1px);
+}
+
+@keyframes onActive {
+  0% {
+    width: 0%;
+    height: 0%;
+  }
+  50% {
+    width: 180%;
+    height: 180%;
+  }
+  100% {
+    width: 0%;
+    height: 0%;
+  }
+}
+
+.activeStep {
+  position: absolute;
+  background-color: plum;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation-name: onActive;
+  animation-duration: 1s;
+}

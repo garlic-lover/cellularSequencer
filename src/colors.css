@@ -1,0 +1,73 @@
+/* Pink */
+
+.pink {
+  color: #ffb6b6;
+}
+
+.backPink {
+  background-color: #ffb6b6;
+}
+
+.borderPink {
+  border-color: #ffb6b6;
+}
+
+/* LightPink */
+
+.lightPink {
+  color: #fde2e2;
+}
+
+.backLightPink {
+  background-color: #fde2e2;
+}
+
+.borderLightPink {
+  border-color: #fde2e2;
+}
+
+/* LightGreen */
+
+.lightGreen {
+  color: #aacfcf;
+}
+
+.backLightGreen {
+  background-color: #aacfcf;
+}
+
+.borderLightGreen {
+  border-color: #aacfcf;
+}
+
+/* Green */
+
+.green {
+  color: #679b9b;
+}
+
+.backGreen {
+  background-color: #679b9b;
+}
+
+.borderGreen {
+  border-color: #679b9b;
+}
+
+/* Life points status */
+
+.life1 {
+  background-color: lightblue;
+}
+
+.life2 {
+  background-color: #8cba51;
+}
+
+.life3 {
+  background-color: #f9b18b;
+}
+
+.life4 {
+  background-color: #ff5d6c;
+}
