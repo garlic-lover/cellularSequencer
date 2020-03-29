@@ -4,7 +4,15 @@ const ParametersList = [
   { label: "Attack", param: "attack", level: 1, min: 0, step: 0.05 },
   { label: "Decay", param: "decay", level: 1, min: 0, step: 0.1 },
   { label: "Sustain", param: "sustain", level: 1, min: 0, step: 0.1 },
-  { label: "Release", param: "release", level: 1, min: 0, step: 0.1 }
+  { label: "Release", param: "release", level: 1, min: 0, step: 0.1 },
+  {
+    label: "Drums On",
+    param: "drumsOn",
+    level: 0,
+    min: 0,
+    step: 0.1,
+    type: "boolean"
+  }
 ];
 
 export default ParametersList;

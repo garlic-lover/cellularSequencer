@@ -6,6 +6,13 @@ import * as Tone from "tone";
 import Fader from "../Synth/Fader";
 import Parameter from "./Parameter";
 
+// import of sounds
+import kick from "../assets/Samples/kick.wav";
+import snare from "../assets/Samples/snare.wav";
+import rim from "../assets/Samples/rim.wav";
+import hihat from "../assets/Samples/hihat.wav";
+import hit from "../assets/Samples/hit.wav";
+
 import ParametersList from "./ParametersList";
 
 //Import of functions
@@ -34,6 +41,16 @@ class SynthConainer extends React.Component {
     this.chorus
   );
 
+  drums = new Tone.Sampler({
+    C3: kick,
+    D3: kick,
+    "D#3": snare,
+    F3: hit,
+    G3: rim,
+    A3: hihat,
+    "A#3": hihat
+  }).connect(this.chorus);
+
   playSound = data => {
     if (!data) {
       return;
@@ -51,7 +68,10 @@ class SynthConainer extends React.Component {
     if (note === false) {
       return;
     }
-
+    console.log(note);
+    if (this.props.synthParameters.drumsOn === true) {
+      this.drums.triggerAttackRelease(note, "8n");
+    }
     this.synth.triggerAttackRelease(note, "8n");
   };
 
@@ -83,6 +103,7 @@ class SynthConainer extends React.Component {
           return (
             <Parameter
               key={index}
+              type={param.type}
               label={param.label}
               min={param.min}
               step={param.step}

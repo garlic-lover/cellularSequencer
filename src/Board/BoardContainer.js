@@ -8,6 +8,8 @@ Pour placer les composants sur la grille, deux options :
       des rythmes)
 
 Bonus : rajouter des cases folles
+
+We could have a no move property : when elements reach it, it makes a special sound
 */
 
 // Import of components

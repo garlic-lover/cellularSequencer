@@ -1,3 +1,13 @@
+// I made a small tab store all possible moves
+const movesTab = require("../assets/moves.json");
+
+const randomMove = () => {
+  let random = Math.random();
+  random = random * 8;
+  random = Math.trunc(random);
+  return movesTab[random];
+};
+
 const deterministMove = (cell0, cell1, cell2) => {
   let ref = cell0.direction;
   let other = "";
@@ -6,10 +16,18 @@ const deterministMove = (cell0, cell1, cell2) => {
   } else if (cell0 === cell2) {
     other = cell1.direction;
   }
+  if (other === "") {
+    other = randomMove();
+  }
   let x = "";
   let y = "";
+  if (ref.x === other.x && ref.y === other.y) {
+    while (ref.x === other.x && ref.y === other.y) {
+      other = randomMove();
+    }
+  }
 
-  // Cas facile : ne bouge que sur un axe
+  // Cas 1 ne bouge que sur un axe
   if (ref.x === 0 || ref.y === 0) {
     x = ref.x * -1;
     y = ref.y * -1;
