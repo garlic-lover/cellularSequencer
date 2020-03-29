@@ -30,18 +30,24 @@ function gridManager(state = initialStateGrid, action) {
 }
 
 const initialStateSynth = {
-  enveloppe: {
+  pitchDecay: 0.3,
+  octaves: 1,
+  oscillator: {
+    type: "sine"
+  },
+  envelope: {
     attack: 0.001,
-    decay: 0.2,
-    sustain: 0.2,
+    decay: 0.4,
+    sustain: 0.01,
     release: 1.4,
     attackCurve: "exponential"
   }
 };
 
-function synthManager(state = initialStateSynth, action) {
+function synthParameters(state = initialStateSynth, action) {
   switch (action.type) {
     case SYNTH_EDIT:
+      console.log(action.parameters);
       return action.parameters;
     default:
       return state;
@@ -50,7 +56,7 @@ function synthManager(state = initialStateSynth, action) {
 
 const appReducer = combineReducers({
   gridManager,
-  synthManager
+  synthParameters
 });
 
 export default appReducer;

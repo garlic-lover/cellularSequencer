@@ -4,12 +4,15 @@ import * as Tone from "tone";
 
 //Import of components
 import Fader from "../Synth/Fader";
+import Parameter from "./Parameter";
+
+import ParametersList from "./ParametersList";
 
 //Import of functions
 import getIndexes from "../functions/getIndexes";
 import crazyNotesStyle from "../functions/crazyNotesStyle";
 
-import { setGridSize } from "../actions";
+import { synthEdit } from "../actions";
 
 /* 
 Un gros slider accessible sur le côté de la grille ; 
@@ -27,22 +30,15 @@ class SynthConainer extends React.Component {
 
   chorus = new Tone.Chorus(2).toMaster();
 
-  synth = new Tone.MembraneSynth({
-    pitchDecay: 0.0,
-    octaves: 8,
-    oscillator: {
-      type: "sine"
-    },
-    envelope: {
-      attack: 0.001,
-      decay: 0.2,
-      sustain: 0.2,
-      release: 1.4,
-      attackCurve: "exponential"
-    }
-  }).connect(this.chorus);
+  synth = new Tone.MembraneSynth(this.props.synthParameters).connect(
+    this.chorus
+  );
 
   playSound = data => {
+    if (!data) {
+      return;
+    }
+
     let note = crazyNotesStyle(
       data,
       this.props.scale,
@@ -57,6 +53,12 @@ class SynthConainer extends React.Component {
     }
     console.log(note);
     this.synth.triggerAttackRelease(note, "8n");
+  };
+
+  onEditParams = () => {
+    this.synth = new Tone.MembraneSynth(this.props.synthParameters).connect(
+      this.chorus
+    );
   };
 
   componentDidMount = () => {};
@@ -76,7 +78,35 @@ class SynthConainer extends React.Component {
           this.playSound();
         }}
       >
-        <h3>Macro</h3>
+        <h3>Synth Params</h3>
+        {ParametersList.map((param, index) => {
+          return (
+            <Parameter
+              key={index}
+              label={param.label}
+              min={param.min}
+              step={param.step}
+              value={
+                param.level === 0
+                  ? this.props.synthParameters[param.param]
+                  : this.props.synthParameters.envelope[param.param]
+              }
+              onChange={async value => {
+                let params = { ...this.props.synthParameters };
+                if (param.level === 0) {
+                  params[param.param] = value;
+                } else {
+                  let envelope = { ...params.envelope };
+                  envelope[param.param] = value;
+                  params.envelope = envelope;
+                }
+
+                await this.props.onSynthEdit(params);
+                this.onEditParams();
+              }}
+            />
+          );
+        })}
         <Fader />
       </div>
     );
@@ -89,14 +119,15 @@ const mapStateToProps = state => {
     gridSize: state.gridManager.gridSize,
     scale: state.gridManager.parameters.scale,
     base: state.gridManager.parameters.base,
-    octavesRange: state.gridManager.parameters.octavesRange
+    octavesRange: state.gridManager.parameters.octavesRange,
+    synthParameters: state.synthParameters
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetGridSize: gridSide => {
-      dispatch(setGridSize(gridSide));
+    onSynthEdit: params => {
+      dispatch(synthEdit(params));
     }
   };
 };

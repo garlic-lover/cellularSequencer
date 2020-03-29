@@ -48,8 +48,10 @@ class SiderContainer extends React.Component {
               if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
-                8
+                  8 &&
+                event.target.value > this.props.parameters.base
               ) {
+                alert("Base octave + octave range can't exceed 8");
                 return this.paramChange("base", this.props.parameters.base);
               }
               this.paramChange("base", Number(event.target.value));
@@ -66,8 +68,10 @@ class SiderContainer extends React.Component {
               if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
-                8
+                  8 &&
+                event.target.value > this.props.parameters.octavesRange
               ) {
+                alert("Base octave + octave range can't exceed 8");
                 return this.paramChange(
                   "octavesRange",
                   this.props.parameters.octavesRange
