@@ -53,7 +53,7 @@ const initialStateSynth = {
     release: 1.4,
     attackCurve: "exponential"
   },
-  drumsOn: true
+  drumsOn: false
 };
 
 function synthParameters(state = initialStateSynth, action) {
