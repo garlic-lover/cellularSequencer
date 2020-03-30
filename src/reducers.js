@@ -15,12 +15,12 @@ const initialStateGrid = {
   cells: [],
   gridSize: { x: 16, y: 16 },
   parameters: {
-    scale: "minor",
-    octavesRange: 1,
+    scale: "arabic",
+    octavesRange: 3,
     base: 2,
-    tempo: 100,
-    chaosMode: false,
-    chaosProba: 100,
+    tempo: 90,
+    chaosMode: true,
+    chaosProba: 50,
     life: { canGive: true, canDie: true, lifePoints: 10 }
   },
   isPlaying: false,
@@ -61,7 +61,7 @@ const initialStateSynth = {
     release: 1.4,
     attackCurve: "exponential"
   },
-  synthOn: false,
+  synthOn: true,
   drumsOn: true
 };
 
