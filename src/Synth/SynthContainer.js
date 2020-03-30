@@ -86,7 +86,14 @@ class SynthConainer extends React.Component {
     }
     console.log(note);
     if (this.props.synthParameters.drumsOn === true) {
-      this.drums.triggerAttackRelease(note, "8n");
+      /* 
+      We are going to apply probabilities to drums so that
+      they dont't play all the time
+      */
+      let random = Math.random();
+      if (random > 0.5) {
+        this.drums.triggerAttackRelease(note, "8n");
+      }
     }
     if (this.props.synthParameters.synthOn === true) {
       this.synth.triggerAttackRelease(note, "8n");
@@ -103,10 +110,12 @@ class SynthConainer extends React.Component {
 
   render = () => {
     let cells = this.props.cells;
+    let already = false;
     for (let i = 0; i < cells.length; i++) {
       let indexes = getIndexes(cells, { x: cells[i].x, y: cells[i].y });
-      if (indexes.tab.length > 1) {
+      if (already === false && indexes.tab.length > 1) {
         this.playSound(indexes.tab[0]);
+        already = true;
       }
     }
     return (
