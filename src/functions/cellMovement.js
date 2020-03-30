@@ -57,8 +57,9 @@ const cellMovement = (
           let randomNumber = Math.random() * 100;
           if (randomNumber < chaosProba) {
             newDirection = randomMove();
+          } else {
+            newDirection = deterMove(cell.direction, indexes.tab);
           }
-          newDirection = deterMove(cell.direction, indexes.tab);
         } else {
           newDirection = deterMove(cell.direction, indexes.tab);
         }
