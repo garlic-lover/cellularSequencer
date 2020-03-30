@@ -26,7 +26,7 @@ const Board = ({
                     key={index}
                     className={
                       selectedCell.x === index && selectedCell.y === theIndex
-                        ? "square hover relative backPink"
+                        ? "square hover relative backPink cellShadow"
                         : "square hover relative"
                     }
                     onClick={() => {
@@ -60,7 +60,7 @@ const Board = ({
                 return (
                   <div
                     key={index}
-                    className={"square hover relative " + color}
+                    className={"square hover cellShadow relative " + color}
                   />
                 );
               } else {
