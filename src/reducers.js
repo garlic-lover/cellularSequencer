@@ -15,10 +15,10 @@ const initialStateGrid = {
   gridSize: { x: 16, y: 16 },
   parameters: {
     scale: "minor",
-    octavesRange: 2,
+    octavesRange: 1,
     base: 2,
     tempo: 100,
-    chaosMode: true
+    chaosMode: false
   },
   isPlaying: false,
   areImmortal: false
@@ -56,7 +56,7 @@ const initialStateSynth = {
     release: 1.4,
     attackCurve: "exponential"
   },
-  drumsOn: false
+  drumsOn: true
 };
 
 function synthParameters(state = initialStateSynth, action) {

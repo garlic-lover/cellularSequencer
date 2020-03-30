@@ -10,7 +10,7 @@
 import Cell from "../Board/Cell";
 
 import getIndexes from "../functions/getIndexes";
-import deterministMove from "../functions/deterministMove";
+// import deterministMove from "../functions/deterministMove";
 import deterMove from "../functions/deterMove";
 
 // I made a small tab store all possible moves
@@ -48,7 +48,7 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
         if (isChaos === true) {
           newDirection = randomMove();
         } else {
-          newDirection = deterministMove(cell, indexes.tab[0], indexes.tab[1]);
+          newDirection = deterMove(cell.direction, indexes.tab);
         }
         cell.lifePoints = cell.lifePoints + 5;
         if (cell.lifePoints > 10) {
@@ -60,29 +60,35 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
           y: cell.y
         });
         if (isAlready.tab.length === 0 && indexes.isYoung === false) {
-          let randomDirection = randomMove();
-          let newCell = new Cell(cell.x, cell.y, randomDirection);
+          let theDirection = {
+            x: indexes.tab[0].x * indexes.tab[0].x,
+            y: indexes.tab[0].x * indexes.tab[0].x
+          };
+          let x = cell.x + theDirection.x;
+          let y = cell.y + theDirection.y;
+
+          let newCell = new Cell(x, y, theDirection);
           newTab.push(newCell);
           newCellsTab.push(newCell);
         }
-      }
+      } else {
+        //let position = cells.findIndex(test, { x: theIndex, y: index });
 
-      //let position = cells.findIndex(test, { x: theIndex, y: index });
-
-      // If we arrive at one of the border, we change the direction
-      if (
-        (cell.x === 0 && cell.direction.x === -1) ||
-        (cell.x === width && cell.direction.x === 1)
-      ) {
-        newDirection = { x: newDirection.x * -1, y: newDirection.y };
-        cell.lifePoints = cell.lifePoints - 2;
-      }
-      if (
-        (cell.y === 0 && cell.direction.y === -1) ||
-        (cell.y === height && cell.direction.y === 1)
-      ) {
-        newDirection = { x: newDirection.x, y: newDirection.y * -1 };
-        cell.lifePoints = cell.lifePoints - 2;
+        // If we arrive at one of the border, we change the direction
+        if (
+          (cell.x === 0 && cell.direction.x === -1) ||
+          (cell.x === width && cell.direction.x === 1)
+        ) {
+          newDirection = { x: newDirection.x * -1, y: newDirection.y };
+          cell.lifePoints = cell.lifePoints - 2;
+        }
+        if (
+          (cell.y === 0 && cell.direction.y === -1) ||
+          (cell.y === height && cell.direction.y === 1)
+        ) {
+          newDirection = { x: newDirection.x, y: newDirection.y * -1 };
+          cell.lifePoints = cell.lifePoints - 2;
+        }
       }
 
       newX = cell.x + newDirection.x;
