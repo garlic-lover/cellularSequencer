@@ -56,11 +56,12 @@
 }
 
 #optionsBar {
+  width: 80%;
   position: absolute;
   bottom: 0;
   background-color: white;
-  width: 300px;
   padding: 10px 15px;
+  margin: auto;
   margin-top: 10px;
   border-radius: 5px 5px 0 0;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
@@ -72,13 +73,18 @@
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
-  flex: 0.48;
   font-size: 20px;
   padding: 5px;
 }
 
 .optionButton:active {
   transform: translateY(1px);
+}
+
+.optionButton input {
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 @keyframes onActive {

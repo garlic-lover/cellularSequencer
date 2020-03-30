@@ -23,7 +23,15 @@ const randomMove = () => {
   return movesTab[random];
 };
 
-const cellMovement = (initialTab, width, height, timer, isChaos) => {
+const cellMovement = (
+  initialTab,
+  width,
+  height,
+  timer,
+  isChaos,
+  chaosProba,
+  life
+) => {
   let newTab = [];
   const newCellsTab = [];
   let tab = [...initialTab];
@@ -46,20 +54,30 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
       if (indexes.tab.length > 1) {
         // Chaos mode on : random moves // Chaos mode off : determinist moves
         if (isChaos === true) {
-          newDirection = randomMove();
+          let randomNumber = Math.random() * 100;
+          if (randomNumber < chaosProba) {
+            newDirection = randomMove();
+          }
+          newDirection = deterMove(cell.direction, indexes.tab);
         } else {
           newDirection = deterMove(cell.direction, indexes.tab);
         }
-        cell.lifePoints = cell.lifePoints + 5;
-        if (cell.lifePoints > 10) {
-          cell.lifePoints = 10;
+        if (life.canDie === true) {
+          cell.lifePoints = cell.lifePoints + 5;
+          if (cell.lifePoints > 10) {
+            cell.lifePoints = 10;
+          }
         }
         // If two cells meet, they have a child
         let isAlready = getIndexes(newCellsTab, {
           x: cell.x,
           y: cell.y
         });
-        if (isAlready.tab.length === 0 && indexes.isYoung === false) {
+        if (
+          life.canGive === true &&
+          isAlready.tab.length === 0 &&
+          indexes.isYoung === false
+        ) {
           let theDirection = {
             x: indexes.tab[0].x * indexes.tab[0].x,
             y: indexes.tab[0].x * indexes.tab[0].x
@@ -67,7 +85,7 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
           let x = cell.x + theDirection.x;
           let y = cell.y + theDirection.y;
 
-          let newCell = new Cell(x, y, theDirection);
+          let newCell = new Cell(x, y, theDirection, life.lifePoints);
           newTab.push(newCell);
           newCellsTab.push(newCell);
         }
@@ -80,14 +98,18 @@ const cellMovement = (initialTab, width, height, timer, isChaos) => {
           (cell.x === width && cell.direction.x === 1)
         ) {
           newDirection = { x: newDirection.x * -1, y: newDirection.y };
-          cell.lifePoints = cell.lifePoints - 2;
+          if (life.canDie === true) {
+            cell.lifePoints = cell.lifePoints - 2;
+          }
         }
         if (
           (cell.y === 0 && cell.direction.y === -1) ||
           (cell.y === height && cell.direction.y === 1)
         ) {
           newDirection = { x: newDirection.x, y: newDirection.y * -1 };
-          cell.lifePoints = cell.lifePoints - 2;
+          if (life.canDie === true) {
+            cell.lifePoints = cell.lifePoints - 2;
+          }
         }
       }
 

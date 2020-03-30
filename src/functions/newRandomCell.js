@@ -4,7 +4,9 @@ import Cell from "../Board/Cell";
 // I made a small tab store all possible moves
 const movesTab = require("../assets/moves.json");
 
-const newRandomCell = (tab, width, height) => {
+const newRandomCell = (tab, width, height, lifePoints) => {
+  console.log(width);
+  console.log(height);
   let random = Math.random();
   random = random * 8;
   random = Math.trunc(random);
@@ -20,7 +22,7 @@ const newRandomCell = (tab, width, height) => {
   random = Math.trunc(random);
   let y = random;
 
-  let newCell = new Cell(x, y, direction);
+  let newCell = new Cell(x, y, direction, lifePoints);
   tab.push(newCell);
   return tab;
 };

@@ -6,7 +6,8 @@ import {
   PARAMETERS_CHANGE,
   SYNTH_EDIT,
   CHAOS_MODE,
-  PLAY_STOP
+  PLAY_STOP,
+  LIFE_CHANGE
 } from "./actions";
 
 const initialStateGrid = {
@@ -18,10 +19,12 @@ const initialStateGrid = {
     octavesRange: 1,
     base: 2,
     tempo: 100,
-    chaosMode: false
+    chaosMode: false,
+    chaosProba: 100,
+    life: { canGive: true, canDie: true, lifePoints: 10 }
   },
   isPlaying: false,
-  areImmortal: false
+  life: { canGive: true, canDie: true, lifePoints: 10 }
 };
 
 function gridManager(state = initialStateGrid, action) {
@@ -38,6 +41,8 @@ function gridManager(state = initialStateGrid, action) {
       return { ...state, chaosMode: action.isChaos };
     case PLAY_STOP:
       return { ...state, isPlaying: action.isPlaying };
+    case LIFE_CHANGE:
+      return { ...state, life: action.life };
     default:
       return state;
   }
@@ -56,6 +61,7 @@ const initialStateSynth = {
     release: 1.4,
     attackCurve: "exponential"
   },
+  synthOn: true,
   drumsOn: true
 };
 

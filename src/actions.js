@@ -5,6 +5,7 @@ export const PARAMETERS_CHANGE = "PARAMETERS_CHANGE";
 export const SYNTH_EDIT = "SYNTH_EDIT";
 export const CHAOS_MODE = "CHAOS_MODE";
 export const PLAY_STOP = "PLAY_STOP";
+export const LIFE_CHANGE = "LIFE_CHANGE";
 
 export function arrayModify(array) {
   return { type: ARRAY_MODIFY, array };
@@ -32,4 +33,8 @@ export function chaosMode(isChaos) {
 
 export function playStop(isPlaying) {
   return { type: PLAY_STOP, isPlaying };
+}
+
+export function lifeChange(life) {
+  return { type: LIFE_CHANGE, life };
 }

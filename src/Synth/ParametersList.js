@@ -6,6 +6,14 @@ const ParametersList = [
   { label: "Sustain", param: "sustain", level: 1, min: 0, step: 0.1 },
   { label: "Release", param: "release", level: 1, min: 0, step: 0.1 },
   {
+    label: "Synth On",
+    param: "synthOn",
+    level: 0,
+    min: 0,
+    step: 0.1,
+    type: "boolean"
+  },
+  {
     label: "Drums On",
     param: "drumsOn",
     level: 0,

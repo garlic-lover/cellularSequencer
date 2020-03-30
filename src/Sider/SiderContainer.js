@@ -14,6 +14,7 @@ class SiderContainer extends React.Component {
   render = () => {
     return (
       <div id="siderContainer">
+        <h3>Seq</h3>
         <div className="parameter">
           <h3>Tempo</h3>
           <input
@@ -97,9 +98,62 @@ class SiderContainer extends React.Component {
               this.paramChange("chaosMode", chaos);
             }}
           >
-            <option value="Chaos">Chaos</option>
             <option value="Déterministe">Déterministe</option>
+            <option value="Chaos">Chaos</option>
           </select>
+        </div>
+        <div className="parameter">
+          <h3>Chaos proba'</h3>
+          <div className="row align">
+            <input
+              type="number"
+              value={this.props.parameters.chaosProba}
+              min={0}
+              max={100}
+              onChange={event => {
+                this.paramChange("chaosProba", event.target.value);
+              }}
+            />
+            <div>%</div>
+          </div>
+        </div>
+        <h3 style={{ marginTop: 15 }}>Cells</h3>
+        <div className="parameter">
+          <h3>Can give life</h3>
+          <div
+            onClick={() => {
+              let life = { ...this.props.parameters.life };
+              life.canGive = !life.canGive;
+              this.paramChange("life", life);
+            }}
+          >
+            {this.props.parameters.life.canGive === true ? "Yes" : "No"}
+          </div>
+        </div>
+        <div className="parameter">
+          <h3>Can Die</h3>
+          <div
+            onClick={() => {
+              let life = { ...this.props.parameters.life };
+              life.canDie = !life.canDie;
+              this.paramChange("life", life);
+            }}
+          >
+            {this.props.parameters.life.canDie === true ? "Yes" : "No"}
+          </div>
+        </div>
+        <div className="parameter">
+          <h3>Life points</h3>
+          <input
+            type="number"
+            value={this.props.parameters.life.lifePoints}
+            min={0}
+            onChange={event => {
+              let life = { ...this.props.parameters.life };
+              life.lifePoints = event.target.value;
+              this.paramChange("life", life);
+            }}
+          />
         </div>
       </div>
     );

@@ -2,14 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 
 /* 
-Pour placer les composants sur la grille, deux options : 
-    - si le timer est on, donner une direction aléatoire ; 
-    - si le timer est off, laisser à l'utilisateur le choix (utile pour programmer
-      des rythmes)
-
 Bonus : rajouter des cases folles
 
 We could have a no move property : when elements reach it, it makes a special sound
+
+Let add a probability parameter making changing the probabilities of random move
 */
 
 // Import of components
@@ -22,7 +19,13 @@ import Cell from "../Board/Cell";
 import arrayGenerator from "../functions/arrayGenerator";
 import cellMovement from "../functions/cellMovement";
 import newRandomCell from "../functions/newRandomCell";
-import { arrayModify, cellsMove, chaosMode, playStop } from "../actions";
+import {
+  arrayModify,
+  cellsMove,
+  chaosMode,
+  playStop,
+  setGridSize
+} from "../actions";
 
 class BoardContainer extends React.Component {
   constructor(props) {
@@ -55,7 +58,9 @@ class BoardContainer extends React.Component {
         this.props.gridArray[0].length - 1,
         this.props.gridArray.length - 1,
         this.state.count,
-        this.props.isChaos
+        this.props.isChaos,
+        this.props.chaosProba,
+        this.props.life
       );
       this.props.onMove(array);
       this.setState({ count: this.state.count + 1 });
@@ -78,7 +83,7 @@ class BoardContainer extends React.Component {
           array={this.props.gridArray}
           cells={this.props.cells}
           onAddCell={(x, y, direction) => {
-            let newCell = new Cell(x, y, direction);
+            let newCell = new Cell(x, y, direction, this.props.life.lifePoints);
             let tab = [...this.props.cells];
             tab.push(newCell);
             this.props.onMove(tab);
@@ -114,15 +119,68 @@ class BoardContainer extends React.Component {
               this.props.onMove(
                 newRandomCell(
                   this.props.cells,
-                  this.state.width,
-                  this.state.height
+                  this.props.gridSize.y,
+                  this.props.gridSize.x,
+                  this.props.life.lifePoints
                 )
               );
               this.setState(this.state);
             }}
           >
-            Random
+            New random cell
           </div>
+          <div
+            className="hover row align j_center hover optionButton"
+            onClick={() => {}}
+          >
+            <div>X (note / drum type): </div>
+            <input
+              type="number"
+              value={this.props.gridSize.y}
+              min={0}
+              max={36}
+              step={1}
+              onChange={event => {
+                if (this.props.isPlaying === true) {
+                  return alert(
+                    "You can't modify the grid's size while the sequencer is running"
+                  );
+                }
+                let gridSize = { ...this.props.gridSize };
+                gridSize.y = event.target.value;
+                let array = arrayGenerator(gridSize.x, gridSize.y);
+                this.props.setGridSize({
+                  x: gridSize.x,
+                  y: event.target.value
+                });
+                this.props.onArrayModify(array);
+              }}
+            />
+            <div>Y (octave / drum kit): </div>
+            <input
+              type="number"
+              value={this.props.gridSize.x}
+              min={0}
+              max={36}
+              step={1}
+              onChange={event => {
+                if (this.props.isPlaying === true) {
+                  return alert(
+                    "You can't modify the grid's size while the sequencer is running"
+                  );
+                }
+                let gridSize = { ...this.props.gridSize };
+                gridSize.x = event.target.value;
+                let array = arrayGenerator(gridSize.x, gridSize.y);
+                this.props.setGridSize({
+                  x: event.target.value,
+                  y: gridSize.y
+                });
+                this.props.onArrayModify(array);
+              }}
+            />
+          </div>
+
           {/* <div
             className="hover"
             onClick={() => {
@@ -144,7 +202,9 @@ const mapStateToProps = state => {
     gridSize: state.gridManager.gridSize,
     tempo: state.gridManager.parameters.tempo,
     isChaos: state.gridManager.parameters.chaosMode,
-    isPlaying: state.gridManager.isPlaying
+    chaosProba: state.gridManager.parameters.chaosProba,
+    isPlaying: state.gridManager.isPlaying,
+    life: state.gridManager.parameters.life
   };
 };
 
@@ -161,6 +221,9 @@ const mapDispatchToProps = dispatch => {
     },
     playStop: isPlaying => {
       dispatch(playStop(isPlaying));
+    },
+    setGridSize: grid => {
+      dispatch(setGridSize(grid));
     }
   };
 };

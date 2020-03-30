@@ -88,7 +88,9 @@ class SynthConainer extends React.Component {
     if (this.props.synthParameters.drumsOn === true) {
       this.drums.triggerAttackRelease(note, "8n");
     }
-    //this.synth.triggerAttackRelease(note, "8n");
+    if (this.props.synthParameters.synthOn === true) {
+      this.synth.triggerAttackRelease(note, "8n");
+    }
   };
 
   onEditParams = () => {
