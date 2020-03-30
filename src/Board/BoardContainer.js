@@ -13,7 +13,7 @@ We could have a no move property : when elements reach it, it makes a special so
 */
 
 // Import of components
-import Board from "./components/Board";
+import Board from "./Board";
 
 // Import of the Cell class to build my objects
 import Cell from "../Board/Cell";
@@ -22,12 +22,19 @@ import Cell from "../Board/Cell";
 import arrayGenerator from "../functions/arrayGenerator";
 import cellMovement from "../functions/cellMovement";
 import newRandomCell from "../functions/newRandomCell";
-import { arrayModify, cellsMove, chaosMode } from "../actions";
+import { arrayModify, cellsMove, chaosMode, playStop } from "../actions";
 
 class BoardContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { timer: "", width: 17, height: 17, count: 0 };
+    this.state = {
+      timer: "",
+      width: 17,
+      height: 17,
+      count: 0,
+      displayCellDirection: false,
+      selectedCell: { x: "", y: "" }
+    };
   }
 
   oneShot = () => {
@@ -53,14 +60,15 @@ class BoardContainer extends React.Component {
       this.props.onMove(array);
       this.setState({ count: this.state.count + 1 });
     }, tempo / 4);
+    this.props.playStop(true);
     this.setState({ timer: timer });
   };
 
   componentDidMount = () => {
     let array = arrayGenerator(this.props.gridSize.x, this.props.gridSize.y);
     this.props.onArrayModify(array);
-    const cells = [new Cell(11, 11)];
-    this.props.onMove(cells);
+    /* const cells = [new Cell(11, 11)];
+    this.props.onMove(cells); */
   };
 
   render = () => {
@@ -69,11 +77,20 @@ class BoardContainer extends React.Component {
         <Board
           array={this.props.gridArray}
           cells={this.props.cells}
-          onAddCell={(x, y) => {
-            let newCell = new Cell(x, y);
+          onAddCell={(x, y, direction) => {
+            let newCell = new Cell(x, y, direction);
             let tab = [...this.props.cells];
             tab.push(newCell);
             this.props.onMove(tab);
+          }}
+          isPlaying={this.props.isPlaying}
+          displayCellDirection={this.state.displayCellDirection}
+          selectedCell={this.state.selectedCell}
+          onAddDeterministCell={(displayCellDirection, selectedCell) => {
+            this.setState({
+              displayCellDirection: displayCellDirection,
+              selectedCell: selectedCell
+            });
           }}
         />
         <div id="optionsBar" className="row width j_space">
@@ -85,6 +102,7 @@ class BoardContainer extends React.Component {
               } else {
                 window.clearInterval(this.state.timer);
                 this.setState({ timer: "" });
+                this.props.playStop(false);
               }
             }}
           >
@@ -125,7 +143,8 @@ const mapStateToProps = state => {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
     tempo: state.gridManager.parameters.tempo,
-    isChaos: state.gridManager.parameters.chaosMode
+    isChaos: state.gridManager.parameters.chaosMode,
+    isPlaying: state.gridManager.isPlaying
   };
 };
 
@@ -139,6 +158,9 @@ const mapDispatchToProps = dispatch => {
     },
     onChaos: isChaos => {
       dispatch(chaosMode(isChaos));
+    },
+    playStop: isPlaying => {
+      dispatch(playStop(isPlaying));
     }
   };
 };

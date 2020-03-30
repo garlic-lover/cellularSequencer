@@ -5,7 +5,8 @@ import {
   SET_GRID_SIZE,
   PARAMETERS_CHANGE,
   SYNTH_EDIT,
-  CHAOS_MODE
+  CHAOS_MODE,
+  PLAY_STOP
 } from "./actions";
 
 const initialStateGrid = {
@@ -19,7 +20,7 @@ const initialStateGrid = {
     tempo: 100,
     chaosMode: true
   },
-
+  isPlaying: false,
   areImmortal: false
 };
 
@@ -35,6 +36,8 @@ function gridManager(state = initialStateGrid, action) {
       return { ...state, parameters: action.parameters };
     case CHAOS_MODE:
       return { ...state, chaosMode: action.isChaos };
+    case PLAY_STOP:
+      return { ...state, isPlaying: action.isPlaying };
     default:
       return state;
   }

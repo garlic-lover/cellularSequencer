@@ -11,6 +11,7 @@ import Cell from "../Board/Cell";
 
 import getIndexes from "../functions/getIndexes";
 import deterministMove from "../functions/deterministMove";
+import deterMove from "../functions/deterMove";
 
 // I made a small tab store all possible moves
 const movesTab = require("../assets/moves.json");

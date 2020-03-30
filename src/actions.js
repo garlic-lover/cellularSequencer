@@ -4,6 +4,7 @@ export const SET_GRID_SIZE = "SET_GRID_SIZE";
 export const PARAMETERS_CHANGE = "PARAMETERS_CHANGE";
 export const SYNTH_EDIT = "SYNTH_EDIT";
 export const CHAOS_MODE = "CHAOS_MODE";
+export const PLAY_STOP = "PLAY_STOP";
 
 export function arrayModify(array) {
   return { type: ARRAY_MODIFY, array };
@@ -27,4 +28,8 @@ export function synthEdit(parameters) {
 
 export function chaosMode(isChaos) {
   return { type: CHAOS_MODE, isChaos };
+}
+
+export function playStop(isPlaying) {
+  return { type: PLAY_STOP, isPlaying };
 }

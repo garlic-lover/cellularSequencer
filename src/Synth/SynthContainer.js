@@ -13,6 +13,15 @@ import rim from "../assets/Samples/rim.wav";
 import hihat from "../assets/Samples/hihat.wav";
 import hit from "../assets/Samples/hit.wav";
 
+// import of 808
+import Height_kick from "../assets/Samples/808/808kick.wav";
+import Height_snare from "../assets/Samples/808/808snare.wav";
+import Height_cowbell from "../assets/Samples/808/808cowbell.wav";
+import Height_hihatC from "../assets/Samples/808/808hihatC.wav";
+import Height_hihatO from "../assets/Samples/808/808hihatO.wav";
+import Height_conga from "../assets/Samples/808/808conga.wav";
+import Height_clap from "../assets/Samples/808/808clap.wav";
+
 import ParametersList from "./ParametersList";
 
 //Import of functions
@@ -42,6 +51,13 @@ class SynthConainer extends React.Component {
   );
 
   drums = new Tone.Sampler({
+    C2: Height_kick,
+    D2: Height_snare,
+    "D#2": Height_hihatC,
+    F2: Height_hihatO,
+    G2: Height_cowbell,
+    A2: Height_clap,
+    "A#2": Height_conga,
     C3: kick,
     D3: kick,
     "D#3": snare,
@@ -72,7 +88,7 @@ class SynthConainer extends React.Component {
     if (this.props.synthParameters.drumsOn === true) {
       this.drums.triggerAttackRelease(note, "8n");
     }
-    this.synth.triggerAttackRelease(note, "8n");
+    //this.synth.triggerAttackRelease(note, "8n");
   };
 
   onEditParams = () => {

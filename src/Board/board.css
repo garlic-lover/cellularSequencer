@@ -22,6 +22,39 @@
   transform: translateY(1px);
 }
 
+.circle {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.74);
+  background-color: white;
+  z-index: 99;
+}
+
+.circle img {
+}
+
+.centerCircle {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+}
+
+#cellDirections {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: -38px;
+  left: -38px;
+  z-index: 98;
+
+  align-content: space-between;
+}
+
 #optionsBar {
   position: absolute;
   bottom: 0;
