@@ -97,6 +97,7 @@ class BoardContainer extends React.Component {
               selectedCell: selectedCell
             });
           }}
+          tempo={this.props.tempo}
         />
         <div id="optionsBar" className="row width j_space">
           <div

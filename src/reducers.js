@@ -62,7 +62,7 @@ const initialStateSynth = {
     attackCurve: "exponential"
   },
   synthOn: true,
-  drumsOn: true
+  drumsOn: false
 };
 
 function synthParameters(state = initialStateSynth, action) {

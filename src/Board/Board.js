@@ -19,7 +19,8 @@ const Board = ({
   isPlaying,
   displayCellDirection,
   selectedCell,
-  onAddDeterministCell
+  onAddDeterministCell,
+  tempo
 }) => {
   return (
     <div id="board">
@@ -70,12 +71,30 @@ const Board = ({
                 );
               } else if (indexes.tab.length === 1) {
                 let color = colorMapper(indexes.tab[0].lifePoints);
+
+                let animation =
+                  "x" +
+                  indexes.tab[0].direction.x +
+                  "y" +
+                  indexes.tab[0].direction.y;
+                let animationSpeed = 60 / tempo;
+                let lifePoints = indexes.tab[0].lifePoints;
+                if (lifePoints < 7) {
+                } else if (lifePoints < 3) {
+                } else {
+                  animationSpeed = animationSpeed / 2;
+                }
+                console.log(animation);
                 return (
                   <div
                     key={index}
                     className={
-                      "square hover cellShadow relative backVirus " + color
+                      "square hover cellShadow relative backVirus  " +
+                      color +
+                      " " +
+                      animation
                     }
+                    style={{ animationDuration: animationSpeed + "s" }}
                   />
                 );
               } else {

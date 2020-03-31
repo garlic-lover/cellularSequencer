@@ -118,3 +118,108 @@
   animation-name: onActive;
   animation-duration: 1s;
 }
+
+@keyframes x1y0 {
+  0% {
+    transform: translateX(-18px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.x1y0 {
+  animation-name: x1y0;
+}
+
+@keyframes x1y1 {
+  0% {
+    transform: translate(-18px, -18px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.x1y1 {
+  animation-name: x1y1;
+}
+
+@keyframes x1y-1 {
+  0% {
+    transform: translate(-18px, 18px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.x1y-1 {
+  animation-name: x1y-1;
+}
+
+@keyframes x0y1 {
+  0% {
+    transform: translateY(-18px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.x0y1 {
+  animation-name: x0y1;
+}
+
+@keyframes x0y-1 {
+  0% {
+    transform: translateY(18px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.x0y-1 {
+  animation-name: x0y-1;
+}
+
+/*  */
+@keyframes x-1y0 {
+  0% {
+    transform: translateX(18px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.x-1y0 {
+  animation-name: x-1y0;
+}
+
+@keyframes x-1y1 {
+  0% {
+    transform: translate(18px, -18px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.x-1y1 {
+  animation-name: x-1y1;
+}
+
+@keyframes x-1y-1 {
+  0% {
+    transform: translate(18px, 18px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.x-1y-1 {
+  animation-name: x-1y-1;
+}

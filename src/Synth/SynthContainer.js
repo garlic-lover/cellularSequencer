@@ -144,7 +144,22 @@ class SynthConainer extends React.Component {
           this.playSound();
         }}
       >
-        <h3>Synth Params</h3>
+        <h3>Sound Params</h3>
+        <div className="parameter">
+          <h3>Wave type</h3>
+          <select
+            value={this.props.synthParameters.oscillator.type}
+            onChange={async event => {
+              let params = { ...this.props.synthParameters };
+              params.oscillator = { type: event.target.value };
+              await this.props.onSynthEdit(params);
+              this.onEditParams();
+            }}
+          >
+            <option value="sine">Sine</option>
+            <option value="square">Square</option>
+          </select>
+        </div>
         {ParametersList.map((param, index) => {
           return (
             <Parameter
