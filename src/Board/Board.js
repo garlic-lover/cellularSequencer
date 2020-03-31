@@ -79,12 +79,12 @@ const Board = ({
                   indexes.tab[0].direction.y;
                 let animationSpeed = 60 / tempo;
                 let lifePoints = indexes.tab[0].lifePoints;
-                if (lifePoints < 7) {
-                } else if (lifePoints < 3) {
+                if (lifePoints < 3) {
+                  // animationSpeed = animationSpeed * 2;
+                } else if (lifePoints < 7) {
                 } else {
                   animationSpeed = animationSpeed / 2;
                 }
-                console.log(animation);
                 return (
                   <div
                     key={index}
