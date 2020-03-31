@@ -19,6 +19,10 @@ const Board = ({
         return (
           <div key={index} className="line row align">
             {line.map((square, index) => {
+              let emptyStyle = "";
+              if (isPlaying === false) {
+                emptyStyle = "cellShadow";
+              }
               let indexes = getIndexes(cells, { y: theIndex, x: index });
               if (indexes.tab.length === 0) {
                 return (
@@ -27,7 +31,7 @@ const Board = ({
                     className={
                       selectedCell.x === index && selectedCell.y === theIndex
                         ? "square hover relative backPink cellShadow"
-                        : "square hover relative"
+                        : "square hover relative " + emptyStyle
                     }
                     onClick={() => {
                       if (displayCellDirection === true) {

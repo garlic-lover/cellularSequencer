@@ -4,7 +4,6 @@
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
-  background-color: white;
   position: relative;
 }
 
@@ -14,7 +13,7 @@
   margin: 2.5px;
   /*  border-radius: 3px; */
   border-radius: 50%;
-  /* -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.74); */
 }
