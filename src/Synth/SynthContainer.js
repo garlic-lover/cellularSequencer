@@ -24,6 +24,9 @@ import Height_clap from "../assets/Samples/808/808clap.wav";
 
 import ParametersList from "./ParametersList";
 
+//Import of scales
+import scales from "../assets/scales";
+
 //Import of functions
 import getIndexes from "../functions/getIndexes";
 import crazyNotesStyle from "../functions/crazyNotesStyle";
@@ -88,13 +91,27 @@ class SynthConainer extends React.Component {
     }
     console.log(note);
     if (this.props.synthParameters.drumsOn === true) {
+      let noteSplitted = note.split("");
+      let noteSplittedLength = noteSplitted.length;
+
+      let scale = scales.minor;
+
+      // Position of the note in the scale
+      let notesAmount = 7;
+      let x = data.x;
+      let theNote = Math.trunc((x / this.props.gridSize.x) * notesAmount);
+      theNote = scale[theNote];
+      if (!theNote) {
+        return false;
+      }
+      let drumNote = theNote + noteSplitted[noteSplittedLength - 1];
       /* 
       We are going to apply probabilities to drums so that
       they dont't play all the time
       */
       let random = Math.random();
-      if (random > 1) {
-        this.drums.triggerAttackRelease(note, "8n");
+      if (random < 1) {
+        this.drums.triggerAttackRelease(drumNote, "8n");
       }
     }
     if (this.props.synthParameters.synthOn === true) {
