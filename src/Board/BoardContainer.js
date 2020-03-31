@@ -99,7 +99,7 @@ class BoardContainer extends React.Component {
           }}
           tempo={this.props.tempo}
         />
-        <div id="optionsBar" className="row width j_space">
+        <div id="optionsBar" className="column">
           <div
             className="hover row align j_center hover optionButton"
             onClick={() => {
@@ -113,6 +113,14 @@ class BoardContainer extends React.Component {
             }}
           >
             {this.state.timer === "" ? "Start" : "Stop"}
+          </div>
+          <div
+            className="hover row align j_center hover optionButton"
+            onClick={() => {
+              this.props.onMove([]);
+            }}
+          >
+            Clear the grid
           </div>
           <div
             className="hover row align j_center hover optionButton"
@@ -134,7 +142,7 @@ class BoardContainer extends React.Component {
             className="hover row align j_center hover optionButton"
             onClick={() => {}}
           >
-            <div>X (note / drum type): </div>
+            <div>X :</div>
             <input
               type="number"
               value={this.props.gridSize.y}
@@ -157,7 +165,8 @@ class BoardContainer extends React.Component {
                 this.props.onArrayModify(array);
               }}
             />
-            <div>Y (octave / drum kit): </div>
+
+            <div>Y : </div>
             <input
               type="number"
               value={this.props.gridSize.x}
@@ -180,6 +189,16 @@ class BoardContainer extends React.Component {
                 this.props.onArrayModify(array);
               }}
             />
+          </div>
+          <div
+            className="hover row align j_center hover optionButton"
+            onClick={() => {
+              alert(
+                "This page is based on the concept of cellular algorithms. \n\nEvery cell has a direction and a life expetancy(blue, green, orange, red).\n\nThe cells lose lifepoints when they hit the walls. When a cell no longer has life points, it dies.\n\nWhen two cells meet:\nThey make a sound;\nIf they're not too young (blue), they get a child;\nThey get back some life points (with a limit of 10).\nThey get a new direction.\n\nIn determinist mode, when two cells meet, their direction is reversed.\nLet's bring some chaos : in chaos mode, when two cells meet, they get a random direction for the next step.\n\nIn synth mode, the X axis determines the note played (do, ré, mi, ...), and the Y axis the octave (based on the octave base and range).\n\n In drum mode, the X axis determines the drum part being triggered, and the Y axis the drum kit (1 drum kit per octave range)."
+              );
+            }}
+          >
+            Information
           </div>
 
           {/* <div

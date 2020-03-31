@@ -52,7 +52,7 @@ const initialStateSynth = {
   pitchDecay: 0,
   octaves: 2,
   oscillator: {
-    type: "sine"
+    type: "sawtooth"
   },
   envelope: {
     attack: 0.001,

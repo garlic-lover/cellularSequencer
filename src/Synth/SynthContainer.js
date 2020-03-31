@@ -156,6 +156,7 @@ class SynthConainer extends React.Component {
               this.onEditParams();
             }}
           >
+            <option value="sawtooth">Sawtooth</option>
             <option value="sine">Sine</option>
             <option value="square">Square</option>
           </select>

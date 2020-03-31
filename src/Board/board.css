@@ -62,9 +62,12 @@
 }
 
 #optionsBar {
-  width: 80%;
+  width: 200px;
+  height: 200px;
   position: absolute;
-  bottom: 0;
+  top: 50%;
+  left: 0px;
+  transform: translate(0, -50%);
   background-color: white;
   padding: 10px 15px;
   margin: auto;
@@ -81,6 +84,9 @@
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
   font-size: 20px;
   padding: 5px;
+  margin-bottom: 10px;
+  width: 90%;
+  margin: auto;
 }
 
 .optionButton:active {

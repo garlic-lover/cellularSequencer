@@ -14,7 +14,6 @@ class SiderContainer extends React.Component {
   render = () => {
     return (
       <div id="siderContainer">
-        <h3>Seq</h3>
         <div className="parameter">
           <h3>Tempo</h3>
           <input
@@ -117,7 +116,6 @@ class SiderContainer extends React.Component {
             <div>%</div>
           </div>
         </div>
-        <h3 style={{ marginTop: 15 }}>Cells</h3>
         <div className="parameter">
           <h3>Can give life</h3>
           <div
