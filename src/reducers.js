@@ -56,7 +56,7 @@ const initialStateSynth = {
   },
   envelope: {
     attack: 0.001,
-    decay: 0.4,
+    decay: 0,
     sustain: 0.01,
     release: 1.4,
     attackCurve: "exponential"

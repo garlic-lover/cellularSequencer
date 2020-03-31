@@ -150,11 +150,6 @@ class BoardContainer extends React.Component {
               max={36}
               step={1}
               onChange={event => {
-                if (this.props.isPlaying === true) {
-                  return alert(
-                    "You can't modify the grid's size while the sequencer is running"
-                  );
-                }
                 let gridSize = { ...this.props.gridSize };
                 gridSize.y = event.target.value;
                 let array = arrayGenerator(gridSize.x, gridSize.y);
@@ -174,11 +169,6 @@ class BoardContainer extends React.Component {
               max={36}
               step={1}
               onChange={event => {
-                if (this.props.isPlaying === true) {
-                  return alert(
-                    "You can't modify the grid's size while the sequencer is running"
-                  );
-                }
                 let gridSize = { ...this.props.gridSize };
                 gridSize.x = event.target.value;
                 let array = arrayGenerator(gridSize.x, gridSize.y);
