@@ -2,6 +2,15 @@ import React from "react";
 import colorMapper from "../functions/colorMapper";
 import getIndexes from "../functions/getIndexes";
 import CellDirections from "./CellDirections";
+import virus from "../assets/icons/virus.svg";
+
+/* 
+  Add animations
+  Fill with samples 
+  Drums mode 
+  MIDI
+
+*/
 
 const Board = ({
   array,
@@ -64,14 +73,16 @@ const Board = ({
                 return (
                   <div
                     key={index}
-                    className={"square hover cellShadow relative " + color}
+                    className={
+                      "square hover cellShadow relative backVirus " + color
+                    }
                   />
                 );
               } else {
                 return (
                   <div
                     key={index}
-                    className="square hover relative"
+                    className="square hover relative backVirus"
                     style={{ backgroundColor: "pink" }}
                   >
                     <div className="activeStep" />

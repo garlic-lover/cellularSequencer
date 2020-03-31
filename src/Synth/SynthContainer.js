@@ -39,6 +39,8 @@ En fonction des couleurs des blocs, jouer des instruments différents
 
 Give special properties to some of the cells : they can change the scale or other
 parameters depending on their lifepoint
+
+Drum sounds are triggered by wall contact or by a different sequencer ? 
 */
 
 class SynthConainer extends React.Component {
@@ -91,7 +93,7 @@ class SynthConainer extends React.Component {
       they dont't play all the time
       */
       let random = Math.random();
-      if (random > 0.5) {
+      if (random > 1) {
         this.drums.triggerAttackRelease(note, "8n");
       }
     }
