@@ -1,7 +1,8 @@
 //Import of scales
 import scales from "../assets/scales";
 
-const crazyNotesStyle = (data, theScale, maxX, maxY, base, octavesRange) => {
+const midiNotesGen = (data, theScale, maxX, maxY, base, octavesRange) => {
+  console.log("x", maxX, "y", maxY);
   let scale = scales[theScale];
   let x = data.x;
   let y = data.y;
@@ -12,15 +13,20 @@ const crazyNotesStyle = (data, theScale, maxX, maxY, base, octavesRange) => {
   if (!theNote) {
     return false;
   }
+  let zeroValue = 21 + scales.chromatic.indexOf(theNote);
+  console.log(theNote);
   // Octave of the note
   y = Math.trunc((y / maxY) * octavesRange);
   if (y > maxY) {
     console.log("Problem", y, maxY);
   }
-  y = y + base;
+  let decimal = zeroValue + y * 12 + 12 * base;
+  // convert to hex
+  const hex = decimal.toString(16);
 
-  let note = scale[x] + y.toString();
-  return note;
+  console.log("The midi :" + decimal);
+  console.log("the hex :" + hex);
+  return hex;
 };
 
-export default crazyNotesStyle;
+export default midiNotesGen;

@@ -6,6 +6,7 @@ export const SYNTH_EDIT = "SYNTH_EDIT";
 export const CHAOS_MODE = "CHAOS_MODE";
 export const PLAY_STOP = "PLAY_STOP";
 export const LIFE_CHANGE = "LIFE_CHANGE";
+export const MIDI_SET = "MIDI_SET";
 
 export function arrayModify(array) {
   return { type: ARRAY_MODIFY, array };
@@ -37,4 +38,8 @@ export function playStop(isPlaying) {
 
 export function lifeChange(life) {
   return { type: LIFE_CHANGE, life };
+}
+
+export function midiSet(midi) {
+  return { type: MIDI_SET, midi };
 }

@@ -45,7 +45,7 @@ class SiderContainer extends React.Component {
             value={this.props.parameters.base}
             min={0}
             onChange={event => {
-              if (
+              /*  if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
                   8 &&
@@ -53,7 +53,7 @@ class SiderContainer extends React.Component {
               ) {
                 alert("Base octave + octave range can't exceed 8");
                 return this.paramChange("base", this.props.parameters.base);
-              }
+              } */
               this.paramChange("base", Number(event.target.value));
             }}
           />
@@ -65,7 +65,7 @@ class SiderContainer extends React.Component {
             value={this.props.parameters.octavesRange}
             min={0}
             onChange={event => {
-              if (
+              /* if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
                   8 &&
@@ -76,7 +76,7 @@ class SiderContainer extends React.Component {
                   "octavesRange",
                   this.props.parameters.octavesRange
                 );
-              }
+              } */
               this.paramChange("octavesRange", Number(event.target.value));
             }}
           />

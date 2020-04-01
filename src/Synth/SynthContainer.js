@@ -30,6 +30,7 @@ import scales from "../assets/scales";
 //Import of functions
 import getIndexes from "../functions/getIndexes";
 import crazyNotesStyle from "../functions/crazyNotesStyle";
+import midiNotesGen from "../functions/midiNotesGen";
 
 import { synthEdit } from "../actions";
 
@@ -80,8 +81,8 @@ class SynthConainer extends React.Component {
     let note = crazyNotesStyle(
       data,
       this.props.scale,
-      this.props.gridSize.x,
       this.props.gridSize.y,
+      this.props.gridSize.x,
       this.props.base,
       this.props.octavesRange
     );
@@ -89,7 +90,6 @@ class SynthConainer extends React.Component {
     if (note === false) {
       return;
     }
-    console.log(note);
     if (this.props.synthParameters.drumsOn === true) {
       let noteSplitted = note.split("");
       let noteSplittedLength = noteSplitted.length;
@@ -125,6 +125,60 @@ class SynthConainer extends React.Component {
     );
   };
 
+  polyMidi = async () => {
+    let cells = this.props.cells;
+    let alreadyPlayed = [];
+    for (let i = 0; i < cells.length; i++) {
+      let indexes = await getIndexes(cells, { x: cells[i].x, y: cells[i].y });
+      let isAlready = await getIndexes(alreadyPlayed, {
+        x: cells[i].x,
+        y: cells[i].y
+      });
+      if (
+        alreadyPlayed.length < 5 &&
+        indexes.tab.length > 1 &&
+        isAlready.tab.length === 0
+      ) {
+        if (indexes.tab[0]) {
+          this.sendMidiNote(indexes.tab[0]);
+          alreadyPlayed.push(cells[i]);
+        } else {
+          console.log("Strange", indexes.tab, i, indexes.tab[i]);
+          console.log(indexes.tab);
+        }
+      }
+    }
+    console.log(alreadyPlayed);
+  };
+
+  sendMidiNote = data => {
+    if (!data) {
+      return;
+    }
+    let midiNote = midiNotesGen(
+      data,
+      this.props.scale,
+      this.props.gridSize.y,
+      this.props.gridSize.x,
+      this.props.base,
+      this.props.octavesRange
+    );
+    this.sendMidiNote(midiNote);
+    let midiAccess = this.props.midi.midiAccess;
+    let portID = this.props.midi.availableOutputs[
+      this.props.midi.selectedDevice
+    ].id;
+    let hex = "0x" + midiNote;
+    let noteOn = "0x9" + this.props.midi.channel;
+    let noteOff = "0x8" + this.props.midi.channel;
+    var noteOnMessage = [noteOn, hex, 0x7f]; // note on, middle C, full velocity
+    var output = midiAccess.outputs.get(portID);
+    output.send(noteOnMessage); //omitting the timestamp means send immediately.
+    output.send([noteOff, hex, 0x40], window.performance.now() + 10.0); // Inlined array creation- note off, middle C,
+    // release velocity = 64, timestamp = now + 1000ms.
+    return "Finished";
+  };
+
   componentDidMount = () => {};
 
   render = () => {
@@ -133,9 +187,20 @@ class SynthConainer extends React.Component {
     for (let i = 0; i < cells.length; i++) {
       let indexes = getIndexes(cells, { x: cells[i].x, y: cells[i].y });
       if (already === false && indexes.tab.length > 1) {
-        this.playSound(indexes.tab[0]);
-        already = true;
+        if (
+          this.props.synthParameters.synthOn === true ||
+          this.props.synthParameters.drumsOn === true
+        ) {
+          this.playSound(indexes.tab[0]);
+          already = true;
+        }
+        if (this.props.midi.poly === false) {
+          this.sendMidiNote(indexes.tab[0]);
+        }
       }
+    }
+    if (this.props.midi.poly === true) {
+      this.polyMidi();
     }
     return (
       <div
@@ -203,7 +268,8 @@ const mapStateToProps = state => {
     scale: state.gridManager.parameters.scale,
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
-    synthParameters: state.synthParameters
+    synthParameters: state.synthParameters,
+    midi: state.gridManager.midiData
   };
 };
 

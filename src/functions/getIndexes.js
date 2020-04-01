@@ -5,10 +5,12 @@ const getIndexes = (tab, coordonates) => {
   const indexes = [];
   let isYoung = false;
   for (let i = 0; i < tab.length; i++) {
-    if (tab[i].x === coordonates.x && tab[i].y === coordonates.y) {
-      indexes.push(tab[i]);
-      if (tab[i].lifePoints > 7) {
-        isYoung = true;
+    if (tab[i]) {
+      if (tab[i].x === coordonates.x && tab[i].y === coordonates.y) {
+        indexes.push(tab[i]);
+        if (tab[i].lifePoints > 7) {
+          isYoung = true;
+        }
       }
     }
   }

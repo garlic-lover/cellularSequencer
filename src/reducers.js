@@ -7,7 +7,8 @@ import {
   SYNTH_EDIT,
   CHAOS_MODE,
   PLAY_STOP,
-  LIFE_CHANGE
+  LIFE_CHANGE,
+  MIDI_SET
 } from "./actions";
 
 const initialStateGrid = {
@@ -24,7 +25,8 @@ const initialStateGrid = {
     life: { canGive: true, canDie: true, lifePoints: 10 }
   },
   isPlaying: false,
-  life: { canGive: true, canDie: true, lifePoints: 10 }
+  life: { canGive: true, canDie: true, lifePoints: 10 },
+  midiData: { ready: false }
 };
 
 function gridManager(state = initialStateGrid, action) {
@@ -43,6 +45,9 @@ function gridManager(state = initialStateGrid, action) {
       return { ...state, isPlaying: action.isPlaying };
     case LIFE_CHANGE:
       return { ...state, life: action.life };
+    case MIDI_SET: {
+      return { ...state, midiData: action.midi };
+    }
     default:
       return state;
   }

@@ -1,3 +1,18 @@
+const chromatic = [
+  "A",
+  "A#",
+  "B",
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#"
+];
+
 const major = ["C", "D", "E", "F", "G", "A", "B"];
 
 const harmonic_major = ["C", "D", "E", "F", "G", "G#", "B"];
@@ -13,6 +28,7 @@ const arabic = ["C", "C#", "E", "F", "G", "G#", "B"];
 const hungarian_gypsy = ["C", "D", "D#", "F#", "G", "G#", "B"];
 
 export default {
+  chromatic,
   major,
   harmonic_major,
   minor,

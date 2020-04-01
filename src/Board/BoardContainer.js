@@ -24,8 +24,12 @@ import {
   cellsMove,
   chaosMode,
   playStop,
-  setGridSize
+  setGridSize,
+  midiSet
 } from "../actions";
+
+//Import of midi channels in hexadecimal
+const midiChannels = require("../assets/midiChannels.json");
 
 class BoardContainer extends React.Component {
   constructor(props) {
@@ -39,6 +43,67 @@ class BoardContainer extends React.Component {
       selectedCell: { x: "", y: "" }
     };
   }
+
+  midiConnect = async () => {
+    let midi = null; // global MIDIAccess object
+
+    const onMIDISuccess = async midiAccess => {
+      console.log("MIDI ready!");
+      midi = await midiAccess; // store in the global (in real usage, would probably keep in an object instance)
+      this.listInputsAndOutputs(midi);
+    };
+
+    function onMIDIFailure(msg) {
+      console.log("Failed to get MIDI access - " + msg);
+    }
+
+    navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+  };
+
+  listInputsAndOutputs = midiAccess => {
+    let midiData = { midiAccess: midiAccess, id: "" };
+    for (var entry of midiAccess.inputs) {
+      var input = entry[1];
+      console.log(
+        "Input port [type:'" +
+          input.type +
+          "'] id:'" +
+          input.id +
+          "' manufacturer:'" +
+          input.manufacturer +
+          "' name:'" +
+          input.name +
+          "' version:'" +
+          input.version +
+          "'"
+      );
+    }
+    let availableOutputs = [];
+    for (var entry of midiAccess.outputs) {
+      var output = entry[1];
+      midiData.id = output.id;
+      let theName = output.manufacturer + "-" + output.name;
+      availableOutputs.push({
+        name: theName,
+        id: output.id
+      });
+    }
+    if (availableOutputs.length !== 0) {
+      midiData.availableOutputs = availableOutputs;
+      midiData.selectedDevice = 0;
+      midiData.ready = true;
+      midiData.channel = 8;
+      midiData.poly = true;
+      this.props.onMidiSet(midiData);
+      console.log(midiData);
+      alert(
+        "Midi connecté à l'appareil suivant : " +
+          midiData.availableOutputs[0].name
+      );
+    } else {
+      alert("No device detected, please retry");
+    }
+  };
 
   oneShot = () => {
     let array = cellMovement(
@@ -83,9 +148,25 @@ class BoardContainer extends React.Component {
           array={this.props.gridArray}
           cells={this.props.cells}
           onAddCell={(x, y, direction) => {
-            let newCell = new Cell(x, y, direction, this.props.life.lifePoints);
             let tab = [...this.props.cells];
-            tab.push(newCell);
+            let already = false;
+            for (let i = 0; i < this.props.cells.length; i++) {
+              let theCell = this.props.cells[i];
+              if (theCell.x === x && theCell.y === y) {
+                already = true;
+                tab.splice(i, 1);
+              }
+            }
+            if (already === false) {
+              let newCell = new Cell(
+                x,
+                y,
+                direction,
+                this.props.life.lifePoints
+              );
+              tab.push(newCell);
+            }
+
             this.props.onMove(tab);
           }}
           isPlaying={this.props.isPlaying}
@@ -155,7 +236,7 @@ class BoardContainer extends React.Component {
                 let array = arrayGenerator(gridSize.x, gridSize.y);
                 this.props.setGridSize({
                   x: gridSize.x,
-                  y: event.target.value
+                  y: Number(event.target.value)
                 });
                 this.props.onArrayModify(array);
               }}
@@ -173,7 +254,7 @@ class BoardContainer extends React.Component {
                 gridSize.x = event.target.value;
                 let array = arrayGenerator(gridSize.x, gridSize.y);
                 this.props.setGridSize({
-                  x: event.target.value,
+                  x: Number(event.target.value),
                   y: gridSize.y
                 });
                 this.props.onArrayModify(array);
@@ -190,6 +271,76 @@ class BoardContainer extends React.Component {
           >
             Information
           </div>
+          <div
+            className="hover row align j_center hover optionButton"
+            onClick={() => {
+              this.midiConnect();
+            }}
+          >
+            MIDI connect
+          </div>
+          {this.props.midi.ready === true && (
+            <div
+              className="hover column align j_center midiOptions"
+              onClick={() => {}}
+            >
+              <h3>Midi options</h3>
+              <div>
+                <div>Midi device</div>
+                <select
+                  value={
+                    this.props.midi.availableOutputs[
+                      this.props.midi.selectedDevice
+                    ].name
+                  }
+                  onChange={event => {
+                    let midiObject = { ...this.props.midi };
+                    midiObject.selectedDevice = event.target.value;
+                    this.props.onMidiSet(midiObject);
+                  }}
+                >
+                  {this.props.midi.availableOutputs.map((output, index) => {
+                    return (
+                      <option value={index} key={index}>
+                        {output.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div>
+                <div>Midi channel</div>
+                <select
+                  value={this.props.midi.channel}
+                  onChange={event => {
+                    let midiObject = { ...this.props.midi };
+                    midiObject.channel = event.target.value;
+                    this.props.onMidiSet(midiObject);
+                  }}
+                >
+                  {midiChannels.map((channel, index) => {
+                    return (
+                      <option key={index} value={channel}>
+                        {index + 1}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div
+                className="hover row align j_center hover optionButton"
+                onClick={() => {
+                  let midiObject = { ...this.props.midi };
+                  midiObject.poly = !this.props.midi.poly;
+                  this.props.onMidiSet(midiObject);
+                }}
+              >
+                {this.props.midi.poly === true
+                  ? "MIDI Poly On"
+                  : "MIDI Poly Off"}
+              </div>
+            </div>
+          )}
 
           {/* <div
             className="hover"
@@ -214,7 +365,8 @@ const mapStateToProps = state => {
     isChaos: state.gridManager.parameters.chaosMode,
     chaosProba: state.gridManager.parameters.chaosProba,
     isPlaying: state.gridManager.isPlaying,
-    life: state.gridManager.parameters.life
+    life: state.gridManager.parameters.life,
+    midi: state.gridManager.midiData
   };
 };
 
@@ -234,6 +386,9 @@ const mapDispatchToProps = dispatch => {
     },
     setGridSize: grid => {
       dispatch(setGridSize(grid));
+    },
+    onMidiSet: midi => {
+      dispatch(midiSet(midi));
     }
   };
 };

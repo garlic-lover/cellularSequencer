@@ -38,6 +38,7 @@ const cellMovement = (
   for (let i = 0; i < tab.length; i++) {
     let cell = tab[i];
     if (cell.x > width || cell.y > height) {
+      console.log("Not fitting the grid");
     } else {
       let newDirection = { ...cell.direction };
       let newX = "";

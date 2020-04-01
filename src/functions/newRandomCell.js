@@ -5,8 +5,6 @@ import Cell from "../Board/Cell";
 const movesTab = require("../assets/moves.json");
 
 const newRandomCell = (tab, width, height, lifePoints) => {
-  console.log(width);
-  console.log(height);
   let random = Math.random();
   random = random * 8;
   random = Math.trunc(random);
