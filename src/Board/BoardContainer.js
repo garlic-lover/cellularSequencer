@@ -95,7 +95,6 @@ class BoardContainer extends React.Component {
       midiData.channel = 8;
       midiData.poly = true;
       this.props.onMidiSet(midiData);
-      console.log(midiData);
       alert(
         "Midi connecté à l'appareil suivant : " +
           midiData.availableOutputs[0].name
@@ -112,13 +111,11 @@ class BoardContainer extends React.Component {
         let portID = this.props.midi.availableOutputs[
           this.props.midi.selectedDevice
         ].id;
-        console.log(midiAccess, portID);
         var noteOnMessage = [0x9b, 0x3c, 0x7f];
         var noteOff = 0x8b;
         var output = midiAccess.outputs.get(portID);
         output.send(noteOnMessage);
         output.send([noteOff, 0x3c, 0x40], window.performance.now() + 10.0);
-        console.log(output);
       }
       return;
     }

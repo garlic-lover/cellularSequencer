@@ -31,6 +31,7 @@ import scales from "../assets/scales";
 import getIndexes from "../functions/getIndexes";
 import crazyNotesStyle from "../functions/crazyNotesStyle";
 import midiNotesGen from "../functions/midiNotesGen";
+import velocityAssign from "../functions/velocityAssign";
 
 import { synthEdit } from "../actions";
 
@@ -148,13 +149,16 @@ class SynthConainer extends React.Component {
         }
       }
     }
-    console.log(alreadyPlayed);
   };
 
   sendMidiNote = data => {
     if (!data) {
       return;
     }
+    // Set velocity
+    let velocity = "0x" + velocityAssign(data.lifePoints);
+
+    // Then set midi note
     let midiNote = midiNotesGen(
       data,
       this.props.scale,
@@ -170,7 +174,7 @@ class SynthConainer extends React.Component {
     let hex = "0x" + midiNote;
     let noteOn = "0x9" + this.props.midi.channel;
     let noteOff = "0x8" + this.props.midi.channel;
-    var noteOnMessage = [noteOn, hex, 0x7f]; // note on, middle C, full velocity
+    var noteOnMessage = [noteOn, hex, velocity]; // note on, middle C, full velocity
     var output = midiAccess.outputs.get(portID);
     output.send(noteOnMessage); //omitting the timestamp means send immediately.
     output.send([noteOff, hex, 0x40], window.performance.now() + 10.0); // Inlined array creation- note off, middle C,
