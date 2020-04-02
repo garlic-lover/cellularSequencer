@@ -38,7 +38,7 @@ const cellMovement = (
   for (let i = 0; i < tab.length; i++) {
     let cell = tab[i];
     if (cell.x > width + 1 || cell.y > height + 1) {
-      console.log("Not fitting the grid", width, height);
+      console.log("Not fitting the grid", cell.x, cell.y);
     } else {
       let newDirection = { ...cell.direction };
       let newX = "";
@@ -83,8 +83,8 @@ const cellMovement = (
             indexes.isYoung === false
           ) {
             let theDirection = {
-              x: indexes.tab[0].x * indexes.tab[0].x,
-              y: indexes.tab[0].x * indexes.tab[0].x
+              x: indexes.tab[0].direction.x * indexes.tab[1].direction.x,
+              y: indexes.tab[0].direction.x * indexes.tab[1].direction.x
             };
             let x = cell.x + theDirection.x;
             let y = cell.y + theDirection.y;
