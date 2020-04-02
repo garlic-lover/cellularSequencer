@@ -105,6 +105,25 @@ class BoardContainer extends React.Component {
     }
   };
 
+  clockSend = () => {
+    if (this.props.midi.ready === true) {
+      if (this.state.count % 2 === 0) {
+        let midiAccess = this.props.midi.midiAccess;
+        let portID = this.props.midi.availableOutputs[
+          this.props.midi.selectedDevice
+        ].id;
+        console.log(midiAccess, portID);
+        var noteOnMessage = [0x9b, 0x3c, 0x7f];
+        var noteOff = 0x8b;
+        var output = midiAccess.outputs.get(portID);
+        output.send(noteOnMessage);
+        output.send([noteOff, 0x3c, 0x40], window.performance.now() + 10.0);
+        console.log(output);
+      }
+      return;
+    }
+  };
+
   oneShot = () => {
     let array = cellMovement(
       this.props.cells,
@@ -118,6 +137,7 @@ class BoardContainer extends React.Component {
     let frequence = this.props.tempo / 60;
     let tempo = 1000 / frequence;
     let timer = setInterval(() => {
+      this.clockSend();
       let array = cellMovement(
         this.props.cells,
         this.props.gridArray[0].length - 1,
@@ -137,8 +157,17 @@ class BoardContainer extends React.Component {
   componentDidMount = () => {
     let array = arrayGenerator(this.props.gridSize.x, this.props.gridSize.y);
     this.props.onArrayModify(array);
-    /* const cells = [new Cell(11, 11)];
-    this.props.onMove(cells); */
+    const cells = [
+      new Cell(5, 5),
+      new Cell(10, 5),
+      new Cell(5, 10),
+      new Cell(10, 10),
+      new Cell(3, 3),
+      new Cell(3, 8),
+      new Cell(8, 3),
+      new Cell(8, 8)
+    ];
+    this.props.onMove(cells);
   };
 
   render = () => {

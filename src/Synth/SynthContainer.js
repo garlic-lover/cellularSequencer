@@ -163,7 +163,6 @@ class SynthConainer extends React.Component {
       this.props.base,
       this.props.octavesRange
     );
-    this.sendMidiNote(midiNote);
     let midiAccess = this.props.midi.midiAccess;
     let portID = this.props.midi.availableOutputs[
       this.props.midi.selectedDevice
