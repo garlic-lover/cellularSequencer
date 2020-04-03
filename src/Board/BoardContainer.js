@@ -159,10 +159,10 @@ class BoardContainer extends React.Component {
       new Cell(10, 5),
       new Cell(5, 10),
       new Cell(10, 10),
-      new Cell(3, 3),
-      new Cell(3, 8),
-      new Cell(8, 3),
-      new Cell(8, 8)
+      new Cell(0, 0),
+      new Cell(15, 15),
+      new Cell(0, 15),
+      new Cell(15, 0)
     ];
     this.props.onMove(cells);
   };
