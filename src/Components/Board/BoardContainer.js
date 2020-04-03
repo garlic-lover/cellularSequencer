@@ -13,12 +13,12 @@ Let add a probability parameter making changing the probabilities of random move
 import Board from "./Board";
 
 // Import of the Cell class to build my objects
-import Cell from "../Board/Cell";
+import Cell from "./Cell";
 
 // Import of functions
-import arrayGenerator from "../functions/arrayGenerator";
-import cellMovement from "../functions/cellMovement";
-import newRandomCell from "../functions/newRandomCell";
+import arrayGenerator from "../../functions/arrayGenerator";
+import cellMovement from "../../functions/cellMovement";
+import newRandomCell from "../../functions/newRandomCell";
 import {
   arrayModify,
   cellsMove,
@@ -26,10 +26,10 @@ import {
   playStop,
   setGridSize,
   midiSet
-} from "../actions";
+} from "../../actions";
 
 //Import of midi channels in hexadecimal
-const midiChannels = require("../assets/midiChannels.json");
+const midiChannels = require("../../assets/midiChannels.json");
 
 class BoardContainer extends React.Component {
   constructor(props) {

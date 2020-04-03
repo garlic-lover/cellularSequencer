@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { parametersChange } from "../actions";
+import { parametersChange } from "../../actions";
 
-import scales from "../assets/scales";
+import scales from "../../assets/scales";
 
 class SiderContainer extends React.Component {
   paramChange = (param, value) => {

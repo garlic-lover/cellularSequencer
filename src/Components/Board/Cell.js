@@ -1,5 +1,5 @@
 // I made a small tab store all possible moves
-const movesTab = require("../assets/moves.json");
+const movesTab = require("../../assets/moves.json");
 
 const randomMove = () => {
   let random = Math.random();

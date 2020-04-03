@@ -1,5 +1,5 @@
 // Import of the Cell class to build my objects
-import Cell from "../Board/Cell";
+import Cell from "../Components/Board/Cell";
 
 // I made a small tab store all possible moves
 const movesTab = require("../assets/moves.json");

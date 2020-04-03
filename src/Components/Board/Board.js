@@ -1,16 +1,8 @@
 import React from "react";
-import colorMapper from "../functions/colorMapper";
-import getIndexes from "../functions/getIndexes";
+import colorMapper from "../../functions/colorMapper";
+import getIndexes from "../../functions/getIndexes";
 import CellDirections from "./CellDirections";
-import virus from "../assets/icons/virus.svg";
-
-/* 
-  Add animations
-  Fill with samples 
-  Drums mode 
-  MIDI
-
-*/
+// import virus from "../assets/icons/virus.svg";
 
 const Board = ({
   array,

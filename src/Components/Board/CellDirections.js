@@ -1,7 +1,7 @@
 import React from "react";
-import arrow from "../assets/icons/arrow.svg";
+import arrow from "../../assets/icons/arrow.svg";
 
-const moves = require("../assets/moves.json");
+const moves = require("../../assets/moves.json");
 
 const angles = [-135, -90, -45, -180, "", 0, 135, 90, 45];
 

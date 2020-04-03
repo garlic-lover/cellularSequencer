@@ -7,7 +7,7 @@
 */
 
 // Import of the Cell class to build my objects
-import Cell from "../Board/Cell";
+import Cell from "../Components/Board/Cell";
 
 import getIndexes from "../functions/getIndexes";
 // import deterministMove from "../functions/deterministMove";

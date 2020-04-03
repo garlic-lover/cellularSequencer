@@ -3,12 +3,13 @@ import "./reset.css";
 import "./preferences.css";
 import "./App.css";
 import "./colors.css";
-import "./Board/board.css";
-import "./Sider/sider.css";
-import "./Synth/synth.css";
-import BoardContainer from "./Board/BoardContainer";
-import SynthContainer from "./Synth/SynthContainer";
-import SiderContainer from "./Sider/SiderContainer";
+import "./Components/Board/board.css";
+import "./Components/Sider/sider.css";
+import "./Components/Synth/synth.css";
+import BoardContainer from "./Components/Board/BoardContainer";
+import SynthContainer from "./Components/Synth/SynthContainer";
+import SiderContainer from "./Components/Sider/SiderContainer";
+import Drums from "./Components/Synth/Drums";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <BoardContainer />
       <SiderContainer />
       <SynthContainer />
+      <Drums />
     </div>
   );
 }
