@@ -82,11 +82,11 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
           <h3>FM2</h3>
           <Fader
             name="modIndex"
-            value={synthParameters.fmSynth.modulationIndex / 50}
+            value={synthParameters.fmSynth.modulationIndex / 25}
             callbackValue={(value) => {
               let fullParams = { ...synthParameters };
               let params = { ...fullParams.fmSynth };
-              value = value * 50;
+              value = value * 25;
 
               /* if (value % 1 !== 0) {
                 return;
