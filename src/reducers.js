@@ -17,9 +17,9 @@ const initialStateGrid = {
   notes: { previous: [], current: [] },
   gridSize: { x: 16, y: 16 },
   parameters: {
-    scale: "major",
+    scale: "mixolydian",
     octavesRange: 3,
-    base: 2,
+    base: 3,
     tempo: 90,
     chaosMode: true,
     chaosProba: 15,
