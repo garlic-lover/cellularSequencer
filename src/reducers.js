@@ -8,12 +8,13 @@ import {
   CHAOS_MODE,
   PLAY_STOP,
   LIFE_CHANGE,
-  MIDI_SET
+  MIDI_SET,
 } from "./actions";
 
 const initialStateGrid = {
   array: [],
   cells: [],
+  notes: { previous: [], current: [] },
   gridSize: { x: 16, y: 16 },
   parameters: {
     scale: "major",
@@ -22,11 +23,11 @@ const initialStateGrid = {
     tempo: 90,
     chaosMode: true,
     chaosProba: 15,
-    life: { canGive: true, canDie: true, lifePoints: 10 }
+    life: { canGive: true, canDie: true, lifePoints: 10 },
   },
   isPlaying: false,
   life: { canGive: true, canDie: true, lifePoints: 10 },
-  midiData: { ready: false }
+  midiData: { ready: false },
 };
 
 function gridManager(state = initialStateGrid, action) {
@@ -34,7 +35,12 @@ function gridManager(state = initialStateGrid, action) {
     case ARRAY_MODIFY:
       return { ...state, array: action.array };
     case CELLS_MOVE:
-      return { ...state, cells: action.array };
+      let notes = { ...state.notes };
+      if (action.notes) {
+        notes.previous = notes.current;
+        notes.current = action.notes;
+      }
+      return { ...state, cells: action.array, notes: notes };
     case SET_GRID_SIZE:
       return { ...state, gridSize: action.gridSize };
     case PARAMETERS_CHANGE:
@@ -55,21 +61,44 @@ function gridManager(state = initialStateGrid, action) {
 
 const initialStateSynth = {
   membraneSynth: {
-    pitchDecay: 0,
+    pitchDecay: 0.01,
     octaves: 2,
     oscillator: {
-      type: "sine"
+      type: "sine",
     },
     envelope: {
       attack: 0.001,
       decay: 0,
       sustain: 0.01,
       release: 1.4,
-      attackCurve: "exponential"
-    }
+      attackCurve: "exponential",
+    },
+  },
+  fmSynth: {
+    harmonicity: 3,
+    modulationIndex: 0,
+    detune: 1,
+    oscillator: {
+      type: "sine",
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.01,
+      sustain: 1,
+      release: 0.5,
+    },
+    modulation: {
+      type: "sine",
+    },
+    modulationEnvelope: {
+      attack: 0.5,
+      decay: 0,
+      sustain: 1,
+      release: 0.5,
+    },
   },
   synthOn: true,
-  drumsOn: false
+  drumsOn: false,
 };
 
 function synthParameters(state = initialStateSynth, action) {
@@ -84,7 +113,7 @@ function synthParameters(state = initialStateSynth, action) {
 
 const appReducer = combineReducers({
   gridManager,
-  synthParameters
+  synthParameters,
 });
 
 export default appReducer;

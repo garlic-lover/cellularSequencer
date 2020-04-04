@@ -12,8 +12,8 @@ export function arrayModify(array) {
   return { type: ARRAY_MODIFY, array };
 }
 
-export function cellsMove(array) {
-  return { type: CELLS_MOVE, array };
+export function cellsMove(array, notes) {
+  return { type: CELLS_MOVE, array, notes };
 }
 
 export function setGridSize(gridSize) {

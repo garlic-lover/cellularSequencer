@@ -1,7 +1,7 @@
 #SynthBar {
   background-color: white;
-  height: 400px;
-  width: 115px;
+  height: 350px;
+  width: 50px;
   padding: 10px 15px;
   border-radius: 5px 0 0 5px;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
@@ -14,9 +14,33 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   font-size: 16px;
 }
 
 #SynthBar .parameter {
   margin: 5px 0 5px 0;
+}
+
+.faderContainer {
+  height: 300px;
+  width: 8px;
+  border: solid 1px #b4b4b4;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 10px 30px #00000029;
+  position: relative;
+}
+
+.fader {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 1px 2px 8px #00000031;
+  border: 2px solid #1a54c1;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
 }

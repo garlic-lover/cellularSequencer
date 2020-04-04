@@ -19,6 +19,7 @@ import Cell from "./Cell";
 import arrayGenerator from "../../functions/arrayGenerator";
 import cellMovement from "../../functions/cellMovement";
 import newRandomCell from "../../functions/newRandomCell";
+import notesMovement from "../../functions/notesMovement";
 import {
   arrayModify,
   cellsMove,
@@ -133,7 +134,7 @@ class BoardContainer extends React.Component {
   timerStart = () => {
     let frequence = this.props.tempo / 60;
     let tempo = 1000 / frequence;
-    let timer = setInterval(() => {
+    let timer = setInterval(async () => {
       this.clockSend();
       let array = cellMovement(
         this.props.cells,
@@ -144,7 +145,14 @@ class BoardContainer extends React.Component {
         this.props.chaosProba,
         this.props.life
       );
-      this.props.onMove(array);
+      let notes = await notesMovement(
+        array,
+        this.props.scale,
+        this.props.gridSize,
+        this.props.base,
+        this.props.octavesRange
+      );
+      this.props.onMove(array, notes);
       this.setState({ count: this.state.count + 1 });
     }, tempo / 4);
     this.props.playStop(true);
@@ -392,7 +400,10 @@ const mapStateToProps = state => {
     chaosProba: state.gridManager.parameters.chaosProba,
     isPlaying: state.gridManager.isPlaying,
     life: state.gridManager.parameters.life,
-    midi: state.gridManager.midiData
+    midi: state.gridManager.midiData,
+    scale: state.gridManager.parameters.scale,
+    base: state.gridManager.parameters.base,
+    octavesRange: state.gridManager.parameters.octavesRange
   };
 };
 
@@ -401,8 +412,8 @@ const mapDispatchToProps = dispatch => {
     onArrayModify: array => {
       dispatch(arrayModify(array));
     },
-    onMove: array => {
-      dispatch(cellsMove(array));
+    onMove: (cells, notes) => {
+      dispatch(cellsMove(cells, notes));
     },
     onChaos: isChaos => {
       dispatch(chaosMode(isChaos));

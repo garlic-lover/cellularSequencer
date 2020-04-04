@@ -11,7 +11,7 @@
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "tone": "^13.8.25"
+    "tone": "^14.5.43"
   },
   "scripts": {
     "start": "react-scripts start",

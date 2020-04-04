@@ -19,28 +19,11 @@ import Parameter from "./Parameter";
 
 import ParametersList from "./ParametersList";
 
-const SynthParams = ({ synthParameters, onSynthEdit }) => {
+const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
   return (
     <div id="SynthBar" onClick={() => {}}>
-      <h3>Sound Params</h3>
-      <div className="parameter">
-        <h3>Wave type</h3>
-        <select
-          value={synthParameters.membraneSynth.oscillator.type}
-          onChange={async event => {
-            let fullParams = { ...synthParameters };
-            let params = { ...fullParams.membraneSynth };
-            params.oscillator = { type: event.target.value };
-            fullParams.membraneSynth = params;
-            await onSynthEdit(fullParams);
-          }}
-        >
-          <option value="sawtooth">Sawtooth</option>
-          <option value="sine">Sine</option>
-          <option value="square">Square</option>
-        </select>
-      </div>
-      {ParametersList.map((param, index) => {
+      <h3>Synth</h3>
+      {/* {ParametersList[synthType].map((param, index) => {
         return (
           <Parameter
             key={index}
@@ -48,28 +31,49 @@ const SynthParams = ({ synthParameters, onSynthEdit }) => {
             label={param.label}
             min={param.min}
             step={param.step}
+            options={param.options}
             value={
-              param.level === 0
-                ? synthParameters.membraneSynth[param.param]
-                : synthParameters.membraneSynth.envelope[param.param]
+              param.parent === 0
+                ? synthParameters[synthType][param.param]
+                : synthParameters[synthType][param.parent][param.param]
             }
-            onChange={async value => {
+            onChange={value => {
               let fullParams = { ...synthParameters };
-              let params = { ...fullParams.membraneSynth };
-              if (param.level === 0) {
+              let params = { ...fullParams[synthType] };
+              if (param.parent === 0) {
                 params[param.param] = value;
               } else {
-                let envelope = { ...params.envelope };
-                envelope[param.param] = value;
-                params.envelope = envelope;
+                let theParent = { ...params[param.parent] };
+                theParent[param.param] = value;
+                params[param.parent] = theParent;
               }
-              fullParams.membraneSynth = params;
-              await onSynthEdit(fullParams);
+              fullParams[synthType] = params;
+              console.log(fullParams);
+              onSynthEdit(fullParams);
             }}
           />
         );
-      })}
-      <Fader />
+      })} */}
+      <div className="row width align j_space">
+        <Fader name="modFreq" value="" callbackValue={(value) => {}} />
+        <Fader
+          name="modIndex"
+          value={synthParameters.fmSynth.modulationIndex / 100}
+          callbackValue={(value) => {
+            let fullParams = { ...synthParameters };
+            let params = { ...fullParams.fmSynth };
+
+            value = value * 10; //
+            value = Math.round(value);
+            value = value / 10;
+
+            params.modulationIndex = value * 100;
+            fullParams.fmSynth = params;
+            console.log(fullParams);
+            onSynthEdit(fullParams);
+          }}
+        />
+      </div>
     </div>
   );
 };

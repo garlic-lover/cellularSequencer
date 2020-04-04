@@ -4,13 +4,10 @@ import * as Tone from "tone";
 
 import SynthParams from "./SynthParams";
 
-//Import of functions
-import getIndexes from "../../functions/getIndexes";
-import crazyNotesStyle from "../../functions/crazyNotesStyle";
-
 import { synthEdit } from "../../actions";
 
 class SynthConainer extends React.Component {
+  state = { currentlyPlayed: [] };
   //create a synth and connect it to the master output (your speakers)
 
   chorus = new Tone.Chorus(2).toMaster();
@@ -19,66 +16,61 @@ class SynthConainer extends React.Component {
     this.props.synthParameters.membraneSynth
   ).connect(this.chorus);
 
-  fmSynth = new Tone.FMSynth().toMaster();
+  //a polysynth composed of 4 Voices of Synth
+  synth = new Tone.PolySynth(
+    Tone.FMSynth,
+    this.props.synthParameters.fmSynth
+  ).toDestination();
 
-  //a polysynth composed of 6 Voices of Synth
-  fmSynth = new Tone.PolySynth(6, Tone.FMSynth).toMaster();
+  /*   fmSynth0 = new Tone.FMSynth().toMaster();
+  fmSynth1 = new Tone.FMSynth().toMaster();
+  fmSynth2 = new Tone.FMSynth().toMaster();
+  fmSynth3 = new Tone.FMSynth().toMaster(); */
 
-  playSound = data => {
-    if (!data) {
-      return;
+  /*   polyPlay = async () => {
+    let current = this.props.notes.current;
+    let previous = this.props.notes.previous;
+    if (current.length > 0) {
+      for (let i = 0; i < 4; i++) {
+        let synth = "fmSynth" + i;
+        if (previous.indexOf(current[i]) !== -1) {
+          let index = previous.indexOf(current[i]) + 1;
+          synth = "fmSynth" + index;
+          console.log(synth);
+        }
+        this[synth].triggerAttackRelease(current[i], "4n");
+      }
     }
+  }; */
 
-    let note = crazyNotesStyle(
-      data,
-      this.props.scale,
-      this.props.gridSize.y,
-      this.props.gridSize.x,
-      this.props.base,
-      this.props.octavesRange
-    );
-    //play a middle 'C' for the duration of an 8th note
-    if (note === false) {
-      return;
-    }
-    this.synth.triggerAttackRelease(note, "8n");
-  };
-
-  polyPlay = tab => {
-    this.fmSynth.triggerAttackRelease(["C4", "E4", "A4"], "4n");
+  polyPlay = () => {
+    this.synth.triggerAttackRelease(this.props.notes.current, "4n");
   };
 
   onEditParams = () => {
-    this.synth = new Tone.MembraneSynth(
-      this.props.synthParameters.membraneSynth
-    ).connect(this.chorus);
+    //a polysynth composed of 4 Voices of Synth
+    this.synth = new Tone.PolySynth(
+      Tone.FMSynth,
+      this.props.synthParameters.fmSynth
+    ).toDestination();
   };
 
   render = () => {
-    let cells = this.props.cells;
-    let already = false;
-    for (let i = 0; i < cells.length; i++) {
-      let indexes = getIndexes(cells, { x: cells[i].x, y: cells[i].y });
-      if (already === false && indexes.tab.length > 1) {
-        if (this.props.synthParameters.synthOn === true) {
-          this.playSound(indexes.tab[0]);
-          already = true;
-        }
-      }
-    }
+    this.polyPlay();
     return (
       <SynthParams
         synthParameters={this.props.synthParameters}
-        onSynthEdit={params => {
-          this.props.onSynthEdit(params);
+        onSynthEdit={async (params) => {
+          await this.props.onSynthEdit(params);
           this.onEditParams();
         }}
+        synthType="membraneSynth"
       />
     );
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
@@ -86,15 +78,16 @@ const mapStateToProps = state => {
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
     synthParameters: state.synthParameters,
-    midi: state.gridManager.midiData
+    midi: state.gridManager.midiData,
+    notes: state.gridManager.notes,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onSynthEdit: params => {
+    onSynthEdit: (params) => {
       return dispatch(synthEdit(params));
-    }
+    },
   };
 };
 
