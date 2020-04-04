@@ -78,6 +78,7 @@ const initialStateSynth = {
     harmonicity: 2,
     modulationIndex: 0,
     detune: 5,
+    volume: -15,
     oscillator: {
       type: "sine",
     },
