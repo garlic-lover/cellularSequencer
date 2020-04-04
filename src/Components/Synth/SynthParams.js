@@ -1,5 +1,18 @@
 import React from "react";
 
+/* 
+Un gros slider accessible sur le côté de la grille ; 
+En appuyant sur un bouton on voit les paramètres sans style css pour modifier la 
+manière dont le gros slider va agir. Ce dernier est un bouton macro.
+
+En fonction des couleurs des blocs, jouer des instruments différents
+
+Give special properties to some of the cells : they can change the scale or other
+parameters depending on their lifepoint
+
+Drum sounds are triggered by wall contact or by a different sequencer ? 
+*/
+
 //Import of components
 import Fader from "./Fader";
 import Parameter from "./Parameter";

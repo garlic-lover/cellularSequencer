@@ -10,15 +10,17 @@ import BoardContainer from "./Components/Board/BoardContainer";
 import SynthContainer from "./Components/Synth/SynthContainer";
 import SiderContainer from "./Components/Sider/SiderContainer";
 import Drums from "./Components/Synth/Drums";
+import MidiContainer from "./Components/Midi/MidiContainer";
 
 function App() {
   return (
     <div className="App">
-      {/*       <header className="row j_center">My super app</header> */}
+      <header className="row j_center">My super app</header>
       <BoardContainer />
       <SiderContainer />
       <SynthContainer />
       <Drums />
+      <MidiContainer />
     </div>
   );
 }
