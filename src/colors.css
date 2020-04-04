@@ -78,3 +78,43 @@
   background-repeat: no-repeat;
   background-position: center; */
 }
+
+/* Background colors */
+.backGrey {
+  background-color: #b4b4b4;
+}
+
+/* .backBlue {
+  background-color: #1a54c1;
+} */
+
+.backBlue {
+  background-color: #5d96ff;
+}
+
+.backSalmon {
+  background-color: lightsalmon;
+}
+
+.backWhite {
+  background-color: white;
+}
+
+/* Font colors */
+.white {
+  color: white;
+}
+
+.blue {
+  color: #1a54c1;
+}
+
+.darkGrey {
+  color: #4d4f5c;
+}
+
+.lightGrey {
+  color: #b4b4b4;
+}
+
+/* Border Colors */

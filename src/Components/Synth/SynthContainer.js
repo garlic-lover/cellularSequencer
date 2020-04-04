@@ -10,42 +10,21 @@ class SynthConainer extends React.Component {
   state = { currentlyPlayed: [] };
   //create a synth and connect it to the master output (your speakers)
 
-  distorsion = new Tone.PingPongDelay({
+  delay = new Tone.PingPongDelay({
     delayTime: 60 / this.props.tempo,
     feedback: 0.1,
     wet: 0.3,
   }).toMaster();
 
-  synth = new Tone.MembraneSynth(
-    this.props.synthParameters.membraneSynth
-  ).connect(this.distorsion);
+  synth = new Tone.FMSynth(this.props.synthParameters.membraneSynth).connect(
+    this.delay
+  );
 
   //a polysynth composed of 4 Voices of Synth
   synth = new Tone.PolySynth(
-    Tone.FMSynth,
+    Tone.MembraneSynth,
     this.props.synthParameters.fmSynth
-  ).connect(this.distorsion);
-
-  /*   fmSynth0 = new Tone.FMSynth().toMaster();
-  fmSynth1 = new Tone.FMSynth().toMaster();
-  fmSynth2 = new Tone.FMSynth().toMaster();
-  fmSynth3 = new Tone.FMSynth().toMaster(); */
-
-  /*   polyPlay = async () => {
-    let current = this.props.notes.current;
-    let previous = this.props.notes.previous;
-    if (current.length > 0) {
-      for (let i = 0; i < 4; i++) {
-        let synth = "fmSynth" + i;
-        if (previous.indexOf(current[i]) !== -1) {
-          let index = previous.indexOf(current[i]) + 1;
-          synth = "fmSynth" + index;
-          console.log(synth);
-        }
-        this[synth].triggerAttackRelease(current[i], "4n");
-      }
-    }
-  }; */
+  ).connect(this.delay);
 
   polyPlay = () => {
     this.synth.triggerAttackRelease(this.props.notes.current, "4n");
@@ -53,14 +32,24 @@ class SynthConainer extends React.Component {
 
   onEditParams = () => {
     //a polysynth composed of 4 Voices of Synth
-    this.synth = new Tone.PolySynth(
-      Tone.FMSynth,
-      this.props.synthParameters.fmSynth
-    ).connect(this.distorsion);
+    if (this.props.synthParameters.delayOn === true) {
+      this.synth = new Tone.PolySynth(
+        Tone.FMSynth,
+        this.props.synthParameters.fmSynth
+      ).connect(this.delay);
+    } else {
+      console.log("IsOff");
+      this.synth = new Tone.PolySynth(
+        Tone.FMSynth,
+        this.props.synthParameters.fmSynth
+      ).toDestination();
+    }
   };
 
   render = () => {
-    this.polyPlay();
+    if (this.props.synthParameters.synthOn === true) {
+      this.polyPlay();
+    }
     return (
       <SynthParams
         synthParameters={this.props.synthParameters}

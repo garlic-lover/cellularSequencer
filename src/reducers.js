@@ -68,37 +68,38 @@ const initialStateSynth = {
     },
     envelope: {
       attack: 0.001,
-      decay: 0,
+      decay: 0.0,
       sustain: 0.01,
       release: 1.4,
       attackCurve: "exponential",
     },
   },
   fmSynth: {
-    harmonicity: 3,
+    harmonicity: 2,
     modulationIndex: 20,
-    detune: 1,
+    detune: 5,
     oscillator: {
       type: "sine",
     },
     envelope: {
       attack: 0.01,
-      decay: 0.05,
+      decay: 0.03,
       sustain: 0.5,
       release: 0.5,
     },
     modulation: {
-      type: "sine",
+      type: "square",
     },
     modulationEnvelope: {
       attack: 0.01,
-      decay: 0.5,
+      decay: 0.03,
       sustain: 1,
       release: 0.5,
     },
   },
   synthOn: true,
   drumsOn: false,
+  delayOn: true,
 };
 
 function synthParameters(state = initialStateSynth, action) {

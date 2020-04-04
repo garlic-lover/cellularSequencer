@@ -16,13 +16,13 @@ Drum sounds are triggered by wall contact or by a different sequencer ?
 //Import of components
 import Fader from "./Fader";
 import Parameter from "./Parameter";
+import Switch from "../Sider/Switch";
 
 import ParametersList from "./ParametersList";
 
 const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
   return (
     <div id="SynthBar" onClick={() => {}}>
-      <h3>Synth</h3>
       {/* {ParametersList[synthType].map((param, index) => {
         return (
           <Parameter
@@ -55,31 +55,31 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
         );
       })} */}
       <div className="row width align j_space">
-        <div>
-          <h3>Modulator Frequency</h3>
+        <div className="column align">
+          <h3>FM1</h3>
           <Fader
             name="modFreq"
-            value={synthParameters.fmSynth.harmonicity / 6}
+            value={synthParameters.fmSynth.harmonicity / 4}
             callbackValue={(value) => {
               let fullParams = { ...synthParameters };
               let params = { ...fullParams.fmSynth };
 
-              value = value * 60; //
+              value = value * 40; //
               value = Math.round(value);
               value = value / 10;
-              if (value % 1 !== 0) {
+              /* if (value % 1 !== 0) {
                 return;
-              }
+              } */
 
-              params.harmonicity = value * 6;
+              params.harmonicity = value * 4;
               fullParams.fmSynth = params;
               console.log(fullParams);
               onSynthEdit(fullParams);
             }}
           />
         </div>
-        <div>
-          <h3>Mod index</h3>
+        <div className="column align">
+          <h3>FM2</h3>
           <Fader
             name="modIndex"
             value={synthParameters.fmSynth.modulationIndex / 50}
@@ -87,12 +87,10 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
               let fullParams = { ...synthParameters };
               let params = { ...fullParams.fmSynth };
               value = value * 50;
-              /*             value = value * 10; //
-            value = Math.round(value);
-            value = value / 10; */
-              if (value % 1 !== 0) {
+
+              /* if (value % 1 !== 0) {
                 return;
-              }
+              } */
               console.log(value);
               params.modulationIndex = value;
               fullParams.fmSynth = params;
@@ -101,6 +99,39 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
             }}
           />
         </div>
+      </div>
+      <div className="width column align">
+        <h3>Synth</h3>
+        <Switch
+          state={synthParameters.synthOn}
+          toggle={() => {
+            let params = { ...synthParameters };
+            params.synthOn = !synthParameters.synthOn;
+            onSynthEdit(params);
+          }}
+        />
+      </div>
+      <div className="width column align">
+        <h3>Delay</h3>
+        <Switch
+          state={synthParameters.delayOn}
+          toggle={() => {
+            let params = { ...synthParameters };
+            params.delayOn = !synthParameters.delayOn;
+            onSynthEdit(params);
+          }}
+        />
+      </div>
+      <div className="width column align">
+        <h3>Drums</h3>
+        <Switch
+          state={synthParameters.drumsOn}
+          toggle={() => {
+            let params = { ...synthParameters };
+            params.drumsOn = !synthParameters.drumsOn;
+            onSynthEdit(params);
+          }}
+        />
       </div>
     </div>
   );

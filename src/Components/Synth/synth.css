@@ -1,7 +1,7 @@
 #SynthBar {
   background-color: white;
-  height: 350px;
-  width: 50px;
+  height: 500px;
+  width: 80px;
   padding: 10px 15px;
   border-radius: 5px 0 0 5px;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
@@ -38,7 +38,7 @@
   border-radius: 50%;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 1px 2px 8px #00000031;
-  border: 2px solid #1a54c1;
+  border: 2px solid #5d96ff;
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
