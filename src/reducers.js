@@ -54,17 +54,19 @@ function gridManager(state = initialStateGrid, action) {
 }
 
 const initialStateSynth = {
-  pitchDecay: 0,
-  octaves: 2,
-  oscillator: {
-    type: "sine"
-  },
-  envelope: {
-    attack: 0.001,
-    decay: 0,
-    sustain: 0.01,
-    release: 1.4,
-    attackCurve: "exponential"
+  membraneSynth: {
+    pitchDecay: 0,
+    octaves: 2,
+    oscillator: {
+      type: "sine"
+    },
+    envelope: {
+      attack: 0.001,
+      decay: 0,
+      sustain: 0.01,
+      release: 1.4,
+      attackCurve: "exponential"
+    }
   },
   synthOn: true,
   drumsOn: false

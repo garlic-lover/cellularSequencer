@@ -15,9 +15,9 @@ class SynthConainer extends React.Component {
 
   chorus = new Tone.Chorus(2).toMaster();
 
-  synth = new Tone.MembraneSynth(this.props.synthParameters).connect(
-    this.chorus
-  );
+  synth = new Tone.MembraneSynth(
+    this.props.synthParameters.membraneSynth
+  ).connect(this.chorus);
 
   fmSynth = new Tone.FMSynth().toMaster();
 
@@ -49,9 +49,9 @@ class SynthConainer extends React.Component {
   };
 
   onEditParams = () => {
-    this.synth = new Tone.MembraneSynth(this.props.synthParameters).connect(
-      this.chorus
-    );
+    this.synth = new Tone.MembraneSynth(
+      this.props.synthParameters.membraneSynth
+    ).connect(this.chorus);
   };
 
   render = () => {

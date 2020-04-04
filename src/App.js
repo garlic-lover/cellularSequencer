@@ -15,7 +15,7 @@ import MidiContainer from "./Components/Midi/MidiContainer";
 function App() {
   return (
     <div className="App">
-      <header className="row j_center">My super app</header>
+      <header className="row j_center">The Cell Sequencer</header>
       <BoardContainer />
       <SiderContainer />
       <SynthContainer />

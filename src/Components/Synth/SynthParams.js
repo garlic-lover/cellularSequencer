@@ -26,11 +26,13 @@ const SynthParams = ({ synthParameters, onSynthEdit }) => {
       <div className="parameter">
         <h3>Wave type</h3>
         <select
-          value={synthParameters.oscillator.type}
+          value={synthParameters.membraneSynth.oscillator.type}
           onChange={async event => {
-            let params = { ...synthParameters };
+            let fullParams = { ...synthParameters };
+            let params = { ...fullParams.membraneSynth };
             params.oscillator = { type: event.target.value };
-            await onSynthEdit(params);
+            fullParams.membraneSynth = params;
+            await onSynthEdit(fullParams);
           }}
         >
           <option value="sawtooth">Sawtooth</option>
@@ -48,11 +50,12 @@ const SynthParams = ({ synthParameters, onSynthEdit }) => {
             step={param.step}
             value={
               param.level === 0
-                ? synthParameters[param.param]
-                : synthParameters.envelope[param.param]
+                ? synthParameters.membraneSynth[param.param]
+                : synthParameters.membraneSynth.envelope[param.param]
             }
             onChange={async value => {
-              let params = { ...synthParameters };
+              let fullParams = { ...synthParameters };
+              let params = { ...fullParams.membraneSynth };
               if (param.level === 0) {
                 params[param.param] = value;
               } else {
@@ -60,8 +63,8 @@ const SynthParams = ({ synthParameters, onSynthEdit }) => {
                 envelope[param.param] = value;
                 params.envelope = envelope;
               }
-
-              await onSynthEdit(params);
+              fullParams.membraneSynth = params;
+              await onSynthEdit(fullParams);
             }}
           />
         );
