@@ -55,24 +55,52 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
         );
       })} */}
       <div className="row width align j_space">
-        <Fader name="modFreq" value="" callbackValue={(value) => {}} />
-        <Fader
-          name="modIndex"
-          value={synthParameters.fmSynth.modulationIndex / 100}
-          callbackValue={(value) => {
-            let fullParams = { ...synthParameters };
-            let params = { ...fullParams.fmSynth };
+        <div>
+          <h3>Modulator Frequency</h3>
+          <Fader
+            name="modFreq"
+            value={synthParameters.fmSynth.harmonicity / 6}
+            callbackValue={(value) => {
+              let fullParams = { ...synthParameters };
+              let params = { ...fullParams.fmSynth };
 
-            value = value * 10; //
+              value = value * 60; //
+              value = Math.round(value);
+              value = value / 10;
+              if (value % 1 !== 0) {
+                return;
+              }
+
+              params.harmonicity = value * 6;
+              fullParams.fmSynth = params;
+              console.log(fullParams);
+              onSynthEdit(fullParams);
+            }}
+          />
+        </div>
+        <div>
+          <h3>Mod index</h3>
+          <Fader
+            name="modIndex"
+            value={synthParameters.fmSynth.modulationIndex / 50}
+            callbackValue={(value) => {
+              let fullParams = { ...synthParameters };
+              let params = { ...fullParams.fmSynth };
+              value = value * 50;
+              /*             value = value * 10; //
             value = Math.round(value);
-            value = value / 10;
-
-            params.modulationIndex = value * 100;
-            fullParams.fmSynth = params;
-            console.log(fullParams);
-            onSynthEdit(fullParams);
-          }}
-        />
+            value = value / 10; */
+              if (value % 1 !== 0) {
+                return;
+              }
+              console.log(value);
+              params.modulationIndex = value;
+              fullParams.fmSynth = params;
+              console.log(fullParams);
+              onSynthEdit(fullParams);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

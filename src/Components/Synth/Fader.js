@@ -20,7 +20,9 @@ class Fader extends React.Component {
     );
     this.setState({
       faderHeight: faderContainer.clientHeight,
-      faderPosition: faderContainer.clientHeight * this.props.value,
+      faderPosition:
+        faderContainer.clientHeight -
+        faderContainer.clientHeight * this.props.value,
     });
 
     fader.addEventListener("mousedown", (e) => {
@@ -37,6 +39,11 @@ class Fader extends React.Component {
           this.setState({
             faderPosition: this.state.faderStaticPosition - diff,
           });
+          // The callback sends a value between 0 and 1
+          this.props.callbackValue(
+            (this.state.faderHeight - this.state.faderPosition) /
+              this.state.faderHeight
+          );
         }
       }
     });
@@ -46,11 +53,6 @@ class Fader extends React.Component {
         mouseDown: false,
         faderStaticPosition: this.state.faderPosition,
       });
-      // The callback sends a value between 0 and 1
-      this.props.callbackValue(
-        (this.state.faderHeight - this.state.faderPosition) /
-          this.state.faderHeight
-      );
     });
   };
 

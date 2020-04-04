@@ -76,23 +76,23 @@ const initialStateSynth = {
   },
   fmSynth: {
     harmonicity: 3,
-    modulationIndex: 0,
+    modulationIndex: 20,
     detune: 1,
     oscillator: {
       type: "sine",
     },
     envelope: {
       attack: 0.01,
-      decay: 0.01,
-      sustain: 1,
+      decay: 0.05,
+      sustain: 0.5,
       release: 0.5,
     },
     modulation: {
       type: "sine",
     },
     modulationEnvelope: {
-      attack: 0.5,
-      decay: 0,
+      attack: 0.01,
+      decay: 0.5,
       sustain: 1,
       release: 0.5,
     },

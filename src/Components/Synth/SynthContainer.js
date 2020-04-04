@@ -10,17 +10,21 @@ class SynthConainer extends React.Component {
   state = { currentlyPlayed: [] };
   //create a synth and connect it to the master output (your speakers)
 
-  chorus = new Tone.Chorus(2).toMaster();
+  distorsion = new Tone.PingPongDelay({
+    delayTime: 60 / this.props.tempo,
+    feedback: 0.1,
+    wet: 0.3,
+  }).toMaster();
 
   synth = new Tone.MembraneSynth(
     this.props.synthParameters.membraneSynth
-  ).connect(this.chorus);
+  ).connect(this.distorsion);
 
   //a polysynth composed of 4 Voices of Synth
   synth = new Tone.PolySynth(
     Tone.FMSynth,
     this.props.synthParameters.fmSynth
-  ).toDestination();
+  ).connect(this.distorsion);
 
   /*   fmSynth0 = new Tone.FMSynth().toMaster();
   fmSynth1 = new Tone.FMSynth().toMaster();
@@ -52,7 +56,7 @@ class SynthConainer extends React.Component {
     this.synth = new Tone.PolySynth(
       Tone.FMSynth,
       this.props.synthParameters.fmSynth
-    ).toDestination();
+    ).connect(this.distorsion);
   };
 
   render = () => {
@@ -74,6 +78,7 @@ const mapStateToProps = (state) => {
   return {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
+    tempo: state.gridManager.parameters.tempo,
     scale: state.gridManager.parameters.scale,
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
