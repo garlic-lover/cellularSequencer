@@ -74,46 +74,51 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
           );
         })}
       {synthParameters.instrument === "fmSynth" && (
-        <div className="row width align j_space">
-          <div className="column align">
-            <h3>FM1</h3>
-            <Fader
-              name="modFreq"
-              value={synthParameters.fmSynth.harmonicity / 4}
-              callbackValue={(value) => {
-                let fullParams = { ...synthParameters };
-                let params = { ...fullParams.fmSynth };
-
-                value = value * 10; //
-                value = Math.round(value);
-                value = value / 10;
-                /* if (value % 1 !== 0) {
-                return;
-              } */
-
-                params.harmonicity = value * 4;
-                fullParams.fmSynth = params;
-                onSynthEdit(fullParams);
-              }}
-            />
+        <div className="width column align">
+          <div style={{ marginBottom: 5 }}>
+            <h3>FM params</h3>
           </div>
-          <div className="column align">
-            <h3>FM2</h3>
-            <Fader
-              name="modIndex"
-              value={synthParameters.fmSynth.modulationIndex / 25}
-              callbackValue={(value) => {
-                let fullParams = { ...synthParameters };
-                let params = { ...fullParams.fmSynth };
-                value = value * 25;
-                /* if (value % 1 !== 0) {
+          <div className="row width align j_space">
+            <div className="column align">
+              <div>Freq</div>
+              <Fader
+                name="modFreq"
+                value={synthParameters.fmSynth.harmonicity / 4}
+                callbackValue={(value) => {
+                  let fullParams = { ...synthParameters };
+                  let params = { ...fullParams.fmSynth };
+
+                  value = value * 10; //
+                  value = Math.round(value);
+                  value = value / 10;
+                  /* if (value % 1 !== 0) {
                 return;
               } */
-                params.modulationIndex = value;
-                fullParams.fmSynth = params;
-                onSynthEdit(fullParams);
-              }}
-            />
+
+                  params.harmonicity = value * 4;
+                  fullParams.fmSynth = params;
+                  onSynthEdit(fullParams);
+                }}
+              />
+            </div>
+            <div className="column align">
+              <div>Level</div>
+              <Fader
+                name="modIndex"
+                value={synthParameters.fmSynth.modulationIndex / 25}
+                callbackValue={(value) => {
+                  let fullParams = { ...synthParameters };
+                  let params = { ...fullParams.fmSynth };
+                  value = value * 25;
+                  /* if (value % 1 !== 0) {
+                return;
+              } */
+                  params.modulationIndex = value;
+                  fullParams.fmSynth = params;
+                  onSynthEdit(fullParams);
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
