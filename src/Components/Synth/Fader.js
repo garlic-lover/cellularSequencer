@@ -60,7 +60,7 @@ class Fader extends React.Component {
 
     fader.addEventListener("mousedown", this.mouseDown);
 
-    faderContainer.addEventListener("mousemove", this.mouseMove);
+    document.addEventListener("mousemove", this.mouseMove);
 
     document.addEventListener("mouseup", this.mouseUp);
   };
@@ -71,7 +71,7 @@ class Fader extends React.Component {
       "faderContainer" + this.props.name
     );
     fader.removeEventListener("mousedown", this.mouseDown);
-    faderContainer.removeEventListener("mousemove", this.mouseMove);
+    document.removeEventListener("mousemove", this.mouseMove);
     document.removeEventListener("mouseup", this.mouseUp);
   };
 
