@@ -3,14 +3,47 @@ import React from "react";
 class Fader extends React.Component {
   constructor(props) {
     super(props);
+    this.mouseDown = this.onMouseDown.bind(this);
+    this.mouseMove = this.onMouseMove.bind(this);
+    this.mouseUp = this.onMouseUp.bind(this);
     this.state = {
       mouseDown: false,
       faderPosition: 0,
       faderStaticPosition: 0,
       faderHeight: "",
-      onClickPosition: 300,
+      onClickPosition: "",
     };
   }
+
+  onMouseDown = (e) => {
+    this.setState({ mouseDown: true, onClickPosition: e.y });
+  };
+
+  onMouseMove = (e) => {
+    if (this.state.mouseDown === true) {
+      let diff = this.state.onClickPosition - e.clientY;
+      if (
+        this.state.faderStaticPosition - diff > 0 &&
+        this.state.faderStaticPosition - diff < this.state.faderHeight
+      ) {
+        this.setState({
+          faderPosition: this.state.faderStaticPosition - diff,
+        });
+      }
+    }
+  };
+
+  onMouseUp = (e) => {
+    this.setState({
+      mouseDown: false,
+      faderStaticPosition: this.state.faderPosition,
+    });
+    // The callback sends a value between 0 and 1
+    this.props.callbackValue(
+      (this.state.faderHeight - this.state.faderPosition) /
+        this.state.faderHeight
+    );
+  };
 
   componentDidMount = () => {
     // Event listeners to manage the movement of the fader
@@ -25,35 +58,21 @@ class Fader extends React.Component {
         faderContainer.clientHeight * this.props.value,
     });
 
-    fader.addEventListener("mousedown", (e) => {
-      this.setState({ mouseDown: true, onClickPosition: e.y });
-    });
+    fader.addEventListener("mousedown", this.mouseDown);
 
-    faderContainer.addEventListener("mousemove", (e) => {
-      if (this.state.mouseDown === true) {
-        let diff = this.state.onClickPosition - e.clientY;
-        if (
-          this.state.faderStaticPosition - diff > 0 &&
-          this.state.faderStaticPosition - diff < this.state.faderHeight
-        ) {
-          this.setState({
-            faderPosition: this.state.faderStaticPosition - diff,
-          });
-        }
-      }
-    });
+    faderContainer.addEventListener("mousemove", this.mouseMove);
 
-    document.addEventListener("mouseup", (e) => {
-      this.setState({
-        mouseDown: false,
-        faderStaticPosition: this.state.faderPosition,
-      });
-      // The callback sends a value between 0 and 1
-      this.props.callbackValue(
-        (this.state.faderHeight - this.state.faderPosition) /
-          this.state.faderHeight
-      );
-    });
+    document.addEventListener("mouseup", this.mouseUp);
+  };
+
+  componentWillUnmount = () => {
+    let fader = document.getElementById("fader" + this.props.name);
+    let faderContainer = document.getElementById(
+      "faderContainer" + this.props.name
+    );
+    fader.removeEventListener("mousedown", this.mouseDown);
+    faderContainer.removeEventListener("mousemove", this.mouseMove);
+    document.removeEventListener("mouseup", this.mouseUp);
   };
 
   render = () => {

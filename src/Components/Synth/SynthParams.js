@@ -22,116 +22,120 @@ import ParametersList from "./ParametersList";
 
 const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
   return (
-    <div id="SynthBar" onClick={() => {}}>
-      {/* {ParametersList[synthType].map((param, index) => {
-        return (
-          <Parameter
-            key={index}
-            type={param.type}
-            label={param.label}
-            min={param.min}
-            step={param.step}
-            options={param.options}
-            value={
-              param.parent === 0
-                ? synthParameters[synthType][param.param]
-                : synthParameters[synthType][param.parent][param.param]
-            }
-            onChange={value => {
-              let fullParams = { ...synthParameters };
-              let params = { ...fullParams[synthType] };
-              if (param.parent === 0) {
-                params[param.param] = value;
-              } else {
-                let theParent = { ...params[param.parent] };
-                theParent[param.param] = value;
-                params[param.parent] = theParent;
+    <div id="SynthBar">
+      <div className="parameter">
+        <h3>Instrument</h3>
+        <select
+          value={synthParameters.instrument}
+          onChange={(event) => {
+            let fullParams = { ...synthParameters };
+            fullParams.instrument = event.target.value;
+            onSynthEdit(fullParams);
+          }}
+        >
+          {ParametersList.generalParams[0].options.map((option, index) => {
+            return (
+              <option value={option} key={index}>
+                {option}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      {synthParameters.instrument === "membraneSynth" &&
+        ParametersList[synthType].map((param, index) => {
+          return (
+            <Parameter
+              key={index}
+              type={param.type}
+              label={param.label}
+              min={param.min}
+              step={param.step}
+              options={param.options}
+              value={
+                param.parent === 0
+                  ? synthParameters[synthType][param.param]
+                  : synthParameters[synthType][param.parent][param.param]
               }
-              fullParams[synthType] = params;
-              console.log(fullParams);
-              onSynthEdit(fullParams);
-            }}
-          />
-        );
-      })} */}
-      <div className="row width align j_space">
-        <div className="column align">
-          <h3>FM1</h3>
-          <Fader
-            name="modFreq"
-            value={synthParameters.fmSynth.harmonicity / 4}
-            callbackValue={(value) => {
-              let fullParams = { ...synthParameters };
-              let params = { ...fullParams.fmSynth };
+              onChange={(value) => {
+                let fullParams = { ...synthParameters };
+                let params = { ...fullParams[synthType] };
+                if (param.parent === 0) {
+                  params[param.param] = value;
+                } else {
+                  let theParent = { ...params[param.parent] };
+                  theParent[param.param] = value;
+                  params[param.parent] = theParent;
+                }
+                fullParams[synthType] = params;
+                onSynthEdit(fullParams);
+              }}
+            />
+          );
+        })}
+      {synthParameters.instrument === "fmSynth" && (
+        <div className="row width align j_space">
+          <div className="column align">
+            <h3>FM1</h3>
+            <Fader
+              name="modFreq"
+              value={synthParameters.fmSynth.harmonicity / 4}
+              callbackValue={(value) => {
+                let fullParams = { ...synthParameters };
+                let params = { ...fullParams.fmSynth };
 
-              value = value * 40; //
-              value = Math.round(value);
-              value = value / 10;
-              /* if (value % 1 !== 0) {
+                value = value * 10; //
+                value = Math.round(value);
+                value = value / 10;
+                /* if (value % 1 !== 0) {
                 return;
               } */
 
-              params.harmonicity = value * 4;
-              fullParams.fmSynth = params;
-              console.log(fullParams);
-              onSynthEdit(fullParams);
-            }}
-          />
-        </div>
-        <div className="column align">
-          <h3>FM2</h3>
-          <Fader
-            name="modIndex"
-            value={synthParameters.fmSynth.modulationIndex / 25}
-            callbackValue={(value) => {
-              let fullParams = { ...synthParameters };
-              let params = { ...fullParams.fmSynth };
-              value = value * 25;
-
-              /* if (value % 1 !== 0) {
+                params.harmonicity = value * 4;
+                fullParams.fmSynth = params;
+                onSynthEdit(fullParams);
+              }}
+            />
+          </div>
+          <div className="column align">
+            <h3>FM2</h3>
+            <Fader
+              name="modIndex"
+              value={synthParameters.fmSynth.modulationIndex / 25}
+              callbackValue={(value) => {
+                let fullParams = { ...synthParameters };
+                let params = { ...fullParams.fmSynth };
+                value = value * 25;
+                /* if (value % 1 !== 0) {
                 return;
               } */
-              console.log(value);
-              params.modulationIndex = value;
-              fullParams.fmSynth = params;
-              console.log(fullParams);
-              onSynthEdit(fullParams);
-            }}
-          />
+                params.modulationIndex = value;
+                fullParams.fmSynth = params;
+                onSynthEdit(fullParams);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="width column align">
-        <h3>Synth</h3>
-        <Switch
-          state={synthParameters.synthOn}
-          toggle={() => {
-            let params = { ...synthParameters };
-            params.synthOn = !synthParameters.synthOn;
-            onSynthEdit(params);
-          }}
-        />
-      </div>
-      <div className="width column align">
-        <h3>Delay</h3>
-        <Switch
-          state={synthParameters.delayOn}
-          toggle={() => {
-            let params = { ...synthParameters };
-            params.delayOn = !synthParameters.delayOn;
-            onSynthEdit(params);
-          }}
-        />
-      </div>
-      <div className="width column align">
-        <h3>Drums</h3>
-        <Switch
-          state={synthParameters.drumsOn}
-          toggle={() => {
-            let params = { ...synthParameters };
-            params.drumsOn = !synthParameters.drumsOn;
-            onSynthEdit(params);
-          }}
-        />
+      )}
+      <div id="generalParamsBloc">
+        {ParametersList.generalParams.map((param, index) => {
+          if (index === 0) {
+            return null;
+          }
+          return (
+            <div key={index} className="switchContainer column align">
+              <h3>{param.label}</h3>
+              <Switch
+                state={synthParameters[param.param]}
+                toggle={() => {
+                  let params = { ...synthParameters };
+                  params[param.param] = !synthParameters[param.param];
+                  onSynthEdit(params);
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

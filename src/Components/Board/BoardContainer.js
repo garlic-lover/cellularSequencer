@@ -26,7 +26,7 @@ import {
   chaosMode,
   playStop,
   setGridSize,
-  midiSet
+  midiSet,
 } from "../../actions";
 
 //Import of midi channels in hexadecimal
@@ -41,14 +41,14 @@ class BoardContainer extends React.Component {
       height: 17,
       count: 0,
       displayCellDirection: false,
-      selectedCell: { x: "", y: "" }
+      selectedCell: { x: "", y: "" },
     };
   }
 
   midiConnect = async () => {
     let midi = null; // global MIDIAccess object
 
-    const onMIDISuccess = async midiAccess => {
+    const onMIDISuccess = async (midiAccess) => {
       console.log("MIDI ready!");
       midi = await midiAccess; // store in the global (in real usage, would probably keep in an object instance)
       this.listInputsAndOutputs(midi);
@@ -61,9 +61,9 @@ class BoardContainer extends React.Component {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
   };
 
-  listInputsAndOutputs = midiAccess => {
+  listInputsAndOutputs = (midiAccess) => {
     let midiData = { midiAccess: midiAccess, id: "" };
-    for (var entry of midiAccess.inputs) {
+    /*    for (var entry of midiAccess.inputs) {
       var input = entry[1];
       console.log(
         "Input port [type:'" +
@@ -78,7 +78,7 @@ class BoardContainer extends React.Component {
           input.version +
           "'"
       );
-    }
+    } */
     let availableOutputs = [];
     for (var entry of midiAccess.outputs) {
       var output = entry[1];
@@ -86,7 +86,7 @@ class BoardContainer extends React.Component {
       let theName = output.manufacturer + "-" + output.name;
       availableOutputs.push({
         name: theName,
-        id: output.id
+        id: output.id,
       });
     }
     if (availableOutputs.length !== 0) {
@@ -170,7 +170,7 @@ class BoardContainer extends React.Component {
       new Cell(0, 0),
       new Cell(15, 15),
       new Cell(0, 15),
-      new Cell(15, 0)
+      new Cell(15, 0),
     ];
     this.props.onMove(cells);
   };
@@ -209,7 +209,7 @@ class BoardContainer extends React.Component {
           onAddDeterministCell={(displayCellDirection, selectedCell) => {
             this.setState({
               displayCellDirection: displayCellDirection,
-              selectedCell: selectedCell
+              selectedCell: selectedCell,
             });
           }}
           tempo={this.props.tempo}
@@ -264,13 +264,13 @@ class BoardContainer extends React.Component {
               min={0}
               max={36}
               step={1}
-              onChange={event => {
+              onChange={(event) => {
                 let gridSize = { ...this.props.gridSize };
                 gridSize.y = event.target.value;
                 let array = arrayGenerator(gridSize.x, gridSize.y);
                 this.props.setGridSize({
                   x: gridSize.x,
-                  y: Number(event.target.value)
+                  y: Number(event.target.value),
                 });
                 this.props.onArrayModify(array);
               }}
@@ -283,13 +283,13 @@ class BoardContainer extends React.Component {
               min={0}
               max={36}
               step={1}
-              onChange={event => {
+              onChange={(event) => {
                 let gridSize = { ...this.props.gridSize };
                 gridSize.x = event.target.value;
                 let array = arrayGenerator(gridSize.x, gridSize.y);
                 this.props.setGridSize({
                   x: Number(event.target.value),
-                  y: gridSize.y
+                  y: gridSize.y,
                 });
                 this.props.onArrayModify(array);
               }}
@@ -327,7 +327,7 @@ class BoardContainer extends React.Component {
                       this.props.midi.selectedDevice
                     ].name
                   }
-                  onChange={event => {
+                  onChange={(event) => {
                     let midiObject = { ...this.props.midi };
                     midiObject.selectedDevice = event.target.value;
                     this.props.onMidiSet(midiObject);
@@ -346,7 +346,7 @@ class BoardContainer extends React.Component {
                 <div>Midi channel</div>
                 <select
                   value={this.props.midi.channel}
-                  onChange={event => {
+                  onChange={(event) => {
                     let midiObject = { ...this.props.midi };
                     midiObject.channel = event.target.value;
                     this.props.onMidiSet(midiObject);
@@ -390,7 +390,7 @@ class BoardContainer extends React.Component {
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     gridArray: state.gridManager.array,
     cells: state.gridManager.cells,
@@ -403,30 +403,30 @@ const mapStateToProps = state => {
     midi: state.gridManager.midiData,
     scale: state.gridManager.parameters.scale,
     base: state.gridManager.parameters.base,
-    octavesRange: state.gridManager.parameters.octavesRange
+    octavesRange: state.gridManager.parameters.octavesRange,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onArrayModify: array => {
+    onArrayModify: (array) => {
       dispatch(arrayModify(array));
     },
     onMove: (cells, notes) => {
       dispatch(cellsMove(cells, notes));
     },
-    onChaos: isChaos => {
+    onChaos: (isChaos) => {
       dispatch(chaosMode(isChaos));
     },
-    playStop: isPlaying => {
+    playStop: (isPlaying) => {
       dispatch(playStop(isPlaying));
     },
-    setGridSize: grid => {
+    setGridSize: (grid) => {
       dispatch(setGridSize(grid));
     },
-    onMidiSet: midi => {
+    onMidiSet: (midi) => {
       dispatch(midiSet(midi));
-    }
+    },
   };
 };
 

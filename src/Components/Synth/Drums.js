@@ -105,10 +105,10 @@ class Drums extends React.Component {
     F7: Indus_scratch,
     G7: Indus_hat,
     A7: Indus_clap2,
-    "A#7": Indus_clap
-  }).toMaster();
+    "A#7": Indus_clap,
+  }).toDestination();
 
-  playSound = data => {
+  playSound = (data) => {
     if (!data) {
       return;
     }
@@ -144,7 +144,7 @@ class Drums extends React.Component {
     return null;
   };
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
@@ -152,7 +152,7 @@ const mapStateToProps = state => {
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
     synthParameters: state.synthParameters,
-    midi: state.gridManager.midiData
+    midi: state.gridManager.midiData,
   };
 };
 

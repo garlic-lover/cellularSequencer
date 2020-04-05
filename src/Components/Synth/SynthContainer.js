@@ -14,41 +14,53 @@ class SynthConainer extends React.Component {
     delayTime: 60 / this.props.tempo,
     feedback: 0.1,
     wet: 0.3,
-  }).toMaster();
-
-  synth = new Tone.FMSynth(this.props.synthParameters.membraneSynth).connect(
-    this.delay
-  );
+  }).toDestination();
 
   //a polysynth composed of 4 Voices of Synth
   synth = new Tone.PolySynth(
     Tone.MembraneSynth,
     this.props.synthParameters.fmSynth
-  ).connect(this.delay);
+  ).toDestination();
 
   polyPlay = () => {
-    this.synth.triggerAttackRelease(this.props.notes.current, "4n");
+    if (this.props.notes.current.length > 0) {
+      this.synth.triggerAttackRelease(this.props.notes.current, "4n");
+    }
+  };
+
+  monoPlay = () => {
+    if (this.props.notes.current.length > 0) {
+      this.synth.triggerAttackRelease(this.props.notes.current[0], "4n");
+    }
   };
 
   onEditParams = () => {
+    let instrument = this.props.synthParameters.instrument;
+    let theInstument = "MembraneSynth";
+    if (instrument === "fmSynth") {
+      theInstument = "FMSynth";
+    }
     //a polysynth composed of 4 Voices of Synth
     if (this.props.synthParameters.delayOn === true) {
       this.synth = new Tone.PolySynth(
-        Tone.FMSynth,
-        this.props.synthParameters.fmSynth
+        Tone[theInstument],
+        this.props.synthParameters[instrument]
       ).connect(this.delay);
     } else {
-      console.log("IsOff");
       this.synth = new Tone.PolySynth(
-        Tone.FMSynth,
-        this.props.synthParameters.fmSynth
+        Tone[theInstument],
+        this.props.synthParameters[instrument]
       ).toDestination();
     }
   };
 
   render = () => {
     if (this.props.synthParameters.synthOn === true) {
-      this.polyPlay();
+      if (this.props.synthParameters.polyOn === true) {
+        this.polyPlay();
+      } else {
+        this.monoPlay();
+      }
     }
     return (
       <SynthParams
