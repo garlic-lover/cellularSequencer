@@ -6,6 +6,31 @@
   position: relative;
 }
 
+#boardContainer {
+  position: relative;
+}
+
+#paramHeader {
+  position: absolute;
+  top: 100px;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+#paramHeader div {
+  font-size: 18px;
+}
+
+.playStopContainer {
+  width: 200px;
+  justify-content: space-between;
+}
+
+.playStopContainer h2 {
+  font-size: 24px;
+}
+
 .square {
   height: 16px;
   width: 16px;
@@ -24,7 +49,7 @@
 .cellShadow {
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.2);
 }
 
 .circle {
@@ -33,7 +58,7 @@
   border-radius: 50%;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px px 0px rgba(50, 50, 50, 0.74);
   background-color: white;
   z-index: 99;
 }
@@ -60,6 +85,18 @@
   align-content: space-between;
 }
 
+@keyframes onAppearBis {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 20px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
 #optionsBar {
   width: 200px;
   min-height: 250px;
@@ -75,6 +112,8 @@
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  animation-name: onAppearBis;
+  animation-duration: 1s;
 }
 
 .optionButton {

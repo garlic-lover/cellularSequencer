@@ -15,7 +15,7 @@ const initialStateGrid = {
   array: [],
   cells: [],
   notes: { previous: [], current: [] },
-  gridSize: { x: 16, y: 16 },
+  gridSize: { x: 24, y: 24 },
   parameters: {
     scale: "mixolydian",
     octavesRange: 3,

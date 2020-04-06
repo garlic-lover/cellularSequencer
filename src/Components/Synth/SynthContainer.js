@@ -18,7 +18,7 @@ class SynthConainer extends React.Component {
 
   //a polysynth composed of 4 Voices of Synth
   synth = new Tone.PolySynth(
-    Tone.MembraneSynth,
+    Tone.FMSynth,
     this.props.synthParameters.fmSynth
   ).toDestination();
 
@@ -62,16 +62,20 @@ class SynthConainer extends React.Component {
         this.monoPlay();
       }
     }
-    return (
-      <SynthParams
-        synthParameters={this.props.synthParameters}
-        onSynthEdit={async (params) => {
-          await this.props.onSynthEdit(params);
-          this.onEditParams();
-        }}
-        synthType="membraneSynth"
-      />
-    );
+    if (this.props.displaySynth === true) {
+      return (
+        <SynthParams
+          synthParameters={this.props.synthParameters}
+          onSynthEdit={async (params) => {
+            console.log(params);
+            await this.props.onSynthEdit(params);
+            this.onEditParams();
+          }}
+        />
+      );
+    } else {
+      return null;
+    }
   };
 }
 

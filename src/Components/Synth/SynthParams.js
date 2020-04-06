@@ -43,7 +43,7 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
         </select>
       </div>
       {synthParameters.instrument === "membraneSynth" &&
-        ParametersList[synthType].map((param, index) => {
+        ParametersList.membraneSynth.map((param, index) => {
           return (
             <Parameter
               key={index}

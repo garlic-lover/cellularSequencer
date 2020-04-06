@@ -1,6 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import SynthContainer from "../Synth/SynthContainer";
+import SiderContainer from "../Sider/SiderContainer";
+import Drums from "../Synth/Drums";
+import MidiContainer from "../Midi/MidiContainer";
+import Switch from "../Sider/Switch";
+
 /* 
 Bonus : rajouter des cases folles
 
@@ -42,6 +48,9 @@ class BoardContainer extends React.Component {
       count: 0,
       displayCellDirection: false,
       selectedCell: { x: "", y: "" },
+      displaySynth: false,
+      displayBoard: false,
+      displayLife: false,
     };
   }
 
@@ -178,6 +187,77 @@ class BoardContainer extends React.Component {
   render = () => {
     return (
       <div id="boardContainer" className="column height align j_center">
+        <SynthContainer displaySynth={this.state.displaySynth} />
+        <Drums />
+        <MidiContainer />
+        {this.state.displayLife === true && <SiderContainer />}
+        <div id="paramHeader">
+          <div className="row align playStopContainer">
+            <h2
+              className="hover"
+              onClick={() => {
+                if (this.state.timer === "") {
+                  this.timerStart();
+                } else {
+                  window.clearInterval(this.state.timer);
+                  this.setState({ timer: "" });
+                  this.props.playStop(false);
+                }
+              }}
+            >
+              {this.state.timer === "" ? "Start" : "Pause"}
+            </h2>
+            <h2
+              className="hover"
+              onClick={() => {
+                this.props.onMove(
+                  newRandomCell(
+                    this.props.cells,
+                    this.props.gridSize.y,
+                    this.props.gridSize.x,
+                    this.props.life.lifePoints
+                  )
+                );
+                this.setState(this.state);
+              }}
+            >
+              New Cell
+            </h2>
+          </div>
+
+          <div className="row align">
+            <div className="row align" style={{ marginRight: 10 }}>
+              <div style={{ marginRight: 5 }}>Board</div>
+              <Switch
+                state={this.state.displayBoard}
+                toggle={() => {
+                  this.setState({ displayBoard: !this.state.displayBoard });
+                }}
+                color="backGreen"
+              />
+            </div>
+            <div className="row align" style={{ marginRight: 10 }}>
+              <div style={{ marginRight: 5 }}>Life</div>
+              <Switch
+                state={this.state.displayLife}
+                toggle={() => {
+                  this.setState({ displayLife: !this.state.displayLife });
+                }}
+                color="backPink"
+              />
+            </div>
+            <div className="row align">
+              <div style={{ marginRight: 5 }}>Sound</div>
+              <Switch
+                state={this.state.displaySynth}
+                toggle={() => {
+                  this.setState({ displaySynth: !this.state.displaySynth });
+                }}
+                color="backBlue"
+              />
+            </div>
+          </div>
+        </div>
         <Board
           array={this.props.gridArray}
           cells={this.props.cells}
@@ -214,169 +294,170 @@ class BoardContainer extends React.Component {
           }}
           tempo={this.props.tempo}
         />
-        <div id="optionsBar" className="column">
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {
-              if (this.state.timer === "") {
-                this.timerStart();
-              } else {
-                window.clearInterval(this.state.timer);
-                this.setState({ timer: "" });
-                this.props.playStop(false);
-              }
-            }}
-          >
-            {this.state.timer === "" ? "Start" : "Stop"}
-          </div>
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {
-              this.props.onMove([]);
-            }}
-          >
-            Clear the grid
-          </div>
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {
-              this.props.onMove(
-                newRandomCell(
-                  this.props.cells,
-                  this.props.gridSize.y,
-                  this.props.gridSize.x,
-                  this.props.life.lifePoints
-                )
-              );
-              this.setState(this.state);
-            }}
-          >
-            New random cell
-          </div>
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {}}
-          >
-            <div>X :</div>
-            <input
-              type="number"
-              value={this.props.gridSize.y}
-              min={0}
-              max={36}
-              step={1}
-              onChange={(event) => {
-                let gridSize = { ...this.props.gridSize };
-                gridSize.y = event.target.value;
-                let array = arrayGenerator(gridSize.x, gridSize.y);
-                this.props.setGridSize({
-                  x: gridSize.x,
-                  y: Number(event.target.value),
-                });
-                this.props.onArrayModify(array);
-              }}
-            />
-
-            <div>Y : </div>
-            <input
-              type="number"
-              value={this.props.gridSize.x}
-              min={0}
-              max={36}
-              step={1}
-              onChange={(event) => {
-                let gridSize = { ...this.props.gridSize };
-                gridSize.x = event.target.value;
-                let array = arrayGenerator(gridSize.x, gridSize.y);
-                this.props.setGridSize({
-                  x: Number(event.target.value),
-                  y: gridSize.y,
-                });
-                this.props.onArrayModify(array);
-              }}
-            />
-          </div>
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {
-              alert(
-                "This page is based on the concept of cellular algorithms. \n\nEvery cell has a direction and a life expetancy(blue, green, orange, red).\n\nThe cells lose lifepoints when they hit the walls. When a cell no longer has life points, it dies.\n\nWhen two cells meet:\nThey make a sound;\nIf they're not too young (blue), they get a child;\nThey get back some life points (with a limit of 10).\nThey get a new direction.\n\nIn determinist mode, when two cells meet, their direction is reversed.\nLet's bring some chaos : in chaos mode, when two cells meet, they get a random direction for the next step.\n\nIn synth mode, the X axis determines the note played (do, ré, mi, ...), and the Y axis the octave (based on the octave base and range).\n\n In drum mode, the X axis determines the drum part being triggered, and the Y axis the drum kit (1 drum kit per octave range)."
-              );
-            }}
-          >
-            Information
-          </div>
-          <div
-            className="hover row align j_center hover optionButton"
-            onClick={() => {
-              this.midiConnect();
-            }}
-          >
-            MIDI connect
-          </div>
-          {this.props.midi.ready === true && (
+        {this.state.displayBoard === true && (
+          <div id="optionsBar" className="column">
             <div
-              className="hover column align j_center midiOptions"
+              className="hover row align j_center hover optionButton"
+              onClick={() => {
+                if (this.state.timer === "") {
+                  this.timerStart();
+                } else {
+                  window.clearInterval(this.state.timer);
+                  this.setState({ timer: "" });
+                  this.props.playStop(false);
+                }
+              }}
+            >
+              {this.state.timer === "" ? "Start" : "Stop"}
+            </div>
+            <div
+              className="hover row align j_center hover optionButton"
+              onClick={() => {
+                this.props.onMove([]);
+              }}
+            >
+              Clear the grid
+            </div>
+            <div
+              className="hover row align j_center hover optionButton"
+              onClick={() => {
+                this.props.onMove(
+                  newRandomCell(
+                    this.props.cells,
+                    this.props.gridSize.y,
+                    this.props.gridSize.x,
+                    this.props.life.lifePoints
+                  )
+                );
+                this.setState(this.state);
+              }}
+            >
+              New random cell
+            </div>
+            <div
+              className="hover row align j_center hover optionButton"
               onClick={() => {}}
             >
-              <h3>Midi options</h3>
-              <div>
-                <div>Midi device</div>
-                <select
-                  value={
-                    this.props.midi.availableOutputs[
-                      this.props.midi.selectedDevice
-                    ].name
-                  }
-                  onChange={(event) => {
-                    let midiObject = { ...this.props.midi };
-                    midiObject.selectedDevice = event.target.value;
-                    this.props.onMidiSet(midiObject);
-                  }}
-                >
-                  {this.props.midi.availableOutputs.map((output, index) => {
-                    return (
-                      <option value={index} key={index}>
-                        {output.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div>
-                <div>Midi channel</div>
-                <select
-                  value={this.props.midi.channel}
-                  onChange={(event) => {
-                    let midiObject = { ...this.props.midi };
-                    midiObject.channel = event.target.value;
-                    this.props.onMidiSet(midiObject);
-                  }}
-                >
-                  {midiChannels.map((channel, index) => {
-                    return (
-                      <option key={index} value={channel}>
-                        {index + 1}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div
-                className="hover row align j_center hover optionButton"
-                onClick={() => {
-                  let midiObject = { ...this.props.midi };
-                  midiObject.poly = !this.props.midi.poly;
-                  this.props.onMidiSet(midiObject);
+              <div>X :</div>
+              <input
+                type="number"
+                value={this.props.gridSize.y}
+                min={0}
+                max={36}
+                step={1}
+                onChange={(event) => {
+                  let gridSize = { ...this.props.gridSize };
+                  gridSize.y = event.target.value;
+                  let array = arrayGenerator(gridSize.x, gridSize.y);
+                  this.props.setGridSize({
+                    x: gridSize.x,
+                    y: Number(event.target.value),
+                  });
+                  this.props.onArrayModify(array);
                 }}
-              >
-                {this.props.midi.poly === true
-                  ? "MIDI Poly On"
-                  : "MIDI Poly Off"}
-              </div>
-            </div>
-          )}
+              />
 
-          {/* <div
+              <div>Y : </div>
+              <input
+                type="number"
+                value={this.props.gridSize.x}
+                min={0}
+                max={36}
+                step={1}
+                onChange={(event) => {
+                  let gridSize = { ...this.props.gridSize };
+                  gridSize.x = event.target.value;
+                  let array = arrayGenerator(gridSize.x, gridSize.y);
+                  this.props.setGridSize({
+                    x: Number(event.target.value),
+                    y: gridSize.y,
+                  });
+                  this.props.onArrayModify(array);
+                }}
+              />
+            </div>
+            <div
+              className="hover row align j_center hover optionButton"
+              onClick={() => {
+                alert(
+                  "This page is based on the concept of cellular algorithms. \n\nEvery cell has a direction and a life expetancy(blue, green, orange, red).\n\nThe cells lose lifepoints when they hit the walls. When a cell no longer has life points, it dies.\n\nWhen two cells meet:\nThey make a sound;\nIf they're not too young (blue), they get a child;\nThey get back some life points (with a limit of 10).\nThey get a new direction.\n\nIn determinist mode, when two cells meet, their direction is reversed.\nLet's bring some chaos : in chaos mode, when two cells meet, they get a random direction for the next step.\n\nIn synth mode, the X axis determines the note played (do, ré, mi, ...), and the Y axis the octave (based on the octave base and range).\n\n In drum mode, the X axis determines the drum part being triggered, and the Y axis the drum kit (1 drum kit per octave range)."
+                );
+              }}
+            >
+              Information
+            </div>
+            <div
+              className="hover row align j_center hover optionButton"
+              onClick={() => {
+                this.midiConnect();
+              }}
+            >
+              MIDI connect
+            </div>
+            {this.props.midi.ready === true && (
+              <div
+                className="hover column align j_center midiOptions"
+                onClick={() => {}}
+              >
+                <h3>Midi options</h3>
+                <div>
+                  <div>Midi device</div>
+                  <select
+                    value={
+                      this.props.midi.availableOutputs[
+                        this.props.midi.selectedDevice
+                      ].name
+                    }
+                    onChange={(event) => {
+                      let midiObject = { ...this.props.midi };
+                      midiObject.selectedDevice = event.target.value;
+                      this.props.onMidiSet(midiObject);
+                    }}
+                  >
+                    {this.props.midi.availableOutputs.map((output, index) => {
+                      return (
+                        <option value={index} key={index}>
+                          {output.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div>
+                  <div>Midi channel</div>
+                  <select
+                    value={this.props.midi.channel}
+                    onChange={(event) => {
+                      let midiObject = { ...this.props.midi };
+                      midiObject.channel = event.target.value;
+                      this.props.onMidiSet(midiObject);
+                    }}
+                  >
+                    {midiChannels.map((channel, index) => {
+                      return (
+                        <option key={index} value={channel}>
+                          {index + 1}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div
+                  className="hover row align j_center hover optionButton"
+                  onClick={() => {
+                    let midiObject = { ...this.props.midi };
+                    midiObject.poly = !this.props.midi.poly;
+                    this.props.onMidiSet(midiObject);
+                  }}
+                >
+                  {this.props.midi.poly === true
+                    ? "MIDI Poly On"
+                    : "MIDI Poly Off"}
+                </div>
+              </div>
+            )}
+
+            {/* <div
             className="hover"
             onClick={() => {
               this.oneShot();
@@ -384,7 +465,8 @@ class BoardContainer extends React.Component {
           >
             One shot
           </div> */}
-        </div>
+          </div>
+        )}
       </div>
     );
   };

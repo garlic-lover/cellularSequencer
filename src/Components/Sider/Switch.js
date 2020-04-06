@@ -5,11 +5,14 @@ state : boolean
 toggle : fonction that needs to change the state
 */
 
-const Switch = ({ state, toggle }) => {
+const Switch = ({ state, toggle, color }) => {
+  if (!color) {
+    color = "backBlue";
+  }
   return (
     <div
       id="switchContainer"
-      className={state ? "row align backBlue" : "row align backGrey"}
+      className={state ? "row align " + color : "row align backGrey"}
     >
       <div
         id={state ? "switchBis" : "switch"}
