@@ -52,7 +52,7 @@ const cellMovement = (
         // If two cells are in the same square, they get random movements
         let indexes = getIndexes(initialTab, {
           x: cell.x,
-          y: cell.y
+          y: cell.y,
         });
         if (indexes.tab.length > 1) {
           // Chaos mode on : random moves // Chaos mode off : determinist moves
@@ -75,16 +75,32 @@ const cellMovement = (
           // If two cells meet, they have a child
           let isAlready = getIndexes(newCellsTab, {
             x: cell.x,
-            y: cell.y
+            y: cell.y,
           });
           if (
             life.canGive === true &&
             isAlready.tab.length === 0 &&
             indexes.isYoung === false
           ) {
+            let newX = "";
+            let newY = "";
+            if (indexes.tab[0].direction.x === 0) {
+              newX = indexes.tab[1].direction.x;
+            } else if (indexes.tab[1].direction.x === 0) {
+              newX = indexes.tab[0].direction.x;
+            } else {
+              newX = indexes.tab[0].direction.x * indexes.tab[1].direction.x;
+            }
+            if (indexes.tab[0].direction.y === 0) {
+              newY = indexes.tab[1].direction.y;
+            } else if (indexes.tab[1].direction.y === 0) {
+              newY = indexes.tab[0].direction.y;
+            } else {
+              newY = indexes.tab[0].direction.y * indexes.tab[1].direction.y;
+            }
             let theDirection = {
-              x: indexes.tab[0].direction.x * indexes.tab[1].direction.x,
-              y: indexes.tab[0].direction.x * indexes.tab[1].direction.x
+              x: newX,
+              y: newY,
             };
             let x = cell.x + theDirection.x;
             let y = cell.y + theDirection.y;
