@@ -7,6 +7,7 @@ import "./Components/Board/board.css";
 import "./Components/Sider/sider.css";
 import "./Components/Synth/synth.css";
 import BoardContainer from "./Components/Board/BoardContainer";
+import TutoScreen from "./Components/Intro/TutoScreen";
 import Particles from "react-particles-js";
 
 const partParams = require("./assets/particlesjs-config.json");
@@ -106,10 +107,7 @@ class App extends React.Component {
             Want to know more?
           </a>
         </div>
-        <div id="screen3">
-          <h2>How does it work ?</h2>
-          <div id="underConstruct">Page en cours de construction</div>
-        </div>
+        <TutoScreen />
         {/*       <SiderContainer />
       <SynthContainer />
       <Drums />

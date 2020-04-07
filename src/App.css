@@ -61,7 +61,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: tomato;
 }
 
 .para1 {
@@ -89,14 +88,18 @@
   font-size: 24px;
   position: relative;
   color: #fde2e2;
+  -webkit-text-shadow: 3px 5px rgba(255, 182, 182, 1);
+  -moz-text-shadow: 3px 3px rgba(255, 182, 182, 1);
+  text-shadow: 5px 5px rgba(255, 182, 182, 1);
 }
 
 #screen3 h2 {
   font-size: 40px;
   font-weight: lighter;
-  position: relative;
-  top: 100px;
-  margin-left: 150px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 h3 {
