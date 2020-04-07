@@ -52,8 +52,7 @@
 }
 
 .para1 {
-  position: relative;
-  left: 100px;
+  margin-left: 100px;
 }
 
 .para2 {
@@ -84,7 +83,7 @@
   font-weight: lighter;
   position: relative;
   top: 100px;
-  left: 150px;
+  margin-left: 150px;
 }
 
 h3 {
