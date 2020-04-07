@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Monserrat;
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
+}
+
 .App {
   position: relative;
   background-color: white;
@@ -48,7 +53,7 @@
   color: #aacfcf;
   background-color: white;
   text-decoration: inherit;
-  font-family: "Avenir";
+  font-family: "Avenir", "Monserrat";
 }
 
 #underConstruct {
