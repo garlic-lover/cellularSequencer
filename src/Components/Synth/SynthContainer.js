@@ -30,6 +30,7 @@ class SynthConainer extends React.Component {
 
   monoPlay = () => {
     if (this.props.notes.current.length > 0) {
+      console.log("play");
       this.synth.triggerAttackRelease(this.props.notes.current[0], "4n");
     }
   };

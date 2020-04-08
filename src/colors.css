@@ -77,11 +77,11 @@
 } */
 
 .life1 {
-  background-color: #aacfcf;
+  background-color: #ffb6b6;
 }
 
 .life2 {
-  background-color: #679b9b;
+  background-color: #fde2e2;
 }
 
 .life3 {
@@ -89,7 +89,7 @@
 }
 
 .life4 {
-  background-color: #ffb6b6;
+  background-color: #679b9b;
 }
 .backVirus {
   /*   background-image: url("./assets/icons/virus.svg");
@@ -139,6 +139,11 @@
 /* Border Colors */
 
 .icon {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.bigIcon {
   cursor: pointer;
   font-size: 24px;
 }

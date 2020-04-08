@@ -27,7 +27,7 @@ class TutoScreen extends React.Component {
                 }}
               >
                 {this.state.menuSelected === index && <div id="selectedItem" />}
-                <FontAwesomeIcon icon={icon} className="icon" />
+                <FontAwesomeIcon icon={icon} className="bigIcon" />
               </div>
             );
           })}

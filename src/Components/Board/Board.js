@@ -12,7 +12,8 @@ const Board = ({
   displayCellDirection,
   selectedCell,
   onAddDeterministCell,
-  tempo
+  tempo,
+  displayGrid,
 }) => {
   return (
     <div id="board">
@@ -22,8 +23,8 @@ const Board = ({
           <div key={index} className="line row align">
             {line.map((square, index) => {
               let emptyStyle = "";
-              if (isPlaying === false) {
-                emptyStyle = "cellShadow";
+              if (displayGrid === true) {
+                emptyStyle = "cellShadow solid";
               }
               let indexes = getIndexes(cells, { y: theIndex, x: index });
               if (indexes.tab.length === 0) {
@@ -50,10 +51,10 @@ const Board = ({
                       selectedCell.x === index &&
                       selectedCell.y === theIndex && (
                         <CellDirections
-                          directionChoice={choice => {
+                          directionChoice={(choice) => {
                             onAddDeterministCell(false, {
                               x: "",
-                              y: ""
+                              y: "",
                             });
                             onAddCell(index, theIndex, choice);
                           }}
@@ -80,14 +81,21 @@ const Board = ({
                 } else {
                   animationSpeed = animationSpeed / 2;
                 }
+                let solid = "";
+                if (displayGrid === true) {
+                  solid = " solid sqareBis";
+                } else {
+                  solid = "";
+                }
                 return (
                   <div
                     key={index}
                     className={
-                      "square hover cellShadow relative backVirus  " +
+                      "square hover relative backVirus  " +
                       color +
                       " " +
-                      animation
+                      animation +
+                      solid
                     }
                     style={{ animationDuration: animationSpeed + "s" }}
                     onClick={() => {
@@ -99,7 +107,11 @@ const Board = ({
                 return (
                   <div
                     key={index}
-                    className="square hover relative backVirus"
+                    className={
+                      displayGrid === true
+                        ? "square hover relative solid "
+                        : "square hover relative"
+                    }
                     style={{ backgroundColor: "pink" }}
                   >
                     <div className="activeStep" />

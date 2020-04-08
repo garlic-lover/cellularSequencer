@@ -54,12 +54,12 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
               options={param.options}
               value={
                 param.parent === 0
-                  ? synthParameters[synthType][param.param]
-                  : synthParameters[synthType][param.parent][param.param]
+                  ? synthParameters.membraneSynth[param.param]
+                  : synthParameters.membraneSynth[param.parent][param.param]
               }
               onChange={(value) => {
                 let fullParams = { ...synthParameters };
-                let params = { ...fullParams[synthType] };
+                let params = { ...fullParams.membraneSynth };
                 if (param.parent === 0) {
                   params[param.param] = value;
                 } else {
@@ -67,7 +67,7 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
                   theParent[param.param] = value;
                   params[param.parent] = theParent;
                 }
-                fullParams[synthType] = params;
+                fullParams.membraneSynth = params;
                 onSynthEdit(fullParams);
               }}
             />

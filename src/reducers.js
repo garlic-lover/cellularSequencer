@@ -28,6 +28,7 @@ const initialStateGrid = {
   isPlaying: false,
   life: { canGive: true, canDie: true, lifePoints: 10 },
   midiData: { ready: false },
+  displayGrid: false,
 };
 
 function gridManager(state = initialStateGrid, action) {

@@ -14,6 +14,9 @@ import {
   faMusic,
   faTh,
   faSlidersH,
+  faPlayCircle,
+  faPauseCircle,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* 
@@ -44,10 +47,10 @@ import {
 //Import of midi channels in hexadecimal
 const midiChannels = require("../../assets/midiChannels.json");
 const icons = [
-  { name: faTh, action: "displayBoard" },
+  { name: faTh, action: "displayGrid" },
   { name: faHeart, action: "displayLife" },
   { name: faMusic, action: "displaySynth" },
-  { name: faSlidersH, action: "" },
+  { name: faSlidersH, action: "displayBoard" },
 ];
 
 class BoardContainer extends React.Component {
@@ -60,6 +63,7 @@ class BoardContainer extends React.Component {
       count: 0,
       displayCellDirection: false,
       selectedCell: { x: "", y: "" },
+      displayGrid: false,
       displaySynth: false,
       displayBoard: false,
       displayLife: false,
@@ -194,6 +198,23 @@ class BoardContainer extends React.Component {
       new Cell(15, 0),
     ];
     this.props.onMove(cells);
+
+    window.addEventListener("scroll", function (e) {
+      console.log(e);
+      /* let maxHeight = "";
+      var scrollTop = e.scrollTop();
+      console.log(scrollTop);
+      if (scrollTop < 200) {
+        maxHeight = 150;
+      } else if (scrollTop > 400) {
+        maxHeight = 75;
+      } else {
+        maxHeight = 150 - (75 * (scrollTop - 200)) / 200;
+      }
+      document.getElementById("paramHeader").css({
+        height: maxHeight + "px",
+      }); */
+    });
   };
 
   render = () => {
@@ -205,7 +226,7 @@ class BoardContainer extends React.Component {
         {this.state.displayLife === true && <SiderContainer />}
         <div id="paramHeader">
           <div className="row align playStopContainer">
-            <h2
+            <div
               className="hover"
               onClick={() => {
                 if (this.state.timer === "") {
@@ -217,9 +238,12 @@ class BoardContainer extends React.Component {
                 }
               }}
             >
-              {this.state.timer === "" ? "Start" : "Pause"}
-            </h2>
-            <h2
+              <FontAwesomeIcon
+                icon={this.state.timer === "" ? faPlayCircle : faPauseCircle}
+                className="playIcon lightGreen"
+              />
+            </div>
+            <div
               className="hover"
               onClick={() => {
                 this.props.onMove(
@@ -233,9 +257,10 @@ class BoardContainer extends React.Component {
                 this.setState(this.state);
               }}
             >
-              New Cell
-            </h2>
+              <FontAwesomeIcon icon={faPlus} className="playIcon lightGreen" />
+            </div>
           </div>
+          <h2>Have fun down here</h2>
           <div className="row align j_between menuBar">
             {icons.map((icon, index) => {
               return (
@@ -298,6 +323,7 @@ class BoardContainer extends React.Component {
             });
           }}
           tempo={this.props.tempo}
+          displayGrid={this.state.displayGrid}
         />
         {this.state.displayBoard === true && (
           <div id="optionsBar" className="column">
