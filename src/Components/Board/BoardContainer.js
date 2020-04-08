@@ -6,6 +6,15 @@ import SiderContainer from "../Sider/SiderContainer";
 import Drums from "../Synth/Drums";
 import MidiContainer from "../Midi/MidiContainer";
 import Switch from "../Sider/Switch";
+import Board from "./Board";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart,
+  faMusic,
+  faTh,
+  faSlidersH,
+} from "@fortawesome/free-solid-svg-icons";
 
 /* 
 Bonus : rajouter des cases folles
@@ -14,9 +23,6 @@ We could have a no move property : when elements reach it, it makes a special so
 
 Let add a probability parameter making changing the probabilities of random move
 */
-
-// Import of components
-import Board from "./Board";
 
 // Import of the Cell class to build my objects
 import Cell from "./Cell";
@@ -37,6 +43,12 @@ import {
 
 //Import of midi channels in hexadecimal
 const midiChannels = require("../../assets/midiChannels.json");
+const icons = [
+  { name: faTh, action: "displayBoard" },
+  { name: faHeart, action: "displayLife" },
+  { name: faMusic, action: "displaySynth" },
+  { name: faSlidersH, action: "" },
+];
 
 class BoardContainer extends React.Component {
   constructor(props) {
@@ -186,7 +198,7 @@ class BoardContainer extends React.Component {
 
   render = () => {
     return (
-      <div id="boardContainer" className="column height align j_center">
+      <div id="boardContainer" className="column height width align">
         <SynthContainer displaySynth={this.state.displaySynth} />
         <Drums />
         <MidiContainer />
@@ -224,40 +236,33 @@ class BoardContainer extends React.Component {
               New Cell
             </h2>
           </div>
-
-          <div className="row align">
-            <div className="row align" style={{ marginRight: 10 }}>
-              <div style={{ marginRight: 5 }}>Board</div>
-              <Switch
-                state={this.state.displayBoard}
-                toggle={() => {
-                  this.setState({ displayBoard: !this.state.displayBoard });
-                }}
-                color="backGreen"
-              />
-            </div>
-            <div className="row align" style={{ marginRight: 10 }}>
-              <div style={{ marginRight: 5 }}>Life</div>
-              <Switch
-                state={this.state.displayLife}
-                toggle={() => {
-                  this.setState({ displayLife: !this.state.displayLife });
-                }}
-                color="backPink"
-              />
-            </div>
-            <div className="row align">
-              <div style={{ marginRight: 5 }}>Sound</div>
-              <Switch
-                state={this.state.displaySynth}
-                toggle={() => {
-                  this.setState({ displaySynth: !this.state.displaySynth });
-                }}
-                color="backBlue"
-              />
-            </div>
+          <div className="row align j_between menuBar">
+            {icons.map((icon, index) => {
+              return (
+                <div
+                  className="relative"
+                  key={index}
+                  onClick={() => {
+                    this.setState({ [icon.action]: !this.state[icon.action] });
+                  }}
+                >
+                  {this.state.menuSelected === index && (
+                    <div id="selectedItem" />
+                  )}
+                  <FontAwesomeIcon
+                    icon={icon.name}
+                    className={
+                      this.state[icon.action] === true
+                        ? "icon green"
+                        : "icon lightGreen"
+                    }
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
+
         <Board
           array={this.props.gridArray}
           cells={this.props.cells}

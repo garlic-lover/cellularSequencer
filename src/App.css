@@ -163,3 +163,8 @@ header {
     left: 3.5px;
   }
 }
+
+.menuBar {
+  width: 300px;
+  margin-right: 100px;
+}

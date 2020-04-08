@@ -15,9 +15,9 @@
   width: 90%;
   padding: 10px 15px;
   border-radius: 0 5px 5px 0;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -31,9 +31,9 @@
 .parameter {
   margin: 0 5px 0 5px;
   padding: 5px;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
   cursor: pointer;
 }
 

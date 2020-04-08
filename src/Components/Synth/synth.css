@@ -16,9 +16,9 @@
   width: 100px;
   padding: 10px 15px;
   border-radius: 5px 0 0 5px;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
+  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
   position: absolute;
   top: 50%;
   right: 0;

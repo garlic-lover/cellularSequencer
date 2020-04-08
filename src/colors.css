@@ -54,9 +54,13 @@
   border-color: #679b9b;
 }
 
+.grey {
+  color: lightgray;
+}
+
 /* Life points status */
 
-.life1 {
+/* .life1 {
   background-color: lightblue;
 }
 
@@ -70,8 +74,23 @@
 
 .life4 {
   background-color: #ff5d6c;
+} */
+
+.life1 {
+  background-color: #aacfcf;
 }
 
+.life2 {
+  background-color: #679b9b;
+}
+
+.life3 {
+  background-color: #fde2e2;
+}
+
+.life4 {
+  background-color: #ffb6b6;
+}
 .backVirus {
   /*   background-image: url("./assets/icons/virus.svg");
   background-size: 90%;
@@ -121,6 +140,7 @@
 
 .icon {
   cursor: pointer;
+  font-size: 24px;
 }
 
 #selectedItem {
