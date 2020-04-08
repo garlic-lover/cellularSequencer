@@ -35,6 +35,7 @@ import arrayGenerator from "../../functions/arrayGenerator";
 import cellMovement from "../../functions/cellMovement";
 import newRandomCell from "../../functions/newRandomCell";
 import notesMovement from "../../functions/notesMovement";
+import randomCellGen from "../../functions/randomCellGen";
 import {
   arrayModify,
   cellsMove,
@@ -63,7 +64,7 @@ class BoardContainer extends React.Component {
       count: 0,
       displayCellDirection: false,
       selectedCell: { x: "", y: "" },
-      displayGrid: false,
+      displayGrid: true,
       displaySynth: false,
       displayBoard: false,
       displayLife: false,
@@ -186,22 +187,18 @@ class BoardContainer extends React.Component {
 
   componentDidMount = () => {
     let array = arrayGenerator(this.props.gridSize.x, this.props.gridSize.y);
+    const cells = randomCellGen(20, 24, 24);
     this.props.onArrayModify(array);
-    const cells = [
-      new Cell(5, 5),
-      new Cell(10, 5),
-      new Cell(5, 10),
-      new Cell(10, 10),
-      new Cell(0, 0),
-      new Cell(15, 15),
-      new Cell(0, 15),
-      new Cell(15, 0),
-    ];
+
     this.props.onMove(cells);
 
     window.addEventListener("scroll", function (e) {
-      console.log(e);
-      /* let maxHeight = "";
+      console.log(window);
+      /* 
+      
+      
+      let maxHeight = "";
+
       var scrollTop = e.scrollTop();
       console.log(scrollTop);
       if (scrollTop < 200) {
