@@ -49,9 +49,9 @@ import {
 const midiChannels = require("../../assets/midiChannels.json");
 const icons = [
   { name: faTh, action: "displayGrid" },
+  { name: faSlidersH, action: "displayBoard" },
   { name: faHeart, action: "displayLife" },
   { name: faMusic, action: "displaySynth" },
-  { name: faSlidersH, action: "displayBoard" },
 ];
 
 class BoardContainer extends React.Component {
@@ -275,8 +275,8 @@ class BoardContainer extends React.Component {
                     icon={icon.name}
                     className={
                       this.state[icon.action] === true
-                        ? "icon green"
-                        : "icon lightGreen"
+                        ? "icon pink"
+                        : "icon lightPink"
                     }
                   />
                 </div>
@@ -327,40 +327,10 @@ class BoardContainer extends React.Component {
             <div
               className="hover row align j_center hover optionButton"
               onClick={() => {
-                if (this.state.timer === "") {
-                  this.timerStart();
-                } else {
-                  window.clearInterval(this.state.timer);
-                  this.setState({ timer: "" });
-                  this.props.playStop(false);
-                }
-              }}
-            >
-              {this.state.timer === "" ? "Start" : "Stop"}
-            </div>
-            <div
-              className="hover row align j_center hover optionButton"
-              onClick={() => {
                 this.props.onMove([]);
               }}
             >
               Clear the grid
-            </div>
-            <div
-              className="hover row align j_center hover optionButton"
-              onClick={() => {
-                this.props.onMove(
-                  newRandomCell(
-                    this.props.cells,
-                    this.props.gridSize.y,
-                    this.props.gridSize.x,
-                    this.props.life.lifePoints
-                  )
-                );
-                this.setState(this.state);
-              }}
-            >
-              New random cell
             </div>
             <div
               className="hover row align j_center hover optionButton"

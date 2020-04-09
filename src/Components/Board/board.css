@@ -4,7 +4,7 @@
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
   position: absolute;
-  top: calc(50% + 100px);
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -13,22 +13,22 @@
   position: relative;
   color: #679b9b;
   background-color: #aacfcf;
-  height: calc(100vh + 300px);
+  height: calc(100vh);
 }
 
 #paramHeader {
-  height: 300px;
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #679b9b;
+  color: #fff0f0;
   /*   background-color: #fde2e2; */
-  background-color: #fff0f0;
+  /* background-color: #fff0f0; */
   -webkit-text-shadow: 3px 5px #aacfcf;
   -moz-text-shadow: 3px 3px #aacfcf;
   text-shadow: 5px 5px #aacfcf;
-  position: relative;
+  position: absolute;
 }
 
 #paramHeader div {
@@ -52,7 +52,8 @@
 }
 
 .playIcon {
-  font-size: 32px;
+  font-size: 26px;
+  color: #fff0f0;
 }
 
 /* .playStopContainer {
@@ -167,7 +168,6 @@
   top: 50%;
   left: 0px;
   transform: translate(0, -50%);
-  background-color: white;
   padding: 10px 15px;
   margin: auto;
   margin-top: 10px;

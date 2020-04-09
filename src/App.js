@@ -6,6 +6,7 @@ import "./colors.css";
 import "./Components/Board/board.css";
 import "./Components/Sider/sider.css";
 import "./Components/Synth/synth.css";
+import "./Components/Intro/tuto.css";
 import BoardContainer from "./Components/Board/BoardContainer";
 import TutoScreen from "./Components/Intro/TutoScreen";
 import Particles from "react-particles-js";

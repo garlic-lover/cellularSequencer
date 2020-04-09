@@ -1,0 +1,118 @@
+#tutoSpace {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 78%;
+}
+
+#tutoSpace div {
+  margin-bottom: 15px;
+}
+
+#tutoIcons {
+  width: 600px;
+}
+
+@keyframes right1 {
+  0% {
+    left: -150px;
+  }
+  80% {
+    left: 20px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.right1 {
+  animation-name: right1;
+  animation-duration: 0.8s;
+}
+
+@keyframes right2 {
+  0% {
+    left: -300px;
+  }
+  80% {
+    left: 20px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.right2 {
+  animation-name: right2;
+  animation-duration: 0.8s;
+}
+
+@keyframes right3 {
+  0% {
+    left: -450px;
+  }
+  80% {
+    left: 20px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.right3 {
+  animation-name: right3;
+  animation-duration: 0.8s;
+}
+
+@keyframes left1 {
+  0% {
+    left: 150px;
+  }
+  80% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.left1 {
+  animation-name: left1;
+  animation-duration: 0.8s;
+}
+
+@keyframes left2 {
+  0% {
+    left: 300px;
+  }
+  80% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.left2 {
+  animation-name: left2;
+  animation-duration: 0.8s;
+}
+
+@keyframes left3 {
+  0% {
+    left: 450px;
+  }
+  80% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.left3 {
+  animation-name: left3;
+  animation-duration: 0.8s;
+}

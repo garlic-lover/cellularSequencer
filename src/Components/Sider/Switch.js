@@ -7,12 +7,12 @@ toggle : fonction that needs to change the state
 
 const Switch = ({ state, toggle, color }) => {
   if (!color) {
-    color = "backBlue";
+    color = "backGreen";
   }
   return (
     <div
       id="switchContainer"
-      className={state ? "row align " + color : "row align backGrey"}
+      className={state ? "row align " + color : "row align backPink"}
     >
       <div
         id={state ? "switchBis" : "switch"}
