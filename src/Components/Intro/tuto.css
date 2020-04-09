@@ -15,6 +15,23 @@
   width: 600px;
 }
 
+@keyframes selectedFading {
+  0% {
+    color: #aacfcf;
+  }
+  60% {
+    color: #aacfcf;
+  }
+  100% {
+    color: #fff0f0;
+  }
+}
+
+.selectedFading {
+  animation-name: selectedFading;
+  animation-duration: 1s;
+}
+
 @keyframes right1 {
   0% {
     left: -150px;

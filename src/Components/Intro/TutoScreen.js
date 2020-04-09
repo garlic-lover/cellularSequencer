@@ -57,7 +57,7 @@ class TutoScreen extends React.Component {
                     icon={icon}
                     className={
                       this.state.menuSelected === index
-                        ? "bigIcon"
+                        ? "bigIcon selectedFading"
                         : "bigIcon lightGreen"
                     }
                   />
