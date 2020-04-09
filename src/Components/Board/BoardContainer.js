@@ -64,7 +64,7 @@ class BoardContainer extends React.Component {
       count: 0,
       displayCellDirection: false,
       selectedCell: { x: "", y: "" },
-      displayGrid: true,
+      displayGrid: false,
       displaySynth: false,
       displayBoard: false,
       displayLife: false,

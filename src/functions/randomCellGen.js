@@ -5,7 +5,8 @@ const randomCellGen = (number, maxX, maxY) => {
   for (let i = 0; i < number; i++) {
     let x = Math.round(Math.random() * maxX);
     let y = Math.round(Math.random() * maxY);
-    let cell = new Cell(x, y);
+    let lifePoints = Math.round(Math.random() * 10);
+    let cell = new Cell(x, y, undefined, lifePoints);
     cellsTab.push(cell);
   }
   return cellsTab;
