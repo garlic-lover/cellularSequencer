@@ -5,7 +5,7 @@ import SynthContainer from "../Synth/SynthContainer";
 import SiderContainer from "../Sider/SiderContainer";
 import Drums from "../Synth/Drums";
 import MidiContainer from "../Midi/MidiContainer";
-import Switch from "../Sider/Switch";
+import NumberInput from "../Sider/NumberInput";
 import Board from "./Board";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,7 @@ import {
   faPlayCircle,
   faPauseCircle,
   faPlus,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* 
@@ -256,6 +257,14 @@ class BoardContainer extends React.Component {
             >
               <FontAwesomeIcon icon={faPlus} className="playIcon lightGreen" />
             </div>
+            <div
+              className="hover"
+              onClick={() => {
+                this.props.onMove([]);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrash} className="playIcon lightGreen" />
+            </div>
           </div>
           <h2>Have fun down here</h2>
           <div className="row align j_between menuBar">
@@ -327,66 +336,6 @@ class BoardContainer extends React.Component {
             <div
               className="hover row align j_center hover optionButton"
               onClick={() => {
-                this.props.onMove([]);
-              }}
-            >
-              Clear the grid
-            </div>
-            <div
-              className="hover row align j_center hover optionButton"
-              onClick={() => {}}
-            >
-              <div>X :</div>
-              <input
-                type="number"
-                value={this.props.gridSize.y}
-                min={0}
-                max={36}
-                step={1}
-                onChange={(event) => {
-                  let gridSize = { ...this.props.gridSize };
-                  gridSize.y = event.target.value;
-                  let array = arrayGenerator(gridSize.x, gridSize.y);
-                  this.props.setGridSize({
-                    x: gridSize.x,
-                    y: Number(event.target.value),
-                  });
-                  this.props.onArrayModify(array);
-                }}
-              />
-
-              <div>Y : </div>
-              <input
-                type="number"
-                value={this.props.gridSize.x}
-                min={0}
-                max={36}
-                step={1}
-                onChange={(event) => {
-                  let gridSize = { ...this.props.gridSize };
-                  gridSize.x = event.target.value;
-                  let array = arrayGenerator(gridSize.x, gridSize.y);
-                  this.props.setGridSize({
-                    x: Number(event.target.value),
-                    y: gridSize.y,
-                  });
-                  this.props.onArrayModify(array);
-                }}
-              />
-            </div>
-            <div
-              className="hover row align j_center hover optionButton"
-              onClick={() => {
-                alert(
-                  "This page is based on the concept of cellular algorithms. \n\nEvery cell has a direction and a life expetancy(blue, green, orange, red).\n\nThe cells lose lifepoints when they hit the walls. When a cell no longer has life points, it dies.\n\nWhen two cells meet:\nThey make a sound;\nIf they're not too young (blue), they get a child;\nThey get back some life points (with a limit of 10).\nThey get a new direction.\n\nIn determinist mode, when two cells meet, their direction is reversed.\nLet's bring some chaos : in chaos mode, when two cells meet, they get a random direction for the next step.\n\nIn synth mode, the X axis determines the note played (do, ré, mi, ...), and the Y axis the octave (based on the octave base and range).\n\n In drum mode, the X axis determines the drum part being triggered, and the Y axis the drum kit (1 drum kit per octave range)."
-                );
-              }}
-            >
-              Information
-            </div>
-            <div
-              className="hover row align j_center hover optionButton"
-              onClick={() => {
                 this.midiConnect();
               }}
             >
@@ -454,7 +403,43 @@ class BoardContainer extends React.Component {
                 </div>
               </div>
             )}
-
+            <div className="width column">
+              <div className="hover row align  hover" onClick={() => {}}>
+                <NumberInput
+                  vertical={true}
+                  input={this.props.gridSize.x}
+                  output={(value) => {
+                    let gridSize = { ...this.props.gridSize };
+                    gridSize.x = value;
+                    let array = arrayGenerator(gridSize.x, gridSize.y);
+                    this.props.setGridSize({
+                      x: Number(value),
+                      y: gridSize.y,
+                    });
+                    this.props.onArrayModify(array);
+                  }}
+                />
+              </div>
+              <div
+                className="hover row align j_center hover"
+                onClick={() => {}}
+              >
+                <NumberInput
+                  vertical={false}
+                  input={this.props.gridSize.y}
+                  output={(value) => {
+                    let gridSize = { ...this.props.gridSize };
+                    gridSize.y = value;
+                    let array = arrayGenerator(gridSize.x, gridSize.y);
+                    this.props.setGridSize({
+                      x: gridSize.x,
+                      y: Number(value),
+                    });
+                    this.props.onArrayModify(array);
+                  }}
+                />
+              </div>
+            </div>
             {/* <div
             className="hover"
             onClick={() => {

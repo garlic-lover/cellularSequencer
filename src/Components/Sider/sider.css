@@ -48,3 +48,7 @@
 .parameter select {
   width: 90%;
 }
+
+.numberInput {
+  font-size: 20px;
+}
