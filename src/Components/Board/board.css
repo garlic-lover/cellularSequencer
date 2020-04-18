@@ -169,8 +169,7 @@
 }
 
 #optionsBar {
-  height: 450px;
-  width: 100px;
+  width: 150px;
   padding: 10px 15px;
   border-radius: 5px 0 0 5px;
   position: absolute;
@@ -180,7 +179,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
   font-size: 16px;
   animation-name: onAppearBis;
   animation-duration: 1s;
@@ -190,7 +188,7 @@
   /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
   box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
-  font-size: 20px;
+  font-size: 16px;
   padding: 5px;
   width: 90%;
   margin-bottom: 5px;
@@ -200,24 +198,43 @@
   transform: translateY(1px);
 }
 
-.optionButton input {
-  width: 30px;
-  margin-left: 10px;
+.optionButton h3 {
   margin-right: 10px;
 }
 
+.optionButton select {
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border-style: inherit;
+}
+
+#midiConnect {
+  border: solid 2px white;
+  padding: 10px 0px;
+  border-radius: 25px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #aacfcf;
+  background-color: white;
+  text-decoration: inherit;
+  font-family: "Avenir", "Monserrat";
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
 .midiOptions {
-  width: 90%;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74);
-  height: 160px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-size: 20px;
+  font-size: 16px;
   padding: 5px;
-  margin: auto;
+
+  line-height: 30px;
+}
+
+.midiOptions select {
+  max-width: 150px;
 }
 
 @keyframes onActiveBis {

@@ -1,24 +1,24 @@
 [
   [
     "Press on the Play/Pause icon to give life to the cells",
+    "Sometimes, cells meet, and together make music.",
     "Clicking on the grid icon allows to display the grid",
     "It is possible to change the width (X axis) and height (Y axis) of the grid",
-    "Clicking on a circle will make a cell appear or disappear",
-    "Sometimes, cells meet, and together make music."
+    "Clicking on a circle will make a cell appear or disappear"
   ],
   [
-    "The X axis is divided into the 7 different not that can be played.",
+    "The grid has 2 dimensions, X and Y, that combined determine the note to play",
+    "The X axis is divided into the 7 different musical notes playable in the selected scale.",
     "For instance, if the X axis has a size of 21, the columns X1, X2, and X3 will play a C, the columns X4, X5 et X6 a D, ...",
     "The Y axis represents the different octaves depending of the chosen octave range.",
-    "For an octave range of 2, and a Y axis of 4, the rows Y1 and Y2 will play on the base octave, and the rows Y3 a,d Y4 will play the notes that are on octave higer"
+    "For an octave range of 2, and a Y axis of 4, the rows Y1 and Y2 will play on the base octave, and the rows Y3 and Y4 will play the notes that are on octave higer"
   ],
   [
     "More than music, cells can also create other cells when they meet. To do so, they need to be young enough. Every cell has a life expetency that decreases when it hits a wall, and increases when it hits another cell",
     "Depending on their lifepoints, cells have different colors, velocities",
     "If they have life points, it means that they can also die",
     "In determinist mode, when two cells meet, their direction is reversed.",
-    "In chaos mode, they get a random direction for the next step.",
-    "The of the cells when they meet matters to create a note. Every cell as ax X and a Y"
+    "In chaos mode, they get a random direction for the next step."
   ],
   ["Two synths", "Drums", "Be careful with the power of your computer", "MIDI"]
 ]

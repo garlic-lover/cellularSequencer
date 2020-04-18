@@ -167,8 +167,12 @@
 }
 
 h3 {
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 5px;
+}
+
+.bold {
+  font-weight: 500;
 }
 
 header {

@@ -7,6 +7,10 @@ import Drums from "../Synth/Drums";
 import MidiContainer from "../Midi/MidiContainer";
 import NumberInput from "../Sider/NumberInput";
 import Board from "./Board";
+import Switch from "../Sider/Switch";
+
+import BoardParameters from "./BoardParameters";
+import Parameter from "../Synth/Parameter";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -44,6 +48,7 @@ import {
   playStop,
   setGridSize,
   midiSet,
+  parametersChange,
 } from "../../actions";
 
 //Import of midi channels in hexadecimal
@@ -86,6 +91,12 @@ class BoardContainer extends React.Component {
     }
 
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+  };
+
+  paramChange = (param, value) => {
+    let parameters = { ...this.props.parameters };
+    parameters[param] = value;
+    this.props.onChange(parameters);
   };
 
   listInputsAndOutputs = (midiAccess) => {
@@ -383,7 +394,25 @@ class BoardContainer extends React.Component {
         )}
         {this.state.displayBoard === true && (
           <div id="optionsBar" className="column">
+            {BoardParameters.map((param, index) => {
+              return (
+                <Parameter
+                  key={index}
+                  label={param.label}
+                  type={param.type}
+                  options={param.options}
+                  min={param.min}
+                  max={param.max}
+                  step={param.step}
+                  value={this.props.parameters[param.param]}
+                  onChange={(value) => {
+                    this.paramChange([param.param], value);
+                  }}
+                />
+              );
+            })}
             <div
+              id="midiConnect"
               className="hover row align j_center hover optionButton"
               onClick={() => {
                 this.midiConnect();
@@ -396,9 +425,8 @@ class BoardContainer extends React.Component {
                 className="hover column align j_center midiOptions"
                 onClick={() => {}}
               >
-                <h3>Midi options</h3>
-                <div>
-                  <div>Midi device</div>
+                <div className="optionButton">
+                  <h3>Midi device</h3>
                   <select
                     value={
                       this.props.midi.availableOutputs[
@@ -420,8 +448,10 @@ class BoardContainer extends React.Component {
                     })}
                   </select>
                 </div>
-                <div>
-                  <div>Midi channel</div>
+                <div className="row align hover optionButton">
+                  <div className="bold" style={{ marginRight: 10 }}>
+                    Channel
+                  </div>
                   <select
                     value={this.props.midi.channel}
                     onChange={(event) => {
@@ -439,17 +469,16 @@ class BoardContainer extends React.Component {
                     })}
                   </select>
                 </div>
-                <div
-                  className="hover row align j_center hover optionButton"
-                  onClick={() => {
-                    let midiObject = { ...this.props.midi };
-                    midiObject.poly = !this.props.midi.poly;
-                    this.props.onMidiSet(midiObject);
-                  }}
-                >
-                  {this.props.midi.poly === true
-                    ? "MIDI Poly On"
-                    : "MIDI Poly Off"}
+                <div className="row align hover optionButton">
+                  <h3>Midi Poly</h3>
+                  <Switch
+                    state={this.props.midi.poly}
+                    toggle={() => {
+                      let midiObject = { ...this.props.midi };
+                      midiObject.poly = !this.props.midi.poly;
+                      this.props.onMidiSet(midiObject);
+                    }}
+                  />
                 </div>
               </div>
             )}
@@ -482,6 +511,7 @@ const mapStateToProps = (state) => {
     scale: state.gridManager.parameters.scale,
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
+    parameters: state.gridManager.parameters,
   };
 };
 
@@ -504,6 +534,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMidiSet: (midi) => {
       dispatch(midiSet(midi));
+    },
+    onChange: (parameters) => {
+      dispatch(parametersChange(parameters));
     },
   };
 };

@@ -74,11 +74,11 @@ const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
           );
         })}
       {synthParameters.instrument === "fmSynth" && (
-        <div className="width column align">
+        <div id="fmParamsBloc">
           <div style={{ marginBottom: 5 }}>
             <h3>FM params</h3>
           </div>
-          <div className="row width align j_space">
+          <div className="row width align j_space fadersBlock">
             <div className="column align">
               <div>Freq</div>
               <Fader

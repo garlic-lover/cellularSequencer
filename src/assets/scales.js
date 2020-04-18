@@ -10,7 +10,7 @@ const chromatic = [
   "F",
   "F#",
   "G",
-  "G#"
+  "G#",
 ];
 
 const major = ["C", "D", "E", "F", "G", "A", "B"];
@@ -35,5 +35,5 @@ export default {
   lydian,
   mixolydian,
   arabic,
-  hungarian_gypsy
+  hungarian_gypsy,
 };

@@ -11,7 +11,7 @@
 }
 
 #siderContainer {
-  width: 75%;
+  width: 50%;
   padding: 10px 15px;
   border-radius: 0 5px 5px 0;
   /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
@@ -28,12 +28,10 @@
 }
 
 .parameter {
-  margin: 0 5px 0 5px;
+  font-size: 16px;
   padding: 5px;
-  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
-  cursor: pointer;
+  width: 90%;
+  margin-bottom: 5px;
 }
 
 #siderContainer .parameter {
@@ -41,12 +39,17 @@
 }
 
 .parameter input {
-  width: 50%;
-  margin-right: 5px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border-style: inherit;
 }
 
 .parameter select {
-  width: 90%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border-style: inherit;
 }
 
 .numberInput {

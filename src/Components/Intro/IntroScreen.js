@@ -21,8 +21,12 @@ const IntroScreen = () => {
           <span className="green"> cellular </span> automatons.
         </div>
         <div>
-          A <span className="green"> cellular automaton</span> consists of a
-          regular grid of cells, each in one of a finite number of states.
+          A <span className="green"> cellular automaton</span> consists (more ot
+          less) in a grid containing some units, called cells,
+        </div>
+        <div>
+          that can <span className="green">move and interact</span> with their
+          environment.
         </div>
         <div>
           Our cells can move, give<span className="green"> life</span> , make{" "}

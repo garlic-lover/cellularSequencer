@@ -12,20 +12,17 @@
 
 #SynthBar {
   height: 450px;
-  width: 100px;
+  width: 150px;
   padding: 10px 15px;
   border-radius: 5px 0 0 5px;
-  /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
-  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.74); */
   position: absolute;
   top: 50%;
   right: 0;
   transform: translate(0, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-end;
   font-size: 16px;
   animation-name: onAppear;
   animation-duration: 1s;
@@ -58,13 +55,22 @@
   cursor: pointer;
 }
 
+.fadersBlock {
+  width: 100px;
+}
+
+#fmParamsBloc {
+  text-align: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #generalParamsBloc {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   height: 100px;
-  justify-content: space-around;
-  align-content: space-between;
+  justify-content: flex-end;
 }
 
 .switchContainer {
