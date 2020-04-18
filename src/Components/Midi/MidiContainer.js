@@ -12,27 +12,27 @@ class MidiContainer extends React.Component {
     let alreadyPlayed = [];
     for (let i = 0; i < cells.length; i++) {
       let indexes = await getIndexes(cells, { x: cells[i].x, y: cells[i].y });
-      let isAlready = await getIndexes(alreadyPlayed, {
-        x: cells[i].x,
-        y: cells[i].y
-      });
-      if (
-        alreadyPlayed.length < 5 &&
-        indexes.tab.length > 1 &&
-        isAlready.tab.length === 0
-      ) {
-        if (indexes.tab[0]) {
-          this.sendMidiNote(indexes.tab[0]);
-          alreadyPlayed.push(cells[i]);
-        } else {
-          console.log("Strange", indexes.tab, i, indexes.tab[i]);
-          console.log(indexes.tab);
+      if (indexes.tab.length > 1) {
+        let isAlready = await getIndexes(alreadyPlayed, {
+          x: cells[i].x,
+          y: cells[i].y,
+        });
+        console.log(alreadyPlayed, isAlready);
+        if (alreadyPlayed.length < 5 && isAlready.tab.length === 0) {
+          if (indexes.tab[0]) {
+            await alreadyPlayed.push(cells[i]);
+            console.log("Note played", indexes.tab[0]);
+            this.sendMidiNote(indexes.tab[0]);
+          } else {
+            console.log("Strange", indexes.tab, i, indexes.tab[i]);
+            console.log(indexes.tab);
+          }
         }
       }
     }
   };
 
-  sendMidiNote = data => {
+  sendMidiNote = async (data) => {
     if (!data) {
       return;
     }
@@ -56,14 +56,15 @@ class MidiContainer extends React.Component {
     let noteOn = "0x9" + this.props.midi.channel;
     let noteOff = "0x8" + this.props.midi.channel;
     var noteOnMessage = [noteOn, hex, velocity]; // note on, middle C, full velocity
+    var noteOffMessage = [noteOff, hex, 0x40]; // note on, middle C, full velocity
     var output = midiAccess.outputs.get(portID);
-    output.send(noteOnMessage); //omitting the timestamp means send immediately.
-    output.send([noteOff, hex, 0x40], window.performance.now() + 10.0); // Inlined array creation- note off, middle C,
+    await output.send(noteOnMessage); //omitting the timestamp means send immediately.
+    await output.send(noteOffMessage, window.performance.now() + 1000.0); // Inlined array creation- note off, middle C,
     // release velocity = 64, timestamp = now + 1000ms.
     return "Finished";
   };
 
-  render = () => {
+  componentDidUpdate = () => {
     let cells = this.props.cells;
     let already = false;
     if (this.props.midi.poly === true) {
@@ -78,12 +79,14 @@ class MidiContainer extends React.Component {
         }
       }
     }
+  };
 
+  render = () => {
     return null;
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cells: state.gridManager.cells,
     gridSize: state.gridManager.gridSize,
@@ -91,7 +94,7 @@ const mapStateToProps = state => {
     base: state.gridManager.parameters.base,
     octavesRange: state.gridManager.parameters.octavesRange,
     synthParameters: state.synthParameters,
-    midi: state.gridManager.midiData
+    midi: state.gridManager.midiData,
   };
 };
 

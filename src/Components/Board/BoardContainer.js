@@ -186,6 +186,18 @@ class BoardContainer extends React.Component {
     this.setState({ timer: timer });
   };
 
+  handleNvSpace = async (event) => {
+    if (event.code === "Space") {
+      if (this.state.timer === "") {
+        this.timerStart();
+      } else {
+        window.clearInterval(this.state.timer);
+        this.setState({ timer: "" });
+        this.props.playStop(false);
+      }
+    }
+  };
+
   componentDidMount = () => {
     let array = arrayGenerator(this.props.gridSize.x, this.props.gridSize.y);
     const cells = randomCellGen(20, 24, 24);
@@ -193,8 +205,10 @@ class BoardContainer extends React.Component {
 
     this.props.onMove(cells);
 
+    window.addEventListener("keydown", this.handleNvSpace);
+
     window.addEventListener("scroll", function (e) {
-      console.log(window);
+      // console.log(window);
       /* 
       
       

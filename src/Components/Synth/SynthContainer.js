@@ -55,7 +55,7 @@ class SynthConainer extends React.Component {
     }
   };
 
-  render = () => {
+  componentDidUpdate = () => {
     if (this.props.synthParameters.synthOn === true) {
       if (this.props.synthParameters.polyOn === true) {
         this.polyPlay();
@@ -63,6 +63,9 @@ class SynthConainer extends React.Component {
         this.monoPlay();
       }
     }
+  };
+
+  render = () => {
     if (this.props.displaySynth === true) {
       return (
         <SynthParams

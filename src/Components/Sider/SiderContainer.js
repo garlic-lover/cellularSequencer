@@ -20,7 +20,7 @@ class SiderContainer extends React.Component {
             type="number"
             value={this.props.parameters.tempo}
             min={0}
-            onChange={event => {
+            onChange={(event) => {
               this.paramChange("tempo", Number(event.target.value));
             }}
           />
@@ -29,7 +29,7 @@ class SiderContainer extends React.Component {
           <h3>Scale</h3>
           <select
             value={this.props.parameters.scale}
-            onChange={event => {
+            onChange={(event) => {
               this.paramChange("scale", event.target.value);
             }}
           >
@@ -44,7 +44,7 @@ class SiderContainer extends React.Component {
             type="number"
             value={this.props.parameters.base}
             min={0}
-            onChange={event => {
+            onChange={(event) => {
               /*  if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
@@ -64,7 +64,7 @@ class SiderContainer extends React.Component {
             type="number"
             value={this.props.parameters.octavesRange}
             min={0}
-            onChange={event => {
+            onChange={(event) => {
               /* if (
                 this.props.parameters.base +
                   this.props.parameters.octavesRange ===
@@ -89,7 +89,7 @@ class SiderContainer extends React.Component {
                 ? "Chaos"
                 : "Déterministe"
             }
-            onChange={event => {
+            onChange={(event) => {
               let chaos = true;
               if (event.target.value === "Déterministe") {
                 chaos = false;
@@ -109,7 +109,7 @@ class SiderContainer extends React.Component {
               value={this.props.parameters.chaosProba}
               min={0}
               max={100}
-              onChange={event => {
+              onChange={(event) => {
                 this.paramChange("chaosProba", event.target.value);
               }}
             />
@@ -146,7 +146,7 @@ class SiderContainer extends React.Component {
             type="number"
             value={this.props.parameters.life.lifePoints}
             min={0}
-            onChange={event => {
+            onChange={(event) => {
               let life = { ...this.props.parameters.life };
               life.lifePoints = event.target.value;
               this.paramChange("life", life);
@@ -158,17 +158,17 @@ class SiderContainer extends React.Component {
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    parameters: state.gridManager.parameters
+    parameters: state.gridManager.parameters,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onChange: parameters => {
+    onChange: (parameters) => {
       dispatch(parametersChange(parameters));
-    }
+    },
   };
 };
 

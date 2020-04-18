@@ -16,12 +16,16 @@ const NumberInput = ({ vertical, input, output }) => {
           if (input === 36) {
             return;
           }
-          output(input + 1);
+          if (vertical === true) {
+            output(input + 1);
+          } else {
+            output(input - 1);
+          }
         }}
       >
         <FontAwesomeIcon
           icon={vertical === true ? faArrowUp : faArrowLeft}
-          className="playIcon lightGreen"
+          className="numberIcon lightGreen"
         />
       </div>
       <div className="numberInput">{input}</div>
@@ -30,12 +34,16 @@ const NumberInput = ({ vertical, input, output }) => {
           if (input === 0) {
             return;
           }
-          output(input - 1);
+          if (vertical === true) {
+            output(input - 1);
+          } else {
+            output(input + 1);
+          }
         }}
       >
         <FontAwesomeIcon
           icon={vertical === true ? faArrowDown : faArrowRight}
-          className="playIcon lightGreen"
+          className="numberIcon lightGreen"
         />
       </div>
     </div>
