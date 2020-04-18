@@ -133,6 +133,7 @@ class BoardContainer extends React.Component {
       midiData.ready = true;
       midiData.channel = 8;
       midiData.poly = true;
+      midiData.length = 100;
       this.props.onMidiSet(midiData);
       alert(
         "Midi connecté à l'appareil suivant : " +
@@ -468,6 +469,23 @@ class BoardContainer extends React.Component {
                       );
                     })}
                   </select>
+                </div>
+                <div className="row align hover parameter">
+                  <div className="bold" style={{ width: 90, marginRight: 5 }}>
+                    Note length
+                  </div>
+                  <input
+                    type="number"
+                    value={this.props.midi.length}
+                    onChange={(event) => {
+                      let midiObject = { ...this.props.midi };
+                      midiObject.length = event.target.value;
+                      this.props.onMidiSet(midiObject);
+                    }}
+                    step={10}
+                    style={{ width: 40 }}
+                  />
+                  <div style={{ marginLeft: 5 }}>(ms)</div>
                 </div>
                 <div className="row align hover optionButton">
                   <h3>Midi Poly</h3>

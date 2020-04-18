@@ -59,7 +59,10 @@ class MidiContainer extends React.Component {
     var noteOffMessage = [noteOff, hex, 0x40]; // note on, middle C, full velocity
     var output = midiAccess.outputs.get(portID);
     await output.send(noteOnMessage); //omitting the timestamp means send immediately.
-    await output.send(noteOffMessage, window.performance.now() + 1000.0); // Inlined array creation- note off, middle C,
+    await output.send(
+      noteOffMessage,
+      window.performance.now() + Number(this.props.midi.length)
+    ); // Inlined array creation- note off, middle C,
     // release velocity = 64, timestamp = now + 1000ms.
     return "Finished";
   };
