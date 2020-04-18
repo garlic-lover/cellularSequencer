@@ -29,7 +29,13 @@
 }
 
 #SynthBar .parameter {
-  margin: 5px 0 5px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#SynthBar .parameter input {
+  width: 40px;
 }
 
 .faderContainer {
@@ -71,6 +77,8 @@
   flex-wrap: wrap;
   height: 100px;
   justify-content: flex-end;
+  width: 120px;
+  margin-top: 20px;
 }
 
 .switchContainer {

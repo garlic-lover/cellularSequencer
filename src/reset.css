@@ -163,3 +163,8 @@ button {
 button:focus {
   outline: 0;
 }
+
+select:focus {
+  outline: 0;
+  cursor: pointer;
+}

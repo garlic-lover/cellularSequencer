@@ -11,7 +11,7 @@
 }
 
 #siderContainer {
-  width: 50%;
+  width: 60%;
   padding: 10px 15px;
   border-radius: 0 5px 5px 0;
   /*   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.74);
@@ -25,17 +25,28 @@
   font-size: 16px;
   animation-name: onAppearTer;
   animation-duration: 1s;
+  display: flex;
+  justify-content: space-between;
 }
 
 .parameter {
   font-size: 16px;
   padding: 5px;
-  width: 90%;
   margin-bottom: 5px;
 }
 
 #siderContainer .parameter {
-  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+#siderContainer .parameter h3 {
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+#siderContainer .parameter input {
+  width: 40px;
 }
 
 .parameter input {

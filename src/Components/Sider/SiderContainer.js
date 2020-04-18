@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { parametersChange } from "../../actions";
 
-import scales from "../../assets/scales";
+import Switch from "./Switch";
 
 class SiderContainer extends React.Component {
   paramChange = (param, value) => {
@@ -35,7 +35,7 @@ class SiderContainer extends React.Component {
           </select>
         </div>
         <div className="parameter">
-          <h3>Chaos proba'</h3>
+          <h3>Chaos proba': </h3>
           <div className="row align">
             <input
               type="number"
@@ -46,32 +46,30 @@ class SiderContainer extends React.Component {
                 this.paramChange("chaosProba", event.target.value);
               }}
             />
-            <div>%</div>
+            <div style={{ marginLeft: 5 }}>%</div>
           </div>
         </div>
         <div className="parameter">
           <h3>Can give life</h3>
-          <div
-            onClick={() => {
+          <Switch
+            state={this.props.parameters.life.canGive}
+            toggle={() => {
               let life = { ...this.props.parameters.life };
               life.canGive = !life.canGive;
               this.paramChange("life", life);
             }}
-          >
-            {this.props.parameters.life.canGive === true ? "Yes" : "No"}
-          </div>
+          />
         </div>
         <div className="parameter">
           <h3>Can Die</h3>
-          <div
-            onClick={() => {
+          <Switch
+            state={this.props.parameters.life.canDie}
+            toggle={() => {
               let life = { ...this.props.parameters.life };
               life.canDie = !life.canDie;
               this.paramChange("life", life);
             }}
-          >
-            {this.props.parameters.life.canDie === true ? "Yes" : "No"}
-          </div>
+          />
         </div>
         <div className="parameter">
           <h3>Life points</h3>

@@ -229,8 +229,6 @@
   align-items: flex-start;
   font-size: 16px;
   padding: 5px;
-
-  line-height: 30px;
 }
 
 .midiOptions select {

@@ -33,7 +33,7 @@ const Board = ({
                     key={index}
                     className={
                       selectedCell.x === index && selectedCell.y === theIndex
-                        ? "square hover relative backPink cellShadow"
+                        ? "square hover relative backPink " + emptyStyle
                         : "square hover relative " + emptyStyle
                     }
                     onClick={() => {

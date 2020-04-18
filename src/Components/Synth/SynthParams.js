@@ -23,7 +23,7 @@ import ParametersList from "./ParametersList";
 const SynthParams = ({ synthParameters, onSynthEdit, synthType }) => {
   return (
     <div id="SynthBar">
-      <div className="parameter">
+      <div className="parameter column a_end">
         <h3>Instrument</h3>
         <select
           value={synthParameters.instrument}

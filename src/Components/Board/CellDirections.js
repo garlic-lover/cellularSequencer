@@ -19,9 +19,6 @@ const CellDirections = ({ directionChoice }) => {
             }
             key={index}
             onClick={() => {
-              if (index === 4) {
-                return;
-              }
               console.log("Touch");
               directionChoice(move);
             }}
