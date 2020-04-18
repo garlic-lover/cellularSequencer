@@ -20,5 +20,11 @@
     "In determinist mode, when two cells meet, their direction is reversed.",
     "In chaos mode, they get a random direction for the next step."
   ],
-  ["Two synths", "Drums", "Be careful with the power of your computer", "MIDI"]
+  [
+    "For the moment, there are three sound engines on the browser : two synths and a drum kit",
+    "You can play only one of the two synths in the same time. Fell free to play with the parameters.",
+    "By default, only one note is played at the time. Try the poly mode and the delay, but be aware that depending on your computer it can generate problems",
+    "In drums mode, 1 octave = 1 drum kit.",
+    "Control your external instruments with MIDI (it works only with Chrome I think"
+  ]
 ]
