@@ -15,6 +15,7 @@
   ],
   [
     "More than music, cells can also create other cells when they meet. To do so, they need to be young enough. Every cell has a life expetency that decreases when it hits a wall, and increases when it hits another cell",
+    "Be carefull with surpopulation! You can activate the possibility to give life or to die.",
     "Depending on their lifepoints, cells have different colors, velocities",
     "If they have life points, it means that they can also die",
     "In determinist mode, when two cells meet, their direction is reversed.",
