@@ -1,6 +1,6 @@
 import React from "react";
 
-const IntroScreen = ({}) => {
+const IntroScreen = () => {
   return (
     <div id="screen2" className="">
       <div className="para1">
@@ -27,10 +27,17 @@ const IntroScreen = ({}) => {
         <div>
           Our cells can move, give<span className="green"> life</span> , make{" "}
           <span className="green">music</span> , and even
-          <span className="green"> die</span> <span>😢</span>
+          <span className="green"> die</span>{" "}
+          <span role="img" aria-label="emoji">
+            😢
+          </span>
         </div>
       </div>
-      <a href="https://mathworld.wolfram.com/GameofLife.html" target="_blank">
+      <a
+        href="https://mathworld.wolfram.com/GameofLife.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Want to know more?
       </a>
     </div>

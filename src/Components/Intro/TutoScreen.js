@@ -8,7 +8,7 @@ import {
   faSlidersH,
 } from "@fortawesome/free-solid-svg-icons";
 
-const icons = [faTh, faHeart, faMusic, faSlidersH];
+const icons = [faTh, faSlidersH, faHeart, faMusic];
 
 const tutoTexts = require("./tutoScripts.json");
 
@@ -33,7 +33,15 @@ class TutoScreen extends React.Component {
         <h2>How does it work ?</h2>
         <div id="tutoSpace">
           {tutoTexts[this.state.menuSelected].map((text, index) => {
-            return <div key={index}>{text}</div>;
+            let color = "";
+            if (index % 2 === 1) {
+              color = "green";
+            }
+            return (
+              <div key={index} className={color}>
+                {text}
+              </div>
+            );
           })}
         </div>
         <div id="underConstruct" className="row width align j_space">

@@ -63,7 +63,7 @@ class SiderContainer extends React.Component {
           <input
             type="number"
             value={this.props.parameters.octavesRange}
-            min={0}
+            min={1}
             onChange={(event) => {
               /* if (
                 this.props.parameters.base +

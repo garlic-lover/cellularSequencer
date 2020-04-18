@@ -345,6 +345,42 @@ class BoardContainer extends React.Component {
           tempo={this.props.tempo}
           displayGrid={this.state.displayGrid}
         />
+        {this.state.displayGrid === true && (
+          <div id="gridDimensionner" className="width column">
+            <div className="hover row align  hover" onClick={() => {}}>
+              <NumberInput
+                vertical={true}
+                input={this.props.gridSize.x}
+                output={(value) => {
+                  let gridSize = { ...this.props.gridSize };
+                  gridSize.x = value;
+                  let array = arrayGenerator(gridSize.x, gridSize.y);
+                  this.props.setGridSize({
+                    x: Number(value),
+                    y: gridSize.y,
+                  });
+                  this.props.onArrayModify(array);
+                }}
+              />
+            </div>
+            <div className="hover row align j_center hover" onClick={() => {}}>
+              <NumberInput
+                vertical={false}
+                input={this.props.gridSize.y}
+                output={(value) => {
+                  let gridSize = { ...this.props.gridSize };
+                  gridSize.y = value;
+                  let array = arrayGenerator(gridSize.x, gridSize.y);
+                  this.props.setGridSize({
+                    x: gridSize.x,
+                    y: Number(value),
+                  });
+                  this.props.onArrayModify(array);
+                }}
+              />
+            </div>
+          </div>
+        )}
         {this.state.displayBoard === true && (
           <div id="optionsBar" className="column">
             <div
@@ -417,43 +453,6 @@ class BoardContainer extends React.Component {
                 </div>
               </div>
             )}
-            <div className="width column">
-              <div className="hover row align  hover" onClick={() => {}}>
-                <NumberInput
-                  vertical={true}
-                  input={this.props.gridSize.x}
-                  output={(value) => {
-                    let gridSize = { ...this.props.gridSize };
-                    gridSize.x = value;
-                    let array = arrayGenerator(gridSize.x, gridSize.y);
-                    this.props.setGridSize({
-                      x: Number(value),
-                      y: gridSize.y,
-                    });
-                    this.props.onArrayModify(array);
-                  }}
-                />
-              </div>
-              <div
-                className="hover row align j_center hover"
-                onClick={() => {}}
-              >
-                <NumberInput
-                  vertical={false}
-                  input={this.props.gridSize.y}
-                  output={(value) => {
-                    let gridSize = { ...this.props.gridSize };
-                    gridSize.y = value;
-                    let array = arrayGenerator(gridSize.x, gridSize.y);
-                    this.props.setGridSize({
-                      x: gridSize.x,
-                      y: Number(value),
-                    });
-                    this.props.onArrayModify(array);
-                  }}
-                />
-              </div>
-            </div>
             {/* <div
             className="hover"
             onClick={() => {
