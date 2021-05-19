@@ -174,7 +174,7 @@ class BoardContainer extends React.Component {
     let frequence = this.props.tempo / 60;
     let tempo = 1000 / frequence;
     let timer = setInterval(async () => {
-      this.clockSend();
+      // this.clockSend();
       let array = cellMovement(
         this.props.cells,
         this.props.gridArray[0].length - 1,

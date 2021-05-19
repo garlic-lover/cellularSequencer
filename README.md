@@ -1,6 +1,10 @@
 ## Cell_Sequencer, a music generation environment
 
-Project version : still under construction.
+Project version : still under cnstruction.
+
+### Requirements
+
+Open on a desktop browser (no mobile support yet).
 
 ### `Quick play`
 
