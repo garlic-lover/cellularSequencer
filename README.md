@@ -4,7 +4,7 @@ Project version : still under cnstruction.
 
 ### Requirements
 
-Open on a desktop browser (no mobile support yet).
+Open on a desktop browser (no mobile support yet). Use chrome for a better experience.
 
 ### `Quick play`
 
